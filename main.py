@@ -11,6 +11,7 @@ register["text"]="Register"
 register.pack()
 def loginPressed(e):
     messagebox.showinfo("Message","type below")
+    
 
 login.bind("<Button-1>",loginPressed)
 register.bind("<Button-1>",loginPressed)
