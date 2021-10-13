@@ -1,4 +1,4 @@
-class voop:
+class Voop:
     def __init__(self) :
         self.lrl=60
         self.url=120
