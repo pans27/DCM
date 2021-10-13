@@ -27,11 +27,17 @@ except:
 #welcome screeen
 welcome=Tk()
 welcome.title("Pacemaker User Terminal")
-welcome.geometry("500x300+100+100")
-login=Button(welcome)
+welcome.geometry("500x400+100+100")
+message=Label(welcome,text="Welcome",font=("Times New Roman",30))
+message.pack()
+global photo 
+photo=PhotoImage(file="ch2n8.png")
+logo=Label(welcome,image=photo)
+logo.pack()
+login=Button(welcome,width=10,height=2)
 login["text"]="Login"
 login.pack()
-register=Button(welcome)
+register=Button(welcome,width=10,height=2)
 register["text"]="Register"
 register.pack()
 
