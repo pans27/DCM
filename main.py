@@ -1,18 +1,47 @@
 from tkinter import *
 from tkinter import messagebox
-root=Tk()
-root.title("Pacemaker User Terminal")
-root.geometry("500x300+100+100")
-login=Button(root)
+from user import *
+import pickle
+
+def loginPressed(e):
+    if(count==0):
+        messagebox.showinfo("Message","There aren't any user created, please register")
+    else:
+        loginW()
+
+def registerPressed(e):
+    if(count==10):
+        messagebox.showinfo("Message","There are already 10 users, please login")
+    else:
+        registerW()
+
+
+#get users list
+try:
+    users=pickle.loads(open('users.dat','rb'))
+    count=users.length
+except:
+    users= []
+    count=0
+
+#welcome screeen
+welcome=Tk()
+welcome.title("Pacemaker User Terminal")
+welcome.geometry("500x300+100+100")
+login=Button(welcome)
 login["text"]="Login"
 login.pack()
-register=Button(root)
+register=Button(welcome)
 register["text"]="Register"
 register.pack()
-def loginPressed(e):
-    messagebox.showinfo("Message","type below")
-    
 
 login.bind("<Button-1>",loginPressed)
-register.bind("<Button-1>",loginPressed)
-root.mainloop()
+register.bind("<Button-1>",registerPressed)
+welcome.mainloop()
+
+
+def loginW():
+    pass
+
+def registerW():
+    pass
