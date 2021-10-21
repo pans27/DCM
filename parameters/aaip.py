@@ -10,7 +10,7 @@ class Aaip:
         return self.lrl
     
     def getURL(self):
-        return self.Url
+        return self.url
     
     def getAA(self):
         return self.aa
