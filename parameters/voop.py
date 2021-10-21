@@ -9,7 +9,7 @@ class Voop:
         return self.lrl
     
     def getURL(self):
-        return self.Url
+        return self.url
     
     def getVA(self):
         return self.va
