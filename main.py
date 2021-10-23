@@ -9,8 +9,9 @@ import pickle
 global count
 global users
 global cUser
-global ifCommu;
-global ifApp;
+global Commu
+Commu=False
+global ifApp
 
 
 class Application(tkinter.Frame):
@@ -87,6 +88,7 @@ class Login(tkinter.Frame):
                     global cUser
                     cUser=users[i]
                     messagebox.showinfo("Message","logged in")
+                    Connect(master=self.master)
                     Modes(master=self.master)
                     self.destroy()
             else:
@@ -145,6 +147,7 @@ class Register(tkinter.Frame):
                 count+=1
                 prompt=messagebox.askquestion("Message","User created, log in?")
                 if(prompt=="yes"):
+                    Connect(master=self.master)
                     Modes(master=self.master)
                     self.destroy()
 
@@ -153,7 +156,7 @@ class Modes(tkinter.Frame):
     def __init__(self,master=None):
         super().__init__(master)
         self.master=master
-        self.place(relheight=1,relwidth=1)
+        self.place(x=0,y=57,relheight=0.9,relwidth=1)
         self.displaymodes()
 
     def displaymodes(self):
@@ -232,7 +235,7 @@ class AOOparameter(tkinter.Frame):
     def __init__(self,master=None):
         super().__init__(master)
         self.master=master
-        self.place(relheight=1,relwidth=1)
+        self.place(x=0,y=57,relheight=0.9,relwidth=1)
         self.write_aoo_parameters()
 
     def write_aoo_parameters(self):
@@ -309,7 +312,7 @@ class VOOparameter(tkinter.Frame):
     def __init__(self,master=None):
         super().__init__(master)
         self.master=master
-        self.place(relheight=1,relwidth=1)
+        self.place(x=0,y=57,relheight=0.9,relwidth=1)
         self.write_voo_parameters()
 
     def write_voo_parameters(self):
@@ -383,7 +386,7 @@ class VVIparameter(tkinter.Frame):
     def __init__(self,master=None):
         super().__init__(master)
         self.master=master
-        self.place(relheight=1,relwidth=1)
+        self.place(x=0,y=57,relheight=0.9,relwidth=1)
         self.write_vvi_parameters()
 
     def write_vvi_parameters(self):
@@ -467,7 +470,7 @@ class AAIparameter(tkinter.Frame):
     def __init__(self,master=None):
         super().__init__(master)
         self.master=master
-        self.place(relheight=1,relwidth=1)
+        self.place(x=0,y=57,relheight=0.9,relwidth=1)
         self.write_aai_parameters()
 
     def write_aai_parameters(self):
@@ -546,16 +549,27 @@ class AAIparameter(tkinter.Frame):
         Modes(master=self.master)
         self.destroy()
 
+class Connect(tkinter.Frame):
+    def __init__(self,master=None):
+        super().__init__(master)
+        self.master=master
+        self.place(x=0,y=0,relheight=0.1,relwidth=1)
+        self.connect()
 
-def serial_Communication():
-	if(ifCommu == true):
-		messagebox.showinfo("The pacemaker is successfully connected");
-	else:
-		messagebox.showinfo("Connection failed, please try again");
+    def connect(self):
+        global Commu
+        self.stat=Label(self,text="Pacemaker Connection: "+str(Commu),font=("Times New Roman",12))
+        self.stat.place(x=10,y=0)
+        self.num=Label(self,text="Pacemaker Number:",font=("Times New Roman",12))
+        self.num.place(x=10,y=20)
 
-def is_Approach(self):
-	if(ifApp == true):
-		messagebox.showinfo("A different pacemaker is approached than was previously interrogated");
+# def serial_Communication():
+# 	if(Commu == true):
+# 		messagebox.showinfo("The pacemaker is successfully connected")
+# 	else:
+# 		messagebox.showinfo("Connection failed, please try again")
+
+
 
 def storeD():
     pickle.dump(users,open('users.dat','wb'))
