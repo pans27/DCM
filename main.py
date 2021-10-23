@@ -9,6 +9,9 @@ import pickle
 global count
 global users
 global cUser
+global ifCommu;
+global ifApp;
+
 
 class Application(tkinter.Frame):
     def __init__(self,master=None):
@@ -544,6 +547,15 @@ class AAIparameter(tkinter.Frame):
         self.destroy()
 
 
+def serial_Communication():
+	if(ifCommu == true):
+		messagebox.showinfo("The pacemaker is successfully connected");
+	else:
+		messagebox.showinfo("Connection failed, please try again");
+
+def is_Approach(self):
+	if(ifApp == true):
+		messagebox.showinfo("A different pacemaker is approached than was previously interrogated");
 
 def storeD():
     pickle.dump(users,open('users.dat','wb'))
