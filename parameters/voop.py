@@ -1,39 +1,59 @@
 class Voop:
     def __init__(self) :
-        self.lrl=60
-        self.url=120
-        self.va=3.5
-        self.vpw=0.4
+        self.__lrl=60
+        self.__url=120
+        self.__va=3.5
+        self.__vpw=0.4
 
     def getLRL(self):
-        return self.lrl
+        return self.__lrl
     
     def getURL(self):
-        return self.url
+        return self.__url
     
     def getVA(self):
-        return self.va
+        return self.__va
     
     def getVPW(self):
-        return self.vpw
+        return self.__vpw
     def setLRL(self,val):
-        if(val.isnumeric() and int(val)<=175 and int(val)>=30):
-            self.lrl=int(val)
+        if(self.__is_num(val)):
+            if(int(val)<=175 and int(val)>=30):
+                self.__lrl=int(val)
+            else:
+                raise IndexError
         else:
             raise TypeError
 
     def setURL(self,val):
-        if(val.isnumeric() and int(val)<=175 and int(val)>=50):
-            self.url=int(val)
+        if(self.__is_num(val)):
+            if(int(val)<=175 and int(val)>=50):
+                self.__url=int(val)
+            else:
+                raise IndexError    
         else:
             raise TypeError
     def setVA(self,val):
-        if(val.isnumeric() and float(val)<=7.0 and float(val)>=0.5):
-            self.va=float(val)
+        if(self.__is_num(val)):
+            if(float(val)<=7.0 and float(val)>=0.5):
+                self.__va=float(val)
+            else:
+                raise IndexError  
         else:
             raise TypeError
     def setVPW(self,val):
-        if(val.isnumeric() and float(val)<=1.9 and float(val)>=0.1):
-            self.vpw=float(val)
+        if(self.__is_num(val)):
+            if(float(val)<=1.9 and float(val)>=0.1):
+                self.__vpw=float(val)
+            else:
+                raise IndexError      
         else:
             raise TypeError
+
+    def __is_num(self,s):
+        try:
+            float(s)
+        except ValueError:
+            return False
+        else:
+            return True

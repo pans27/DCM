@@ -5,15 +5,13 @@ from user import *
 #from pacemaker_mode import *
 import pickle
 
-#welcome screeen
 global count
 global users
 global cUser
 global Commu
 Commu=False
-global ifApp
 
-
+#welcome screeens
 class Application(tkinter.Frame):
     def __init__(self,master=None):
         super().__init__(master)
@@ -141,6 +139,7 @@ class Register(tkinter.Frame):
                     check=TRUE
                     break
             if(check==FALSE):
+                global cUser
                 cUser=User(self.userE.get(),self.passwordE.get())
                 users.append(cUser)
                 storeD()
