@@ -78,6 +78,7 @@ class Login(tkinter.Frame):
     def loginPressed(self,e):
         global count
         global users
+        check=False
         uEntered=self.userE.get()
         pwEntered=self.passwordE.get()
         for i in range(count):
@@ -85,12 +86,13 @@ class Login(tkinter.Frame):
                 if(pwEntered==users[i].getPW()):
                     global cUser
                     cUser=users[i]
+                    check=True
                     messagebox.showinfo("Message","logged in")
                     Connect(master=self.master)
                     Modes(master=self.master)
                     self.destroy()
-            else:
-                messagebox.showinfo("Message","The username or password is incorrect")
+        if(check==False):
+            messagebox.showinfo("Message","The username or password is incorrect")
 
     def backPressed(self,e):
         Application(master=self.master)
@@ -133,22 +135,27 @@ class Register(tkinter.Frame):
         if(self.passwordCE.get()==(self.passwordE.get())):
             check=FALSE
             global count
-            for i in range(count):
-                if(self.userE.get()==users[i].getUN()):
-                    messagebox.showinfo("Message","Username already exist")
-                    check=TRUE
-                    break
-            if(check==FALSE):
-                global cUser
-                cUser=User(self.userE.get(),self.passwordE.get())
-                users.append(cUser)
-                storeD()
-                count+=1
-                prompt=messagebox.askquestion("Message","User created, log in?")
-                if(prompt=="yes"):
-                    Connect(master=self.master)
-                    Modes(master=self.master)
-                    self.destroy()
+            if(count==10):
+                messagebox.showinfo("Message","There are already 10 users, please login")
+            else:
+                for i in range(count):
+                    if(self.userE.get()==users[i].getUN()):
+                        messagebox.showinfo("Message","Username already exist")
+                        check=TRUE
+                        break
+                if(check==FALSE and self.passwordE.get()==self.passwordCE.get()):
+                    global cUser
+                    cUser=User(self.userE.get(),self.passwordE.get())
+                    users.append(cUser)
+                    storeD()
+                    count+=1
+                    prompt=messagebox.askquestion("Message","User created, log in?")
+                    if(prompt=="yes"):
+                        Connect(master=self.master)
+                        Modes(master=self.master)
+                        self.destroy()
+        else:       
+            messagebox.showinfo("Message","password does not match")
 
 
 class Modes(tkinter.Frame):
