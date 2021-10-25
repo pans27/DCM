@@ -29,20 +29,22 @@ class Vvip:
         else:
             raise TypeError
 
-    def setURL(self,val):
+    def setLRL(self,val):
         if(self.__is_num(val)):
-            if(int(val)<=175 and int(val)>=50):
-                self.__url=int(val)
+            if(round(float(val))<=175 and round(float(val))>=30):
+                self.__lrl=round(float(val))
             else:
-                raise IndexError    
+                raise IndexError
         else:
             raise TypeError
-    def setVA(self,val):
+
+    def setURL(self,val):
         if(self.__is_num(val)):
-            if(round(float(val),1)<=7.0 and round(float(val),1)>=0.5):
-                self.__va=round(float(val),1)
+            num=5* round(float(val)/5)
+            if(num<=175 and num>=50):
+                self.__url=num
             else:
-                raise IndexError  
+                raise IndexError    
         else:
             raise TypeError
     def setVPW(self,val):
@@ -56,8 +58,8 @@ class Vvip:
 
     def setVRP(self,val):
         if(self.__is_num(val)):
-            if(int(val)<=500 and float(val)>=150):
-                self.__vrp=int(val)
+            if(int(round(float(val),-1))<=500 and int(round(float(val),-1))>=150):
+                self.__vrp=int(round(float(val),-1))
             else:
                 raise IndexError  
         else:
