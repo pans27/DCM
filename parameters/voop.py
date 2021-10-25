@@ -35,16 +35,16 @@ class Voop:
             raise TypeError
     def setVA(self,val):
         if(self.__is_num(val)):
-            if(float(val)<=7.0 and float(val)>=0.5):
-                self.__va=float(val)
+            if(round(float(val),1)<=7.0 and round(float(val),1)>=0.5):
+                self.__va=round(float(val),1)
             else:
                 raise IndexError  
         else:
             raise TypeError
     def setVPW(self,val):
         if(self.__is_num(val)):
-            if(float(val)<=1.9 and float(val)>=0.1):
-                self.__vpw=float(val)
+            if(round(float(val),1)<=1.9 and round(float(val),1)>=0.1):
+                self.__vpw=round(float(val),1)
             else:
                 raise IndexError      
         else:
