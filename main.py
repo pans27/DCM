@@ -247,7 +247,7 @@ class AOOparameter(tkinter.Frame):
     def write_aoo_parameters(self):
         global cUser
         self.message=Label(self,text="AOO Parameters",font=("Times New Roman",30))
-        self.message.place(x=220,y=100)
+        self.message.place(x=220,y=50)
         self.l_r_l=Label(self,text="Lower Rate Limit :",font=("Times New Roman",14))
         self.l_r_l.place(x=100,y=160)
         self.lrl=StringVar()
@@ -323,7 +323,7 @@ class VOOparameter(tkinter.Frame):
 
     def write_voo_parameters(self):
         self.message=Label(self,text="VOO Parameters",font=("Times New Roman",30))
-        self.message.place(x=220,y=100)
+        self.message.place(x=220,y=50)
         self.l_r_l=Label(self,text="Lower Rate Limit :",font=("Times New Roman",14))
         self.l_r_l.place(x=100,y=160)
         self.lrl=StringVar()
@@ -397,7 +397,7 @@ class VVIparameter(tkinter.Frame):
 
     def write_vvi_parameters(self):
         self.message=Label(self,text="VVI Parameters",font=("Times New Roman",30))
-        self.message.place(x=220,y=100)
+        self.message.place(x=220,y=50)
         self.l_r_l=Label(self,text="Lower Rate Limit :",font=("Times New Roman",14))
         self.l_r_l.place(x=100,y=160)
         self.lrl=StringVar()
@@ -481,7 +481,7 @@ class AAIparameter(tkinter.Frame):
 
     def write_aai_parameters(self):
         self.message=Label(self,text="AAI Parameters",font=("Times New Roman",30))
-        self.message.place(x=220,y=100)
+        self.message.place(x=220,y=50)
         self.l_r_l=Label(self,text="Lower Rate Limit :",font=("Times New Roman",14))
         self.l_r_l.place(x=100,y=160)
         self.lrl=StringVar()
