@@ -20,14 +20,6 @@ class Vvip:
          
     def getVRP(self):
         return self.__vrp
-    def setLRL(self,val):
-        if(self.__is_num(val)):
-            if(int(val)<=175 and int(val)>=30):
-                self.__lrl=int(val)
-            else:
-                raise IndexError
-        else:
-            raise TypeError
 
     def setLRL(self,val):
         if(self.__is_num(val)):
