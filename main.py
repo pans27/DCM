@@ -2,7 +2,6 @@ from tkinter import *
 from tkinter import messagebox
 import tkinter
 from user import *
-#from pacemaker_mode import *
 import pickle
 
 global count
@@ -157,7 +156,6 @@ class Register(tkinter.Frame):
         else:       
             messagebox.showinfo("Message","password does not match")
 
-
 class Modes(tkinter.Frame):
     def __init__(self,master=None):
         super().__init__(master)
@@ -287,19 +285,53 @@ class AOOparameter(tkinter.Frame):
         self.back.bind("<Button-1>",self.backPressed)
     
     def confirmPressed(self,e):
+        errors=0
+        text=""
         try:
             cUser.aoo.setLRL(self.lrl.get())
-            cUser.aoo.setURL(self.url.get())
-            cUser.aoo.setAA(self.aa.get())
-            cUser.aoo.setAPW(self.apw.get())
-            storeD()
-            messagebox.showinfo("Message","Changes saved")
+            self.lrl.set(cUser.aoo.getLRL())
         except TypeError:
-            messagebox.showerror("Error","All terms must be numbers")
+            text=text+"LRL must be numeric\n"
+            errors+=1
         except IndexError:
-            messagebox.showerror("Error","All terms must be inside of boundaries")
+            text=text+"LRL must be between 30 and 175\n"
+            errors+=1
+        try:
+            cUser.aoo.setURL(self.url.get())
+            self.url.set(cUser.aoo.getURL())
+        except TypeError:
+            text=text+"URL must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"URL must be between 50 and 175\n"
+            errors+=1
+        try:
+            cUser.aoo.setAA(self.aa.get())
+            self.aa.set(cUser.aoo.getAA())
+        except TypeError:
+            text=text+"AA must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"AA must be between 0.5 and 7.0\n"
+            errors+=1
+        try:
+            cUser.aoo.setAPW(self.apw.get())
+            self.apw.set(cUser.aoo.getAPW())
+        except TypeError:
+            text=text+"APW must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"APW must be between 0.1 and 1.9\n"
+            errors+=1
+        if(errors==0):
+            messagebox.showinfo("Message","Changes saved")
+            storeD()
+        elif(errors<4):
+            messagebox.showinfo("Message","There is/are "+str(errors)+" error(S):\n"+text+"Other values are saved")
+            storeD()
+        else:
+            messagebox.showinfo("Message","There are "+str(errors)+" error(S):\n"+text)
 
-    
     def clearPressed(self,e):
         prompt=messagebox.askquestion("Message","All unsaved changes will be discarded, are you sure?")
         if(prompt=='yes'):
@@ -311,9 +343,7 @@ class AOOparameter(tkinter.Frame):
     def backPressed(self,e):
         Modes(master=self.master)
         self.destroy()
-        
-
-        
+              
 class VOOparameter(tkinter.Frame):
     def __init__(self,master=None):
         super().__init__(master)
@@ -363,18 +393,52 @@ class VOOparameter(tkinter.Frame):
         self.back.bind("<Button-1>",self.backPressed)
     
     def confirmPressed(self,e):
+        errors=0
+        text=""
         try:
             cUser.voo.setLRL(self.lrl.get())
-            cUser.voo.setURL(self.url.get())
-            cUser.voo.setVA(self.va.get())
-            cUser.voo.setVPW(self.vpw.get())
-            storeD()
-            messagebox.showinfo("Message","Changes saved")
+            self.lrl.set(cUser.voo.getLRL())
         except TypeError:
-            messagebox.showerror("Error","All terms must be numbers")
+            text=text+"LRL must be numeric\n"
+            errors+=1
         except IndexError:
-            messagebox.showerror("Error","All terms must be inside of boundaries")
-
+            text=text+"LRL must be between 30 and 175\n"
+            errors+=1
+        try:
+            cUser.voo.setURL(self.url.get())
+            self.url.set(cUser.voo.getURL())
+        except TypeError:
+            text=text+"URL must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"URL must be between 50 and 175\n"
+            errors+=1
+        try:
+            cUser.voo.setVA(self.va.get())
+            self.va.set(cUser.voo.getVA())
+        except TypeError:
+            text=text+"VA must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"VA must be between 0.5 and 7.0\n"
+            errors+=1
+        try:
+            cUser.voo.setVPW(self.vpw.get())
+            self.vpw.set(cUser.voo.getVPW())
+        except TypeError:
+            text=text+"VPW must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"VPW must be between 0.1 and 1.9\n"
+            errors+=1
+        if(errors==0):
+            messagebox.showinfo("Message","Changes saved")
+            storeD()
+        elif(errors<4):
+            messagebox.showinfo("Message","There is/are "+str(errors)+" error(S):\n"+text+"Other values are saved")
+            storeD()
+        else:
+            messagebox.showinfo("Message","There are "+str(errors)+" error(S):\n"+text)
     
     def clearPressed(self,e):
         prompt=messagebox.askquestion("Message","All unsaved changes will be discarded, are you sure?")
@@ -443,18 +507,61 @@ class VVIparameter(tkinter.Frame):
         self.back.bind("<Button-1>",self.backPressed)
     
     def confirmPressed(self,e):
+        errors=0
+        text=""
         try:
             cUser.vvi.setLRL(self.lrl.get())
-            cUser.vvi.setURL(self.url.get())
-            cUser.vvi.setVA(self.va.get())
-            cUser.vvi.setVPW(self.vpw.get())
-            cUser.vvi.setVRP(self.vrp.get())
-            storeD()
-            messagebox.showinfo("Message","Changes saved")
+            self.lrl.set(cUser.vvi.getLRL())
         except TypeError:
-            messagebox.showerror("Error","All terms must be numbers")
+            text=text+"LRL must be numeric\n"
+            errors+=1
         except IndexError:
-            messagebox.showerror("Error","All terms must be inside of boundaries")
+            text=text+"LRL must be between 30 and 175\n"
+            errors+=1
+        try:
+            cUser.vvi.setURL(self.url.get())
+            self.url.set(cUser.vvi.getURL())
+        except TypeError:
+            text=text+"URL must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"URL must be between 50 and 175\n"
+            errors+=1
+        try:
+            cUser.vvi.setVA(self.va.get())
+            self.va.set(cUser.vvi.getVA())
+        except TypeError:
+            text=text+"VA must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"VA must be between 0.5 and 7.0\n"
+            errors+=1
+        try:
+            cUser.vvi.setVPW(self.vpw.get())
+            self.vpw.set(cUser.vvi.getVPW())
+        except TypeError:
+            text=text+"VPW must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"VPW must be between 0.1 and 1.9\n"
+            errors+=1
+        try:
+            cUser.vvi.setVRP(self.vrp.get())
+            self.vrp.set(cUser.vvi.getVRP())
+        except TypeError:
+            text=text+"VRP must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"VRP must be between 150 and 500\n"
+            errors+=1    
+        if(errors==0):
+            messagebox.showinfo("Message","Changes saved")
+            storeD()
+        elif(errors<5):
+            messagebox.showinfo("Message","There is/are "+str(errors)+" error(S):\n"+text+"Other values are saved")
+            storeD()
+        else:
+            messagebox.showinfo("Message","There are "+str(errors)+" error(S):\n"+text)
 
     
     def clearPressed(self,e):
@@ -469,9 +576,7 @@ class VVIparameter(tkinter.Frame):
     def backPressed(self,e):
         Modes(master=self.master)
         self.destroy()
-        
-
-        
+             
 class AAIparameter(tkinter.Frame):
     def __init__(self,master=None):
         super().__init__(master)
@@ -513,7 +618,6 @@ class AAIparameter(tkinter.Frame):
         self.arp.set(cUser.aai.getARP())
         self.arp_E.place(x=350,y=320)
 
-
         self.comfirmB=Button(self,width=11,height=3)
         self.comfirmB["text"]="Comfirm"
         self.comfirmB.place(x=420,y=450)
@@ -528,18 +632,61 @@ class AAIparameter(tkinter.Frame):
         self.back.bind("<Button-1>",self.backPressed)
     
     def confirmPressed(self,e):
+        errors=0
+        text=""
         try:
             cUser.aai.setLRL(self.lrl.get())
-            cUser.aai.setURL(self.url.get())
-            cUser.aai.setAA(self.aa.get())
-            cUser.aai.setAPW(self.apw.get())
-            cUser.aai.setARP(self.arp.get())
-            storeD()
-            messagebox.showinfo("Message","Changes saved")
+            self.lrl.set(cUser.aai.getLRL())
         except TypeError:
-            messagebox.showerror("Error","All terms must be numbers")
+            text=text+"LRL must be numeric\n"
+            errors+=1
         except IndexError:
-            messagebox.showerror("Error","All terms must be inside of boundaries")
+            text=text+"LRL must be between 30 and 175\n"
+            errors+=1
+        try:
+            cUser.aai.setURL(self.url.get())
+            self.url.set(cUser.aai.getURL())
+        except TypeError:
+            text=text+"URL must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"URL must be between 50 and 175\n"
+            errors+=1
+        try:
+            cUser.aai.setAA(self.aa.get())
+            self.aa.set(cUser.aai.getAA())
+        except TypeError:
+            text=text+"AA must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"AA must be between 0.5 and 7.0\n"
+            errors+=1
+        try:
+            cUser.aai.setAPW(self.apw.get())
+            self.apw.set(cUser.aai.getAPW())
+        except TypeError:
+            text=text+"APW must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"APW must be between 0.1 and 1.9\n"
+            errors+=1
+        try:
+            cUser.aai.setARP(self.arp.get())
+            self.arp.set(cUser.aai.getARP())
+        except TypeError:
+            text=text+"ARP must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"ARP must be between 150 and 500\n"
+            errors+=1        
+        if(errors==0):
+            messagebox.showinfo("Message","Changes saved")
+            storeD()
+        elif(errors<5):
+            messagebox.showinfo("Message","There is/are "+str(errors)+" error(S):\n"+text+"Other values are saved")
+            storeD()
+        else:
+            messagebox.showinfo("Message","There are "+str(errors)+" error(S):\n"+text)
 
     
     def clearPressed(self,e):
@@ -574,8 +721,6 @@ class Connect(tkinter.Frame):
 # 		messagebox.showinfo("The pacemaker is successfully connected")
 # 	else:
 # 		messagebox.showinfo("Connection failed, please try again")
-
-
 
 def storeD():
     pickle.dump(users,open('users.dat','wb'))
