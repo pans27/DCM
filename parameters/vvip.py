@@ -40,9 +40,14 @@ class Vvip:
         else:
             raise TypeError
     def setVA(self,val):
+        num=0.5* round(float(val)/0.5)
         if(self.__is_num(val)):
-            if(round(float(val),1)<=7.0 and round(float(val),1)>=0.5):
+            if(round(float(val),1)<=3.2 and round(float(val),1)>=0.5):
                 self.__va=round(float(val),1)
+            elif(num<=7.0 and num>=3.5):
+                self.__va=num
+            elif(round(float(val),1)==0):
+                self.__va=0
             else:
                 raise IndexError  
         else:
