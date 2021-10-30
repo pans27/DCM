@@ -1,3 +1,7 @@
+#Oct 31, 2021
+#Author: Group 5
+#3k04 DCM assignment 1 vvi parameters
+
 class Vvip:
     def __init__(self) :
         self.__lrl=60
@@ -23,8 +27,11 @@ class Vvip:
 
     def setLRL(self,val):
         if(self.__is_num(val)):
-            if(round(float(val))<=175 and round(float(val))>=30):
+            num=5* round(float(val)/5)
+            if(round(float(val))<=90 and round(float(val))>=50):
                 self.__lrl=round(float(val))
+            elif((num<=50 and num>=30) or (num<=175 and num>=90)):
+                self.__lrl=num
             else:
                 raise IndexError
         else:
@@ -40,8 +47,8 @@ class Vvip:
         else:
             raise TypeError
     def setVA(self,val):
-        num=0.5* round(float(val)/0.5)
         if(self.__is_num(val)):
+            num=0.5* round(float(val)/0.5)
             if(round(float(val),1)<=3.2 and round(float(val),1)>=0.5):
                 self.__va=round(float(val),1)
             elif(num<=7.0 and num>=3.5):

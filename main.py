@@ -3,11 +3,14 @@ from tkinter import messagebox
 import tkinter
 from user import *
 import pickle
+#Oct 31, 2021
+#Author: Group 5
+#3k04 DCM assignment 1 main program
 
-global count
-global users
-global cUser
-global Commu
+global count #number of users
+global users #list of users
+global cUser #the current user that logged in
+global Commu #pacemaker connection
 Commu=False
 
 #welcome screeens
@@ -18,7 +21,7 @@ class Application(tkinter.Frame):
         self.place(relheight=1,relwidth=1)
         self.welcome()
 
-    def welcome(self):
+    def welcome(self):                                                     #add in labels and buttons
         self.message=Label(self,text="Welcome",font=("Times New Roman",30))
         self.message.place(x=400,y=100)
         self.photo=PhotoImage(file="ch2n8.png")
@@ -33,7 +36,7 @@ class Application(tkinter.Frame):
         self.login.bind("<Button-1>",self.loginPressed)
         self.register.bind("<Button-1>",self.registerPressed)
     
-    def loginPressed(self,e):
+    def loginPressed(self,e):                   #if there are accounts found on drive, go to login
         global count
         if(count==0):
             messagebox.showinfo("Message","There aren't any user created, please register")
@@ -41,7 +44,7 @@ class Application(tkinter.Frame):
             Login(master=self.master)
             self.destroy()
 
-    def registerPressed(self,e):
+    def registerPressed(self,e): #if there are less than 10 users, go to register
         global count
         if(count==10):
             messagebox.showinfo("Message","There are already 10 users, please login")
@@ -49,6 +52,7 @@ class Application(tkinter.Frame):
             Register(master=self.master)
             self.destroy()
 
+#login
 class Login(tkinter.Frame):
     def __init__(self,master=None):
         super().__init__(master)
@@ -77,12 +81,12 @@ class Login(tkinter.Frame):
     def loginPressed(self,e):
         global count
         global users
-        check=False
-        uEntered=self.userE.get()
+        check=False #flag to see if a user was found
+        uEntered=self.userE.get() #get username and password entered
         pwEntered=self.passwordE.get()
-        for i in range(count):
-            if(uEntered==users[i].getUN()):
-                if(pwEntered==users[i].getPW()):
+        for i in range(count):  #check if the username match with the stored user
+            if(uEntered==users[i].getUN()): #if username found, check if password is correct
+                if(pwEntered==users[i].getPW()): #if correct, go to modes
                     global cUser
                     cUser=users[i]
                     check=True
@@ -131,13 +135,13 @@ class Register(tkinter.Frame):
         self.destroy()
     
     def registerPressed(self,e):
-        if(self.passwordCE.get()==(self.passwordE.get())):
+        if(self.passwordCE.get()==(self.passwordE.get())): # check if confirm password and password matches
             check=FALSE
             global count
             if(count==10):
                 messagebox.showinfo("Message","There are already 10 users, please login")
             else:
-                for i in range(count):
+                for i in range(count): #check if the username already exist
                     if(self.userE.get()==users[i].getUN()):
                         messagebox.showinfo("Message","Username already exist")
                         check=TRUE
@@ -156,6 +160,7 @@ class Register(tkinter.Frame):
         else:       
             messagebox.showinfo("Message","password does not match")
 
+#modes selection
 class Modes(tkinter.Frame):
     def __init__(self,master=None):
         super().__init__(master)
@@ -242,7 +247,7 @@ class AOOparameter(tkinter.Frame):
         self.place(x=0,y=57,relheight=0.9,relwidth=1)
         self.write_aoo_parameters()
 
-    def write_aoo_parameters(self):
+    def write_aoo_parameters(self): #creating labels and entry fields
         global cUser
         self.message=Label(self,text="AOO Parameters",font=("Times New Roman",30))
         self.message.place(x=220,y=50)
@@ -284,7 +289,7 @@ class AOOparameter(tkinter.Frame):
         self.back.place(relx=0.85,rely=0.9)
         self.back.bind("<Button-1>",self.backPressed)
     
-    def confirmPressed(self,e):
+    def confirmPressed(self,e): # check each parameter to see if there is an error, keep track of the errors
         errors=0
         text=""
         try:
@@ -323,7 +328,7 @@ class AOOparameter(tkinter.Frame):
         except IndexError:
             text=text+"APW must be between 0.1 and 1.9\n"
             errors+=1
-        if(errors==0):
+        if(errors==0): #print out errors ifthere are any, store the changes without error to hard drive
             messagebox.showinfo("Message","Changes saved")
             storeD()
         elif(errors<4):
@@ -333,7 +338,7 @@ class AOOparameter(tkinter.Frame):
             messagebox.showinfo("Message","There are "+str(errors)+" error(S):\n"+text)
 
     def clearPressed(self,e):
-        prompt=messagebox.askquestion("Message","All unsaved changes will be discarded, are you sure?")
+        prompt=messagebox.askquestion("Message","All unsaved changes will be discarded, are you sure?") # set all entry field to show the parameter stored
         if(prompt=='yes'):
             self.lrl.set(cUser.aoo.getLRL())
             self.url.set(cUser.aoo.getURL())
@@ -702,7 +707,7 @@ class AAIparameter(tkinter.Frame):
         Modes(master=self.master)
         self.destroy()
 
-class Connect(tkinter.Frame):
+class Connect(tkinter.Frame): # connect frame to be further implemented with serial communication
     def __init__(self,master=None):
         super().__init__(master)
         self.master=master
@@ -723,19 +728,19 @@ class Connect(tkinter.Frame):
 # 		messagebox.showinfo("Connection failed, please try again")
 
 def storeD():
-    pickle.dump(users,open('users.dat','wb'))
+    pickle.dump(users,open('users.dat','wb')) #store the list of users in user.dat
     
 if __name__=='__main__':
     #get users list
     try:
-        users=pickle.load(open('users.dat','rb'))
+        users=pickle.load(open('users.dat','rb')) # read the file of users, if the file does not exist create empty list and the number of users=0
         count=len(users)
     except:
         users= []
         count=0
     print(count)
     root=Tk()
-    root.title("Pacemaker User Terminal")
+    root.title("Pacemaker User Terminal") # create gui window and call application to display the welcome screen
     root.geometry("720x576+100+100")
     root.resizable(False, False)
     Application(master=root)

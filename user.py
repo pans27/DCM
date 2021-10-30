@@ -2,6 +2,9 @@ import parameters.aoop
 import parameters.voop
 import parameters.aaip
 import parameters.vvip
+#Oct 31, 2021
+#Author: Group 5
+#3k04 DCM assignment 1 user object for storing data
 
 class User:
     def __init__(self,n,pw):

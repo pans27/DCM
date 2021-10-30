@@ -1,3 +1,7 @@
+#Oct 31, 2021
+#Author: Group 5
+#3k04 DCM assignment 1 aoo parameters
+
 class Aoop:
     def __init__(self) :
         self.__lrl=60
@@ -17,8 +21,8 @@ class Aoop:
     def getAPW(self):
         return self.__apw
     def setLRL(self,val):
-        num=5* round(float(val)/5)
         if(self.__is_num(val)):
+            num=5* round(float(val)/5)
             if(round(float(val))<=90 and round(float(val))>=50):
                 self.__lrl=round(float(val))
             elif((num<=50 and num>=30) or (num<=175 and num>=90)):
@@ -38,8 +42,8 @@ class Aoop:
         else:
             raise TypeError
     def setAA(self,val):
-        num=0.5* round(float(val)/0.5)
         if(self.__is_num(val)):
+            num=0.5* round(float(val)/0.5)
             if(round(float(val),1)<=3.2 and round(float(val),1)>=0.5):
                 self.__aa=round(float(val),1)
             elif(num<=7.0 and num>=3.5):
