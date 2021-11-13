@@ -1,6 +1,6 @@
-# Oct 31, 2021
+# November 28, 2021
 # Author: Group 5
-# 3k04 DCM assignment 1 aai parameters
+# 3k04 DCM assignment 2 aair parameters
 
 class Aair:
     def __init__(self):
