@@ -20,6 +20,7 @@ class Aoop:
     
     def getAPW(self):
         return self.__apw
+
     def setLRL(self,val):
         if(self.__is_num(val)):
             num=5* round(float(val)/5)

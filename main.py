@@ -330,7 +330,7 @@ class AOOparameter(tkinter.Frame):
  # click to save current parameter data and check if the data type is right 
  # and is in the acceptable range   
     def confirmPressed(self,e):
-#>>>>>>> Stashed changes
+>>>>>>> Stashed changes
         errors=0
         text=""
         try:
