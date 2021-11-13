@@ -160,15 +160,15 @@ class Register(tkinter.Frame):
         else:       
             messagebox.showinfo("Message","password does not match")
 
-#<<<<<<< Updated upstream
-#<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 #modes selection
-#=======
+=======
 # Display pacemaker modes
-#>>>>>>> Stashed changes
-#=======
+>>>>>>> Stashed changes
+=======
 # Display pacemaker modes
-#>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 class Modes(tkinter.Frame):
     def __init__(self,master=None):
         super().__init__(master)
@@ -270,15 +270,15 @@ class AOOparameter(tkinter.Frame):
         self.place(x=0,y=57,relheight=0.9,relwidth=1) # display new window
         self.write_aoo_parameters()
 
-#<<<<<<< Updated upstream
-#<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     def write_aoo_parameters(self): #creating labels and entry fields
-#=======
-#=======
-#>>>>>>> Stashed changes
+=======
+=======
+>>>>>>> Stashed changes
 # add buttons and enter box
     def write_aoo_parameters(self):
-#>>>>>>> Stashed changes
+>>>>>>> Stashed changes
         global cUser
         self.message=Label(self,text="AOO Parameters",font=("Times New Roman",30))
         self.message.place(x=420,y=50)
@@ -319,12 +319,12 @@ class AOOparameter(tkinter.Frame):
         self.back["text"]="Back"
         self.back.place(relx=0.85,rely=0.9)
         self.back.bind("<Button-1>",self.backPressed)
-#<<<<<<< Updated upstream
-#<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     
     def confirmPressed(self,e): # check each parameter to see if there is an error, keep track of the errors
-#=======
-#=======
+=======
+=======
 3>>>>>>> Stashed changes
 
  # click to save current parameter data and check if the data type is right 
