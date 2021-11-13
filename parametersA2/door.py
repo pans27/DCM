@@ -27,6 +27,9 @@ class Door:
 
     def getMSR(self):
         return self.__msr
+    
+    def getFAVD(self):
+        return self.__FAVD
 
     def getAAReg(self):
         return self.__aaReg
