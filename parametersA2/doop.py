@@ -2,7 +2,7 @@
 # Author: Group 5
 # 3k04 DCM assignment 2 doo parameters
 
-class Doo:
+class Doop:
     def __init__(self):
         self.__lrl = 60
         self.__url = 120
