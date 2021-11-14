@@ -49,12 +49,18 @@ class Aair:
     def getPVARP(self):
         return self.__pvarp
 
+    def getisHYST(self):
+        return self.__isHyst
+
     def getHYST(self):
         return self.__hyst
 
+    def getisRS(self):
+        return self.__isRs
+    
     def getRS(self):
         return self.__rs
-
+    
     def getAT(self):
         return self.__at
 

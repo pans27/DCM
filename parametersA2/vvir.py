@@ -44,10 +44,16 @@ class Vvir:
 
     def getVRP(self):
         return self.__vrp
+    
+    def getisHYST(self):
+        return self.__isHyst
 
     def getHYST(self):
         return self.__hyst
 
+    def getisRS(self):
+    return self.__isRs
+    
     def getRS(self):
         return self.__rs
 
