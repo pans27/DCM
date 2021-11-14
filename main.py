@@ -279,7 +279,7 @@ if __name__=='__main__':
     print(global_.count)
     root=Tk()
     root.title("Pacemaker User Terminal") # create gui window and call application to display the welcome screen
-    root.geometry("720x576+100+100")
+    root.geometry("1200x576+100+100")
     root.resizable(False, False)
     Application(master=root)
     root.mainloop()
