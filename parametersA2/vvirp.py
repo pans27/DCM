@@ -12,10 +12,8 @@ class Vvir:
         self.__vpw = 0.4
         self.__vs = 2.5
         self.__vrp = 320
-        self.__isHyst = False
-        self.__hyst = 60
-        self.__isRs = False
-        self.__rs = 3
+        self.__hyst = 0
+        self.__rs = 0
         self.__at = 4 #default is med, high is 8, med is 4, low is 2
         self.__reactT = 30000 #in ms (i.e. 30s)
         self.__rf = 8
@@ -44,15 +42,9 @@ class Vvir:
 
     def getVRP(self):
         return self.__vrp
-    
-    def getisHYST(self):
-        return self.__isHyst
 
     def getHYST(self):
         return self.__hyst
-
-    def getisRS(self):
-    return self.__isRs
     
     def getRS(self):
         return self.__rs
@@ -144,34 +136,32 @@ class Vvir:
                 raise IndexError
         else:
             raise TypeError
-
+            
     def setHYST(self,val):
-        if(self.__isHyst):
-            if (self.__is_num(val)):
-                num = 5 * round(float(val) / 5)
-                if (round(float(val)) <= 90 and round(float(val)) >= 50):
-                    self.__hyst = round(float(val))
-                elif ((num <= 50 and num >= 30) or (num <= 175 and num >= 90)):
-                    self.__hyst = num
-                else:
-                    raise IndexError
+        if (self.__is_num(val)):
+            num = 5 * round(float(val) / 5)
+            if (round(float(val)) <= 90 and round(float(val)) >= 50):
+                self.__hyst = round(float(val))
+            elif ((num <= 50 and num >= 30) or (num <= 175 and num >= 90)):
+                self.__hyst = num
+            elif (round(float(val)) == 0):
+                self.__hyst = 0
             else:
-                raise TypeError
+                raise IndexError
         else:
-            raise IndexError #?
+            raise TypeError
 
     def setRS(self,val):
-        if(self.__isRS):
-            if (self.__is_num(val)):
-                num = 3 * round(float(val) / 3)
-                if (round(float(val)) <= 3 and round(float(val)) >= 21):
-                    self.__rs = round(float(val))
-                else:
-                    raise IndexError
+        if (self.__is_num(val)):
+            num = 3 * round(float(val) / 3)
+            if (round(float(val)) <= 3 and round(float(val)) >= 21):
+                self.__rs = round(float(val))
+            elif (round(float(val)) == 0):
+                self.__rs = 0
             else:
-                raise TypeError
+                raise IndexError
         else:
-            raise IndexError #?
+            raise TypeError
 
     def setAT(self,val):
         if (self.__is_num(val)):
