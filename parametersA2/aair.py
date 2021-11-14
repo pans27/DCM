@@ -56,7 +56,7 @@ class Aair:
         return self.__hyst
 
     def getisRS(self):
-    return self.__isRs
+        return self.__isRs
     
     def getRS(self):
         return self.__rs
