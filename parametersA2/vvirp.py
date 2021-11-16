@@ -127,6 +127,18 @@ class Vvirp:
                 raise IndexError
         else:
             raise TypeError
+            
+    def setVS(self, val):
+        if (self.__is_num(val)):
+            if (round(float(val), 2) == 0.25 or round(float(val), 2) == 0.5 or round(float(val), 2) == 0.75):
+                self.__vs = round(float(val), 2)
+            elif(round(float(val), 1) <= 10.0 and round(float(val), 1) >= 1.0):
+                num = 0.5 * round(float(val) / 0.5)
+                self.__vs = num
+            else:
+                raise IndexError
+        else:
+            raise TypeError
 
     def setVRP(self, val):
         if (self.__is_num(val)):
