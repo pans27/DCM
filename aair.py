@@ -101,7 +101,7 @@ class AAIRparameter(tkinter.Frame):
         self.rt.set(cUser.vvi.getVPW())
         self.r_t_E.place(x=900,y=320)
         #Response Factor
-        self.r_f=Label(self,text="Reaction Time :",font=("Times New Roman",14))
+        self.r_f=Label(self,text="Respond Factor :",font=("Times New Roman",14))
         self.r_f.place(x=100,y=360)
         self.rf=StringVar()
         self.r_f_E=Entry(self,textvariable=self.rf,font=("Times New Roman",14))
