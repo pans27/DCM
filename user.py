@@ -25,7 +25,7 @@ class User:
         self.voor=parametersA2.voorp.Voorp()
         self.vvir=parametersA2.vvirp.Vvirp()
         self.doo=parametersA2.doop.Doop()
-        self.door=parametersA2.doorp.doorp()
+        self.door=parametersA2.doorp.Doorp()
 
     def getUN(self):
         return self.__un
