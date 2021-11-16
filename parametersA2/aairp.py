@@ -132,6 +132,18 @@ class Aairp:
         else:
             raise TypeError
 
+    def setAS(self, val):
+        if (self.__is_num(val)):
+            if (round(float(val), 2) == 0.25 or round(float(val), 2) == 0.5 or round(float(val), 2) == 0.75):
+                self.__as = round(float(val), 2)
+            elif(round(float(val), 1) <= 10.0 and round(float(val), 1) >= 1.0):
+                num = 0.5 * round(float(val) / 0.5)
+                self.__as = num
+            else:
+                raise IndexError
+        else:
+            raise TypeError
+            
     def setARP(self, val):
         if (self.__is_num(val)):
             if (int(round(float(val), -1)) <= 500 and int(round(float(val), -1)) >= 150):
