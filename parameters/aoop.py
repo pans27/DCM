@@ -6,7 +6,8 @@ class Aoop:
     def __init__(self) :
         self.__lrl=60
         self.__url=120
-        self.__aa=3.5
+        self.__aaReg = 3.5
+        self.__aaUnreg = 3.75
         self.__apw=0.4
         
     def getLRL(self):
@@ -15,8 +16,11 @@ class Aoop:
     def getURL(self):
         return self.__url
     
-    def getAA(self):
-        return self.__aa
+    def getAAReg(self):
+        return self.__aaReg
+
+    def getAAUnreg(self):
+        return self.__aaUnreg
     
     def getAPW(self):
         return self.__apw
@@ -42,19 +46,33 @@ class Aoop:
                 raise IndexError    
         else:
             raise TypeError
-    def setAA(self,val):
-        if(self.__is_num(val)):
-            num=0.5* round(float(val)/0.5)
-            if(round(float(val),1)<=3.2 and round(float(val),1)>=0.5):
-                self.__aa=round(float(val),1)
-            elif(num<=7.0 and num>=3.5):
-                self.__aa=num
-            elif(round(float(val),1)==0):
-                self.__aa=0
+            
+    def setAAReg(self, val):
+        if (self.__is_num(val)):
+            num = 0.5 * round(float(val) / 0.5)
+            if (round(float(val), 1) <= 3.2 and round(float(val), 1) >= 0.5):
+                self.__aaReg = round(float(val), 1)
+            elif (num <= 7.0 and num >= 3.5):
+                self.__aaReg = num
+            elif (round(float(val), 1) == 0):
+                self.__aaReg = 0
             else:
-                raise IndexError  
+                raise IndexError
         else:
             raise TypeError
+
+    def setAAUnreg(self, val):
+        if (self.__is_num(val)):
+            num = 1.25 * round(float(val) / 1.25)
+            if (round(float(val), 2) <= 5.00 and round(float(val), 2) >= 1.25):
+                self.__aaReg = num
+            elif (round(float(val), 1) == 0):
+                self.__aa = 0
+            else:
+                raise IndexError
+        else:
+            raise TypeError
+            
     def setAPW(self,val):
         if(self.__is_num(val)):
             if(round(float(val),1)<=1.9 and round(float(val),1)>=0.1):
