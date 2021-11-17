@@ -7,8 +7,7 @@ class Voorp:
         self.__lrl = 60
         self.__url = 120
         self.__msr = 120
-        self.__vaReg = 3.5
-        self.__vaUnreg = 3.75
+        self.__va=5.0
         self.__vpw = 0.4
         self.__at = 4 #default is med, high is 8, med is 4, low is 2
         self.__reactT = 30000 #in ms (i.e. 30s)
@@ -24,11 +23,8 @@ class Voorp:
     def getMSR(self):
         return self.__msr
 
-    def getVAReg(self):
-        return self.__vaReg
-
-    def getVAUnreg(self):
-        return self.__vaUnreg
+    def getVA(self):
+        return self.__va
 
     def getVPW(self):
         return self.__vpw
@@ -77,27 +73,13 @@ class Voorp:
         else:
             raise TypeError
 
-    def setVAReg(self, val):
+    def setVA(self, val):
         if (self.__is_num(val)):
-            num = 0.5 * round(float(val) / 0.5)
-            if (round(float(val), 1) <= 3.2 and round(float(val), 1) >= 0.5):
-                self.__vaReg = round(float(val), 1)
-            elif (num <= 7.0 and num >= 3.5):
-                self.__vaReg = num
+            num =round(float(val),1)
+            if (num <= 5.0 and num >= 3.5):
+                self.__va = num
             elif (round(float(val), 1) == 0):
-                self.__vaReg = 0
-            else:
-                raise IndexError
-        else:
-            raise TypeError
-
-    def setVAUnreg(self, val):
-        if (self.__is_num(val)):
-            num = 1.25 * round(float(val) / 1.25)
-            if (round(float(val), 2) <= 5.00 and round(float(val), 2) >= 1.25):
-                self.__vaUnreg = num
-            elif (round(float(val), 1) == 0):
-                self.__vaUnreg = 0
+                self.__va = 0
             else:
                 raise IndexError
         else:
