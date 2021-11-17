@@ -7,8 +7,7 @@ class Aoorp:
         self.__lrl = 60
         self.__url = 120
         self.__msr = 120
-        self.__aaReg = 3.5
-        self.__aaUnreg = 3.75
+        self.__aa=5.0
         self.__apw = 0.4
         self.__at = 4 #default is med, high is 8, med is 4, low is 2
         self.__reactT = 30000 #in ms (i.e. 30s)
@@ -24,11 +23,8 @@ class Aoorp:
     def getMSR(self):
         return self.__msr
 
-    def getAAReg(self):
-        return self.__aaReg
-
-    def getAAUnreg(self):
-        return self.__aaUnreg
+    def getAA(self):
+        return self.__aa
 
     def getAPW(self):
         return self.__apw
@@ -77,25 +73,11 @@ class Aoorp:
         else:
             raise TypeError
 
-    def setAAReg(self, val):
+    def setAA(self, val):
         if (self.__is_num(val)):
-            num = 0.5 * round(float(val) / 0.5)
-            if (round(float(val), 1) <= 3.2 and round(float(val), 1) >= 0.5):
-                self.__aaReg = round(float(val), 1)
-            elif (num <= 7.0 and num >= 3.5):
-                self.__aaReg = num
-            elif (round(float(val), 1) == 0):
-                self.__aaReg = 0
-            else:
-                raise IndexError
-        else:
-            raise TypeError
-
-    def setAAUnreg(self, val):
-        if (self.__is_num(val)):
-            num = 1.25 * round(float(val) / 1.25)
-            if (round(float(val), 2) <= 5.00 and round(float(val), 2) >= 1.25):
-                self.__aaReg = num
+            num =round(float(val),1)
+            if (num <= 5.0 and num >= 3.5):
+                self.__aa = num
             elif (round(float(val), 1) == 0):
                 self.__aa = 0
             else:
