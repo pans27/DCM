@@ -7,7 +7,7 @@ class Aoop:
         self.__lrl=60
         self.__url=120
         self.__aa=5.0
-        self.__apw=0.4
+        self.__apw=1
         
     def getLRL(self):
         return self.__lrl
@@ -57,8 +57,8 @@ class Aoop:
             
     def setAPW(self,val):
         if(self.__is_num(val)):
-            if(round(float(val),1)<=1.9 and round(float(val),1)>=0.1):
-                self.__apw=round(float(val),1)
+            if(round(float(val))<=30 and round(float(val))>=1):
+                self.__apw=round(float(val))
             else:
                 raise IndexError      
         else:

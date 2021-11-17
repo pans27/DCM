@@ -8,7 +8,7 @@ class Doop:
         self.__url = 120
         self.__FAVD = 150
         self.__aa=5.0
-        self.__apw = 0.4
+        self.__apw = 1
         self.__va=5.0
         self.__vpw = 0.4
 
@@ -89,12 +89,12 @@ class Doop:
         else:
             raise TypeError
 
-    def setAPW(self, val):
-        if (self.__is_num(val)):
-            if (round(float(val), 1) <= 1.9 and round(float(val), 1) >= 0.1):
-                self.__apw = float(val)
+    def setAPW(self,val):
+        if(self.__is_num(val)):
+            if(round(float(val))<=30 and round(float(val))>=1):
+                self.__apw=round(float(val))
             else:
-                raise IndexError
+                raise IndexError      
         else:
             raise TypeError
 

@@ -8,7 +8,7 @@ class Aairp:
         self.__url = 120
         self.__msr = 120
         self.__aa = 5.0
-        self.__apw = 0.4
+        self.__apw = 1
         self.__as = 0.75
         self.__arp = 250
         self.__pvarp = 250
@@ -105,12 +105,12 @@ class Aairp:
         else:
             raise TypeError
 
-    def setAPW(self, val):
-        if (self.__is_num(val)):
-            if (round(float(val), 1) <= 1.9 and round(float(val), 1) >= 0.1):
-                self.__apw = float(val)
+    def setAPW(self,val):
+        if(self.__is_num(val)):
+            if(round(float(val))<=30 and round(float(val))>=1):
+                self.__apw=round(float(val))
             else:
-                raise IndexError
+                raise IndexError      
         else:
             raise TypeError
 
