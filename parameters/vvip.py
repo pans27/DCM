@@ -7,7 +7,7 @@ class Vvip:
         self.__lrl=60
         self.__url=120
         self.__va=5.0
-        self.__vpw=0.4
+        self.__vpw=1
         self.__vs = 2.5
         self.__vrp=320
         self.__hyst = 0
@@ -76,12 +76,12 @@ class Vvip:
         else:
             raise TypeError
             
-    def setVPW(self, val):
-        if (self.__is_num(val)):
-            if (round(float(val), 1) <= 1.9 and round(float(val), 1) >= 0.1):
-                self.__vpw = float(val)
+    def setVPW(self,val):
+        if(self.__is_num(val)):
+            if(round(float(val))<=30 and round(float(val))>=1):
+                self.__vpw=round(float(val))
             else:
-                raise IndexError
+                raise IndexError      
         else:
             raise TypeError
     
