@@ -9,7 +9,7 @@ class Aairp:
         self.__msr = 120
         self.__aa = 5.0
         self.__apw = 1
-        self.__as = 0.75
+        self.__as = 0.8
         self.__arp = 250
         self.__pvarp = 250
         self.__hyst = 0
@@ -116,11 +116,8 @@ class Aairp:
 
     def setAS(self, val):
         if (self.__is_num(val)):
-            if (round(float(val), 2) == 0.25 or round(float(val), 2) == 0.5 or round(float(val), 2) == 0.75):
-                self.__as = round(float(val), 2)
-            elif(round(float(val), 1) <= 10.0 and round(float(val), 1) >= 1.0):
-                num = 0.5 * round(float(val) / 0.5)
-                self.__as = num
+            if(round(float(val), 1) <= 5.0 and round(float(val), 1) >= 0):
+                self.__as = round(float(val), 1)
             else:
                 raise IndexError
         else:
