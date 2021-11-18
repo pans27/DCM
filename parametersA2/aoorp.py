@@ -76,7 +76,7 @@ class Aoorp:
     def setAA(self, val):
         if (self.__is_num(val)):
             num =round(float(val),1)
-            if (num <= 5.0 and num >= 3.5):
+            if (num <= 5.0 and num >= 0.1):
                 self.__aa = num
             elif (round(float(val), 1) == 0):
                 self.__aa = 0

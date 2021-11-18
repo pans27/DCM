@@ -13,27 +13,29 @@ class AOOparameter(tkinter.Frame):
 
     def write_aoo_parameters(self): #creating labels and entry fields
         from global_ import cUser
-        self.message=Label(self,text="AOO Parameters",font=("Times New Roman",30))
-        self.message.place(x=220,y=50)
-        self.l_r_l=Label(self,text="Lower Rate Limit :",font=("Times New Roman",14))
+        self.title=Label(self,text="AOO Parameters",font=("Times New Roman",30))
+        self.title.place(x=220,y=50)
+        self.current=Label(self,text="Stored values : ",font=("Times New Roman",16))
+        self.current.place(x=100,y=120)
+        self.l_r_l=Label(self,text="Lower Rate Limit : "+str(cUser.aoo.getLRL()),font=("Times New Roman",14))
         self.l_r_l.place(x=100,y=160)
         self.lrl=StringVar()
         self.l_r_l_E=Entry(self,textvariable=self.lrl,font=("Times New Roman",14))
         self.lrl.set(cUser.aoo.getLRL())
         self.l_r_l_E.place(x=350,y=160)
         self.url=StringVar()
-        self.u_r_l=Label(self,text="Upper Rate Limit :",font=("Times New Roman",14))
+        self.u_r_l=Label(self,text="Upper Rate Limit : "+str(cUser.aoo.getURL()),font=("Times New Roman",14))
         self.u_r_l.place(x=100,y=200)
         self.u_r_l_E=Entry(self,textvariable=self.url,font=("Times New Roman",14))
         self.url.set(cUser.aoo.getURL())
         self.u_r_l_E.place(x=350,y=200)
-        self.a_a=Label(self,text="Atrial Amplitude :",font=("Times New Roman",14))
+        self.a_a=Label(self,text="Atrial Amplitude : "+str(cUser.aoo.getAA()),font=("Times New Roman",14))
         self.a_a.place(x=100,y=240)
         self.aa=StringVar()
         self.a_a_E=Entry(self,textvariable=self.aa,font=("Times New Roman",14))
         self.aa.set(cUser.aoo.getAA())
         self.a_a_E.place(x=350,y=240)
-        self.a_p_w=Label(self,text="Atrial Pulse Width :",font=("Times New Roman",14))
+        self.a_p_w=Label(self,text="Atrial Pulse Width : "+str(cUser.aoo.getAPW()),font=("Times New Roman",14))
         self.a_p_w.place(x=100,y=280)
         self.apw=StringVar()
         self.a_p_w_E=Entry(self,textvariable=self.apw,font=("Times New Roman",14))
@@ -55,11 +57,14 @@ class AOOparameter(tkinter.Frame):
     
     def confirmPressed(self,e): # check each parameter to see if there is an error, keep track of the errors
         from global_ import cUser
+        prompt=messagebox.askquestion("Message","Values that does not match the specified increment may be rounded, save?")
+        if(prompt=="no"):
+            return
         errors=0
         text=""
         try:
             cUser.aoo.setLRL(self.lrl.get())
-            self.lrl.set(cUser.aoo.getLRL())
+            self.l_r_l['text']="Lower Rate Limit : "+str(cUser.aoo.getLRL())
         except TypeError:
             text=text+"LRL must be numeric\n"
             errors+=1
@@ -68,7 +73,7 @@ class AOOparameter(tkinter.Frame):
             errors+=1
         try:
             cUser.aoo.setURL(self.url.get())
-            self.url.set(cUser.aoo.getURL())
+            self.u_r_l['text']="Upper Rate Limit : "+str(cUser.aoo.getURL())
         except TypeError:
             text=text+"URL must be numeric\n"
             errors+=1
@@ -77,21 +82,21 @@ class AOOparameter(tkinter.Frame):
             errors+=1
         try:
             cUser.aoo.setAA(self.aa.get())
-            self.aa.set(cUser.aoo.getAA())
+            self.a_a['text']="Atrial Amplitude : "+str(cUser.aoo.getAA())
         except TypeError:
             text=text+"AA must be numeric\n"
             errors+=1
         except IndexError:
-            text=text+"AA must be between 0.5 and 7.0\n"
+            text=text+"AA must be between 0 and 5.0\n"
             errors+=1
         try:
             cUser.aoo.setAPW(self.apw.get())
-            self.apw.set(cUser.aoo.getAPW())
+            self.a_p_w['text']="Atrial Pulse Width : "+str(cUser.aoo.getAPW())
         except TypeError:
             text=text+"APW must be numeric\n"
             errors+=1
         except IndexError:
-            text=text+"APW must be between 0.1 and 1.9\n"
+            text=text+"APW must be between 1 and 30\n"
             errors+=1
         if(errors==0): #print out errors ifthere are any, store the changes without error to hard drive
             messagebox.showinfo("Message","Changes saved")
