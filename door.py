@@ -76,44 +76,129 @@ class DOORparameter(tkinter.Frame):
         self.a_t.place(x=100,y=320)
         self.at=StringVar()
         self.a_t_E=Entry(self,textvariable=self.at,font=("Times New Roman",14))
-        self.at.set(cUser.door.getVPW())
+        self.at.set(cUser.door.getAT())
         self.a_t_E.place(x=350,y=320)
         #Reaction Time
         self.r_t=Label(self,text="Reaction Time :",font=("Times New Roman",14))
         self.r_t.place(x=650,y=320)
         self.rt=StringVar()
         self.r_t_E=Entry(self,textvariable=self.rt,font=("Times New Roman",14))
-        self.rt.set(cUser.door.getVPW())
+        self.rt.set(cUser.door.getREACT())
         self.r_t_E.place(x=900,y=320)
         #Response Factor
-        self.r_f=Label(self,text="Reaction Time :",font=("Times New Roman",14))
+        self.r_f=Label(self,text="Response Factor :",font=("Times New Roman",14))
         self.r_f.place(x=100,y=360)
         self.rf=StringVar()
         self.r_f_E=Entry(self,textvariable=self.rf,font=("Times New Roman",14))
-        self.rf.set(cUser.door.getVPW())
+        self.rf.set(cUser.door.getRF())
         self.r_f_E.place(x=350,y=360)
         #Recovery Time
         self.recovery_time=Label(self,text="Recovery Time :",font=("Times New Roman",14))
         self.recovery_time.place(x=650,y=360)
         self.ret=StringVar()
         self.recovery_time_E=Entry(self,textvariable=self.ret,font=("Times New Roman",14))
-        self.ret.set(cUser.door.getVPW())
+        self.ret.set(cUser.door.getRECOVT())
         self.recovery_time_E.place(x=900,y=360)
 
         self.comfirmB=Button(self,width=11,height=3)
         self.comfirmB["text"]="Comfirm"
-        self.comfirmB.place(x=620,y=450)
+        self.comfirmB.place(x=420,y=450)
         self.clearB=Button(self,width=11,height=3)
         self.clearB["text"]="Clear changes"
-        self.clearB.place(x=420,y=450)
-        #self.clearB.bind("<Button-1>",self.clearPressed)
-        #self.comfirmB.bind("<Button-1>",self.confirmPressed)
+        self.clearB.place(x=220,y=450)
+        self.clearB.bind("<Button-1>",self.clearPressed)
+        self.comfirmB.bind("<Button-1>",self.confirmPressed)
         self.back=Button(self,width=10,height=2)
         self.back["text"]="Back"
         self.back.place(relx=0.85,rely=0.9)
         self.back.bind("<Button-1>",self.backPressed)
 
-    # back to the previous page (modes page)
+    def confirmPressed(self,e):
+        from global_ import cUser
+        prompt=messagebox.askquestion("Message","Values that does not match the specified increment may be rounded, save?")
+        if(prompt=="no"):
+            return
+        errors=0
+        text=""
+        try:
+            cUser.door.setLRL(self.lrl.get())
+            self.l_r_l['text']="Lower Rate Limit : "+str(cUser.door.getLRL())
+        except TypeError:
+            text=text+"LRL must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"LRL must be between 30 and 175\n"
+            errors+=1
+        try:
+            cUser.door.setURL(self.url.get())
+            self.u_r_l['text']="Upper Rate Limit : "+str(cUser.door.getURL())
+        except TypeError:
+            text=text+"URL must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"URL must be between 50 and 175\n"
+            errors+=1
+        try:
+            cUser.door.setFAVD(self.aa.get())
+            self.a_a['text']="Fixed AV Delay : "+str(cUser.door.getFAVD())
+        except TypeError:
+            text=text+"FAVD must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"FAVD must be between 70 and 300\n"
+            errors+=1
+        try:
+            cUser.door.setAA(self.aa.get())
+            self.a_a['text']="Atrial Amplitude : "+str(cUser.door.getAA())
+        except TypeError:
+            text=text+"AA must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"AA must be between 0 and 5.0\n"
+            errors+=1
+        try:
+            cUser.door.setAPW(self.apw.get())
+            self.a_p_w['text']="Atrial Pulse Width : "+str(cUser.door.getAPW())
+        except TypeError:
+            text=text+"APW must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"APW must be between 1 and 30\n"
+            errors+=1
+        try:
+            cUser.door.setVA(self.va.get())
+            self.v_a['text']="Ventricular Amplitude : "+str(cUser.door.getVA())
+        except TypeError:
+            text=text+"VA must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"VA must be between 0 and 5.0\n"
+            errors+=1
+        try:
+            cUser.door.setVPW(self.vpw.get())
+            self.v_p_w['text']="Ventricular Pulse Width : "+str(cUser.door.getVPW())
+        except TypeError:
+            text=text+"VPW must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"VPW must be between 0.1 and 1.9\n"
+            errors+=1
+        if(errors==0):
+            messagebox.showinfo("Message","Changes saved")
+            main.storeD()
+        elif(errors):
+            messagebox.showinfo("Message","There is/are "+str(errors)+" error(S):\n"+text+"Other values are saved")
+            main.storeD()
+    
+    def clearPressed(self,e):
+        from global_ import cUser
+        prompt=messagebox.askquestion("Message","All unsaved changes will be discarded, are you sure?")
+        if(prompt=='yes'):
+            self.lrl.set(cUser.door.getLRL())
+            self.url.set(cUser.door.getURL())
+            self.va.set(cUser.door.getVA())
+            self.vpw.set(cUser.door.getVPW())
+
     def backPressed(self,e):
         main.Modes(master=self.master)
         self.destroy()

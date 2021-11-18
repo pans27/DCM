@@ -14,7 +14,7 @@ class AAIparameter(tkinter.Frame):
     def write_aai_parameters(self):
         from global_ import cUser
         self.message=Label(self,text="AAI Parameters",font=("Times New Roman",30))
-        self.message.place(x=220,y=50)
+        self.message.place(x=220,y=40)
         self.current=Label(self,text="Stored values : ",font=("Times New Roman",16))
         self.current.place(x=100,y=120)
         self.l_r_l=Label(self,text="Lower Rate Limit : "+str(cUser.aai.getLRL()),font=("Times New Roman",14))
@@ -120,7 +120,7 @@ class AAIparameter(tkinter.Frame):
             text=text+"AA must be numeric\n"
             errors+=1
         except IndexError:
-            text=text+"AA must be between 0.5 and 7.0\n"
+            text=text+"AA must be between 0.5 and 5.0\n"
             errors+=1
         try:
             cUser.aai.setAPW(self.apw.get())
@@ -129,7 +129,7 @@ class AAIparameter(tkinter.Frame):
             text=text+"APW must be numeric\n"
             errors+=1
         except IndexError:
-            text=text+"APW must be between 0.1 and 1.9\n"
+            text=text+"APW must be between 1 and 30\n"
             errors+=1
         try:
             cUser.aai.setARP(self.arp.get())
@@ -159,7 +159,9 @@ class AAIparameter(tkinter.Frame):
             self.aa.set(cUser.aai.getAA())
             self.apw.set(cUser.aai.getAPW())
             self.arp.set(cUser.aai.getARP())
-
+            self.pvarp.set(cUser.aai.getPVARP())
+            self.hys.set(cUser.aai.getHYST())
+            self.rates.set(cUser.aai.getRS())
     def backPressed(self,e):
         main.Modes(master=self.master)
         self.destroy()

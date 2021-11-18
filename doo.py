@@ -15,7 +15,7 @@ class DOOparameter(tkinter.Frame):
     def write_doo_parameters(self):
         from global_ import cUser
         self.message=Label(self,text="DOO Parameters",font=("Times New Roman",30))
-        self.message.place(x=220,y=50)
+        self.message.place(x=220,y=40)
         self.current=Label(self,text="Stored values : ",font=("Times New Roman",16))
         self.current.place(x=100,y=120)
         #lower rate limit

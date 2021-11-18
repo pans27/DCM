@@ -14,7 +14,7 @@ class AOOparameter(tkinter.Frame):
     def write_aoo_parameters(self): #creating labels and entry fields
         from global_ import cUser
         self.title=Label(self,text="AOO Parameters",font=("Times New Roman",30))
-        self.title.place(x=220,y=50)
+        self.title.place(x=220,y=40)
         self.current=Label(self,text="Stored values : ",font=("Times New Roman",16))
         self.current.place(x=100,y=120)
         self.l_r_l=Label(self,text="Lower Rate Limit : "+str(cUser.aoo.getLRL()),font=("Times New Roman",14))

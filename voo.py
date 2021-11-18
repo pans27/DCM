@@ -15,7 +15,7 @@ class VOOparameter(tkinter.Frame):
     def write_voo_parameters(self):
         from global_ import cUser
         self.message=Label(self,text="VOO Parameters",font=("Times New Roman",30))
-        self.message.place(x=220,y=50)
+        self.message.place(x=220,y=40)
         self.current=Label(self,text="Stored values : ",font=("Times New Roman",16))
         self.current.place(x=100,y=120)
         self.l_r_l=Label(self,text="Lower Rate Limit : "+str(cUser.voo.getLRL()),font=("Times New Roman",14))
