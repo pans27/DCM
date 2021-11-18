@@ -2,6 +2,9 @@
 #Author: Group 5
 #3k04 DCM assignment 1 aai parameters
 
+from tkinter.constants import FALSE
+
+
 class Aaip:
     def __init__(self) :
         self.__lrl=60
@@ -11,7 +14,7 @@ class Aaip:
         self.__as = 0.8
         self.__arp=250
         self.__pvarp = 250
-        self.__hyst = 0
+        self.__hyst = FALSE
         self.__rs = 0
 
     def getLRL(self):
@@ -36,10 +39,16 @@ class Aaip:
         return self.__pvarp
 
     def getHYST(self):
-        return self.__hyst
+        if(self.__hyst):
+            return 'ON'
+        else:
+            return 'OFF'
     
     def getRS(self):
-        return self.__rs
+        if(self.__rs):
+            return self.__rs
+        else:
+            return "OFF"
         
     def setLRL(self,val):
         if(self.__is_num(val)):

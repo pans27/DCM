@@ -67,16 +67,6 @@ class Doop:
         else:
             raise TypeError
 
-    def setMSR(self, val):
-        if (self.__is_num(val)):
-            num = 5 * round(float(val) / 5)
-            if (num <= 175 and num >= 50):
-                self.__msr = num
-            else:
-                raise IndexError
-        else:
-            raise TypeError
-
     def setAA(self, val):
         if (self.__is_num(val)):
             num =round(float(val),1)

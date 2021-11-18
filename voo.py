@@ -16,25 +16,27 @@ class VOOparameter(tkinter.Frame):
         from global_ import cUser
         self.message=Label(self,text="VOO Parameters",font=("Times New Roman",30))
         self.message.place(x=220,y=50)
-        self.l_r_l=Label(self,text="Lower Rate Limit :",font=("Times New Roman",14))
+        self.current=Label(self,text="Stored values : ",font=("Times New Roman",16))
+        self.current.place(x=100,y=120)
+        self.l_r_l=Label(self,text="Lower Rate Limit : "+str(cUser.voo.getLRL()),font=("Times New Roman",14))
         self.l_r_l.place(x=100,y=160)
         self.lrl=StringVar()
         self.l_r_l_E=Entry(self,textvariable=self.lrl,font=("Times New Roman",14))
         self.lrl.set(cUser.voo.getLRL())
         self.l_r_l_E.place(x=350,y=160)
         self.url=StringVar()
-        self.u_r_l=Label(self,text="Upper Rate Limit :",font=("Times New Roman",14))
+        self.u_r_l=Label(self,text="Upper Rate Limit : "+str(cUser.voo.getURL()),font=("Times New Roman",14))
         self.u_r_l.place(x=100,y=200)
         self.u_r_l_E=Entry(self,textvariable=self.url,font=("Times New Roman",14))
         self.url.set(cUser.voo.getURL())
         self.u_r_l_E.place(x=350,y=200)
-        self.v_a=Label(self,text="Ventricular Amplitude :",font=("Times New Roman",14))
+        self.v_a=Label(self,text="Ventricular Amplitude : "+str(cUser.voo.getVA()),font=("Times New Roman",14))
         self.v_a.place(x=100,y=240)
         self.va=StringVar()
         self.v_a_E=Entry(self,textvariable=self.va,font=("Times New Roman",14))
         self.va.set(cUser.voo.getVA())
         self.v_a_E.place(x=350,y=240)
-        self.v_p_w=Label(self,text="Ventricular Pulse Width :",font=("Times New Roman",14))
+        self.v_p_w=Label(self,text="Ventricular Pulse Width : "+str(cUser.voo.getVPW()),font=("Times New Roman",14))
         self.v_p_w.place(x=100,y=280)
         self.vpw=StringVar()
         self.v_p_w_E=Entry(self,textvariable=self.vpw,font=("Times New Roman",14))
@@ -56,11 +58,14 @@ class VOOparameter(tkinter.Frame):
     
     def confirmPressed(self,e):
         from global_ import cUser
+        prompt=messagebox.askquestion("Message","Values that does not match the specified increment may be rounded, save?")
+        if(prompt=="no"):
+            return
         errors=0
         text=""
         try:
             cUser.voo.setLRL(self.lrl.get())
-            self.lrl.set(cUser.voo.getLRL())
+            self.l_r_l['text']="Lower Rate Limit : "+str(cUser.voo.getLRL())
         except TypeError:
             text=text+"LRL must be numeric\n"
             errors+=1
@@ -69,7 +74,7 @@ class VOOparameter(tkinter.Frame):
             errors+=1
         try:
             cUser.voo.setURL(self.url.get())
-            self.url.set(cUser.voo.getURL())
+            self.u_r_l['text']="Upper Rate Limit : "+str(cUser.voo.getURL())
         except TypeError:
             text=text+"URL must be numeric\n"
             errors+=1
@@ -78,16 +83,16 @@ class VOOparameter(tkinter.Frame):
             errors+=1
         try:
             cUser.voo.setVA(self.va.get())
-            self.va.set(cUser.voo.getVA())
+            self.v_a['text']="Ventricular Amplitude : "+str(cUser.voo.getVA())
         except TypeError:
             text=text+"VA must be numeric\n"
             errors+=1
         except IndexError:
-            text=text+"VA must be between 0.5 and 7.0\n"
+            text=text+"VA must be between 0 and 5.0\n"
             errors+=1
         try:
             cUser.voo.setVPW(self.vpw.get())
-            self.vpw.set(cUser.voo.getVPW())
+            self.v_p_w['text']="Ventricular Pulse Width : "+str(cUser.voo.getVPW())
         except TypeError:
             text=text+"VPW must be numeric\n"
             errors+=1
