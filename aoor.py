@@ -141,8 +141,8 @@ class AOORparameter(tkinter.Frame):
             errors+=1
             
         try:
-            cUser.aair.setAT(self.at.get())
-            self.at.set(cUser.vvir.getAT())
+            cUser.aoor.setAT(self.at.get())
+            self.a_t['text']="Activity threshold : "+str(cUser.aoor.getAT())
         except TypeError:
             text=text+"Activity Threshold must be numeric\n"
             errors+=1
@@ -151,8 +151,8 @@ class AOORparameter(tkinter.Frame):
             errors+=1
             
         try:
-            cUser.aair.setREACT(self.rt.get())
-            self.rt.set(cUser.vvir.getREACT())
+            cUser.aoor.setREACT(self.rt.get())
+            self.r_t['text']="Reaction time : "+str(cUser.aoor.getREACT())
         except TypeError:
             text=text+"Reaction Time must be numeric\n"
             errors+=1
@@ -161,8 +161,8 @@ class AOORparameter(tkinter.Frame):
             errors+=1
             
         try:
-            cUser.aair.setRF(self.rf.get())
-            self.rf.set(cUser.vvir.getRF())
+            cUser.aoor.setRF(self.rf.get())
+            self.r_f['text']="Response factor : "+str(cUser.aoor.getRF())
         except TypeError:
             text=text+"Response factor must be numeric\n"
             errors+=1
@@ -171,8 +171,8 @@ class AOORparameter(tkinter.Frame):
             errors+=1
 
         try:
-            cUser.aair.setRECOVT(self.ret.get())
-            self.ret.set(cUser.vvir.getRECOVT())
+            cUser.aoor.setRECOVT(self.ret.get())
+            self.recovery_time['text']="Recovery_time : "+str(cUser.aoor.getRECOVT())
         except TypeError:
             text=text+"Recovery Time must be numeric\n"
             errors+=1
@@ -197,10 +197,10 @@ class AOORparameter(tkinter.Frame):
             self.url.set(cUser.aoor.getURL())
             self.aa.set(cUser.aoor.getAA())
             self.apw.set(cUser.aoor.getAPW())
-            self.at.set(cUser.vvir.getAT())
-            self.rt.set(cUser.vvir.getREACT())
-            self.rf.set(cUser.vvir.getRF())
-            self.ret.set(cUser.vvir.getRECOVT())
+            self.at.set(cUser.aoor.getAT())
+            self.rt.set(cUser.aoor.getREACT())
+            self.rf.set(cUser.aoor.getRF())
+            self.ret.set(cUser.aoor.getRECOVT())
 
     def backPressed(self,e):
         main.Modes(master=self.master)
