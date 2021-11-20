@@ -153,7 +153,7 @@ class AAIRparameter(tkinter.Frame):
             errors+=1
             
         try:
-            cUser.vvir.setMSR(self.msr.get())
+            cUser.aair.setMSR(self.msr.get())
             self.msr.set(cUser.vvir.getMSR())
         except TypeError:
             text=text+"Maximum sensor rate must be numeric\n"
@@ -183,7 +183,7 @@ class AAIRparameter(tkinter.Frame):
             errors+=1
             
         try:
-            cUser.vvir.setAS(self.as.get())
+            cUser.aair.setAS(self.as.get())
             self.as.set(cUser.vvir.getAS())
         except TypeError:
             text=text+"Atrial Sensitivity must be numeric\n"
@@ -213,7 +213,7 @@ class AAIRparameter(tkinter.Frame):
             errors+=1
             
         try:
-            cUser.vvir.setHYST(self.hys.get())
+            cUser.aair.setHYST(self.hys.get())
             self.hys.set(cUser.vvir.getHYST())
         except TypeError:
             text=text+"Hysteresis rate limit must be numeric\n"
@@ -223,7 +223,7 @@ class AAIRparameter(tkinter.Frame):
             errors+=1
             
         try:
-            cUser.vvir.setRS(self.rates.get())
+            cUser.aair.setRS(self.rates.get())
             self.rates.set(cUser.vvir.getRS())
         except TypeError:
             text=text+"Rate smoothing must be numeric\n"
@@ -233,7 +233,7 @@ class AAIRparameter(tkinter.Frame):
             errors+=1
             
         try:
-            cUser.vvir.setAT(self.at.get())
+            cUser.aair.setAT(self.at.get())
             self.at.set(cUser.vvir.getAT())
         except TypeError:
             text=text+"Activity Threshold must be numeric\n"
@@ -243,7 +243,7 @@ class AAIRparameter(tkinter.Frame):
             errors+=1
             
         try:
-            cUser.vvir.setREACT(self.rt.get())
+            cUser.aair.setREACT(self.rt.get())
             self.rt.set(cUser.vvir.getREACT())
         except TypeError:
             text=text+"Reaction Time must be numeric\n"
@@ -253,7 +253,7 @@ class AAIRparameter(tkinter.Frame):
             errors+=1
             
         try:
-            cUser.vvir.setRF(self.rf.get())
+            cUser.aair.setRF(self.rf.get())
             self.rf.set(cUser.vvir.getRF())
         except TypeError:
             text=text+"Response factor must be numeric\n"
@@ -263,7 +263,7 @@ class AAIRparameter(tkinter.Frame):
             errors+=1
 
         try:
-            cUser.vvir.setRECOVT(self.ret.get())
+            cUser.aair.setRECOVT(self.ret.get())
             self.ret.set(cUser.vvir.getRECOVT())
         except TypeError:
             text=text+"Recovery Time must be numeric\n"
