@@ -127,7 +127,7 @@ class VVIRparameter(tkinter.Frame):
         text=""
         try:
             cUser.vvir.setLRL(self.lrl.get())
-            self.lrl.set(cUser.vvir.getLRL())
+            self.l_r_l['text']="Lower Rate Limit : "+str(cUser.vvir.getLRL())
         except TypeError:
             text=text+"Lower rate limit must be numeric\n"
             errors+=1
@@ -137,7 +137,7 @@ class VVIRparameter(tkinter.Frame):
             
         try:
             cUser.vvir.setURL(self.url.get())
-            self.url.set(cUser.vvir.getURL())
+            self.u_r_l['text']="Upper Rate Limit : "+str(cUser.vvir.getURL())
         except TypeError:
             text=text+"Upper rate limit must be numeric\n"
             errors+=1
@@ -147,7 +147,7 @@ class VVIRparameter(tkinter.Frame):
             
         try:
             cUser.vvir.setMSR(self.msr.get())
-            self.msr.set(cUser.vvir.getMSR())
+            self.m_s_r['text']="Maximum sensor rate : "+str(cUser.vvir.getMSR())
         except TypeError:
             text=text+"Maximum sensor rate must be numeric\n"
             errors+=1
@@ -157,7 +157,7 @@ class VVIRparameter(tkinter.Frame):
             
         try:
             cUser.vvir.setVA(self.va.get())
-            self.va.set(cUser.vvir.getVA())
+            self.v_a['text']="Ventricular pulse amplitude : "+str(cUser.vvir.getVA())
         except TypeError:
             text=text+"Ventricular pulse amplitude must be numeric\n"
             errors+=1
@@ -167,7 +167,7 @@ class VVIRparameter(tkinter.Frame):
             
         try:
             cUser.vvir.setVPW(self.vpw.get())
-            self.vpw.set(cUser.vvir.getVPW())
+            self.v_p_w['text']="Ventricular Pulse Width : "+str(cUser.vvir.getVPW())
         except TypeError:
             text=text+"Ventricular pulse width must be numeric\n"
             errors+=1
@@ -177,7 +177,7 @@ class VVIRparameter(tkinter.Frame):
             
         try:
             cUser.vvir.setVS(self.vs.get())
-            self.vs.set(cUser.vvir.getVS())
+            self.v_s['text']="Ventricular Sensitivity : "+str(cUser.vvir.getVS())
         except TypeError:
             text=text+"Ventricular Sensitivity must be numeric\n"
             errors+=1
@@ -187,7 +187,7 @@ class VVIRparameter(tkinter.Frame):
             
         try:
             cUser.vvir.setVRP(self.vrp.get())
-            self.vrp.set(cUser.vvir.getVRP())
+            self.v_r_p['text']="VRP : "+str(cUser.vvir.getVRP())
         except TypeError:
             text=text+"VRP must be numeric\n"
             errors+=1
@@ -197,7 +197,7 @@ class VVIRparameter(tkinter.Frame):
 
         try:
             cUser.vvir.setHYST(self.hys.get())
-            self.hys.set(cUser.vvir.getHYST())
+            self.hysteresis['text']="Hysteresis rate limit : "+str(cUser.vvir.getHYST())
         except TypeError:
             text=text+"Hysteresis rate limit must be numeric\n"
             errors+=1
@@ -207,7 +207,7 @@ class VVIRparameter(tkinter.Frame):
             
         try:
             cUser.vvir.setRS(self.rates.get())
-            self.rates.set(cUser.vvir.getRS())
+            self.r_s['text']="Rate smoothing : "+str(cUser.vvir.getRS())
         except TypeError:
             text=text+"Rate smoothing must be numeric\n"
             errors+=1
@@ -217,7 +217,7 @@ class VVIRparameter(tkinter.Frame):
             
         try:
             cUser.vvir.setAT(self.at.get())
-            self.at.set(cUser.vvir.getAT())
+            self.a_t['text']="Activity threshold : "+str(cUser.vvir.getAT())
         except TypeError:
             text=text+"Activity Threshold must be numeric\n"
             errors+=1
@@ -227,7 +227,7 @@ class VVIRparameter(tkinter.Frame):
             
         try:
             cUser.vvir.setREACT(self.rt.get())
-            self.rt.set(cUser.vvir.getREACT())
+            self.r_t['text']="Reaction time : "+str(cUser.vvir.getREACT())
         except TypeError:
             text=text+"Reaction Time must be numeric\n"
             errors+=1
@@ -237,7 +237,7 @@ class VVIRparameter(tkinter.Frame):
             
         try:
             cUser.vvir.setRF(self.rf.get())
-            self.rf.set(cUser.vvir.getRF())
+            self.r_f['text']="Response factor : "+str(cUser.vvir.getRF())
         except TypeError:
             text=text+"Response factor must be numeric\n"
             errors+=1
@@ -247,7 +247,7 @@ class VVIRparameter(tkinter.Frame):
 
         try:
             cUser.vvir.setRECOVT(self.ret.get())
-            self.ret.set(cUser.vvir.getRECOVT())
+            self.recovery_time['text']="Recovery_time : "+str(cUser.vvir.getRECOVT())
         except TypeError:
             text=text+"Recovery Time must be numeric\n"
             errors+=1
