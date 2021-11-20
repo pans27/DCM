@@ -134,7 +134,7 @@ class AAIRparameter(tkinter.Frame):
         text=""
         try:
             cUser.aair.setLRL(self.lrl.get())
-            self.lrl.set(cUser.aair.getLRL())
+            self.l_r_l['text']="Lower Rate Limit : "+str(cUser.aair.getLRL())
         except TypeError:
             text=text+"Lower rate limit must be numeric\n"
             errors+=1
@@ -144,7 +144,7 @@ class AAIRparameter(tkinter.Frame):
             
         try:
             cUser.aair.setURL(self.url.get())
-            self.url.set(cUser.aair.getURL())
+            self.u_r_l['text']="Upper Rate Limit : "+str(cUser.aair.getURL())
         except TypeError:
             text=text+"Upper rate limit must be numeric\n"
             errors+=1
@@ -154,7 +154,7 @@ class AAIRparameter(tkinter.Frame):
             
         try:
             cUser.aair.setMSR(self.msr.get())
-            self.msr.set(cUser.vvir.getMSR())
+            self.m_s_r['text']="Maximum sensor rate : "+str(cUser.aair.getMSR())
         except TypeError:
             text=text+"Maximum sensor rate must be numeric\n"
             errors+=1
@@ -164,7 +164,7 @@ class AAIRparameter(tkinter.Frame):
             
         try:
             cUser.aair.setAA(self.aa.get())
-            self.aa.set(cUser.aair.getAA())
+            self.a_a['text']="Atrial Amplitude : "+str(cUser.aair.getAA())
         except TypeError:
             text=text+"Atrial pulse amplitude must be numeric\n"
             errors+=1
@@ -174,7 +174,7 @@ class AAIRparameter(tkinter.Frame):
             
         try:
             cUser.aair.setAPW(self.apw.get())
-            self.apw.set(cUser.aair.getAPW())
+            self.a_p_w['text']="Atrial Pulse Width : "+str(cUser.aair.getAPW())
         except TypeError:
             text=text+"Atrial pulse width must be numeric\n"
             errors+=1
@@ -184,7 +184,7 @@ class AAIRparameter(tkinter.Frame):
             
         try:
             cUser.aair.setAS(self.as.get())
-            self.as.set(cUser.vvir.getAS())
+            self.a_s['text']="Atrial Sensitivity : "+str(cUser.aair.getAS())
         except TypeError:
             text=text+"Atrial Sensitivity must be numeric\n"
             errors+=1
@@ -194,7 +194,7 @@ class AAIRparameter(tkinter.Frame):
             
         try:
             cUser.aair.setARP(self.arp.get())
-            self.arp.set(cUser.aair.getARP())
+            self.a_r_p['text']="ARP : "+str(cUser.aair.getARP())
         except TypeError:
             text=text+"ARP must be numeric\n"
             errors+=1
@@ -204,7 +204,7 @@ class AAIRparameter(tkinter.Frame):
             
         try:
             cUser.aair.setPVARP(self.pvarp.get())
-            self.pvarp.set(cUser.aair.getPVARP())
+            self.p_v_a_r_p['text']="PVARP : "+str(cUser.aair.getPVARP())
         except TypeError:
             text=text+"PVARP must be numeric\n"
             errors+=1
@@ -214,7 +214,7 @@ class AAIRparameter(tkinter.Frame):
             
         try:
             cUser.aair.setHYST(self.hys.get())
-            self.hys.set(cUser.vvir.getHYST())
+            self.hysteresis['text']="Hysteresis rate limit : "+str(cUser.aair.getHYST())
         except TypeError:
             text=text+"Hysteresis rate limit must be numeric\n"
             errors+=1
@@ -224,7 +224,7 @@ class AAIRparameter(tkinter.Frame):
             
         try:
             cUser.aair.setRS(self.rates.get())
-            self.rates.set(cUser.vvir.getRS())
+            self.r_s['text']="Rate smoothing : "+str(cUser.aair.getRS())
         except TypeError:
             text=text+"Rate smoothing must be numeric\n"
             errors+=1
@@ -234,7 +234,7 @@ class AAIRparameter(tkinter.Frame):
             
         try:
             cUser.aair.setAT(self.at.get())
-            self.at.set(cUser.vvir.getAT())
+            self.a_t['text']="Activity threshold : "+str(cUser.aair.getAT())
         except TypeError:
             text=text+"Activity Threshold must be numeric\n"
             errors+=1
@@ -244,7 +244,7 @@ class AAIRparameter(tkinter.Frame):
             
         try:
             cUser.aair.setREACT(self.rt.get())
-            self.rt.set(cUser.vvir.getREACT())
+            self.r_t['text']="Reaction time : "+str(cUser.aair.getREACT())
         except TypeError:
             text=text+"Reaction Time must be numeric\n"
             errors+=1
@@ -254,7 +254,7 @@ class AAIRparameter(tkinter.Frame):
             
         try:
             cUser.aair.setRF(self.rf.get())
-            self.rf.set(cUser.vvir.getRF())
+            self.r_f['text']="Response factor : "+str(cUser.aair.getRF())
         except TypeError:
             text=text+"Response factor must be numeric\n"
             errors+=1
@@ -264,7 +264,7 @@ class AAIRparameter(tkinter.Frame):
 
         try:
             cUser.aair.setRECOVT(self.ret.get())
-            self.ret.set(cUser.vvir.getRECOVT())
+            self.recovery_time['text']="Recovery_time : "+str(cUser.aair.getRECOVT())
         except TypeError:
             text=text+"Recovery Time must be numeric\n"
             errors+=1
@@ -294,10 +294,10 @@ class AAIRparameter(tkinter.Frame):
             self.pvarp.set(cUser.aair.getPVARP())
             self.hys.set(cUser.aair.getHYST())
             self.rates.set(cUser.aair.getRS())
-            self.at.set(cUser.vvir.getAT())
-            self.rt.set(cUser.vvir.getREACT())
-            self.rf.set(cUser.vvir.getRF())
-            self.ret.set(cUser.vvir.getRECOVT())
+            self.at.set(cUser.aair.getAT())
+            self.rt.set(cUser.aair.getREACT())
+            self.rf.set(cUser.aair.getRF())
+            self.ret.set(cUser.aair.getRECOVT())
 
     def backPressed(self,e):
         main.Modes(master=self.master)
