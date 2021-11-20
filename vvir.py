@@ -273,9 +273,17 @@ class VVIRparameter(tkinter.Frame):
         if(prompt=='yes'):
             self.lrl.set(cUser.vvir.getLRL())
             self.url.set(cUser.vvir.getURL())
+            self.msr.set(User.vvir.getMSR())
             self.va.set(cUser.vvir.getVA())
             self.vpw.set(cUser.vvir.getVPW())
+            self.vs.set(cUser.vvir.getVS())
             self.vrp.set(cUser.vvir.getVRP())
+            self.hys.set(cUser.vvir.getHYST())
+            self.rates.set(cUser.vvir.getRS())
+            self.at.set(cUser.vvir.getAT())
+            self.rt.set(cUser.vvir.getREACT())
+            self.rf.set(cUser.vvir.getRF())
+            self.ret.set(cUser.vvir.getRECOVT())
 
     def backPressed(self,e):
         main.Modes(master=self.master)
