@@ -14,6 +14,8 @@ import aoor
 import aair
 import vvir
 import door
+import serial
+import struct
 #Oct 31, 2021
 #Author: Group 5
 #3k04 DCM assignment 1 main program
@@ -256,17 +258,55 @@ class Connect(tkinter.Frame): # connect frame to be further implemented with ser
         self.connect()
 
     def connect(self):
-        global Commu
-        self.stat=Label(self,text="Pacemaker Connection: "+str(global_.Commu),font=("Times New Roman",12))
-        self.stat.place(x=10,y=0)
-        self.num=Label(self,text="Pacemaker Number:",font=("Times New Roman",12))
-        self.num.place(x=10,y=20)
+        global_.Commu = checkConnect()
 
-# def serial_Communication():
-# 	if(Commu == true):
-# 		messagebox.showinfo("The pacemaker is successfully connected")
-# 	else:
-# 		messagebox.showinfo("Connection failed, please try again")
+        self.stat=Label(self,text="Pacemaker Connection: port"+str(global_.Commu),font=("Times New Roman",12))
+        self.stat.place(x=10,y=0)
+        
+def serial_Communication(mode, Lower_Rate, MSR, AV_Delay, ATR_Amplitude, VENT_Amplitude, ATR_Width,VENT_Width,VENT_Refractory, ATR_Refractory, Activity_Threshold,Reaction_Time, Response_Factor,Recovery_Time):
+    if checkConnect() == 3:
+        ser = serial.Serial(port="COM3", baudrate=115200)
+    elif checkConnect() == 4:
+        ser = serial.Serial(port="COM4", baudrate=115200)
+    elif checkConnect() == 5:
+        ser = serial.Serial(port="COM5", baudrate=115200)
+    Header = '<2B14H'
+    spk = struct.pack(Header,0x16,0x55,mode,Lower_Rate,ATR_Amplitude,VENT_Amplitude,ATR_Width,VENT_Width,
+                      ATR_Refractory,VENT_Refractory,MSR,Reaction_Time,
+                      Recovery_Time,Activity_Threshold,AV_Delay,Response_Factor)
+    ser.write(spk)
+    serialdata=ser.read()
+    modeV=serialdata[0]
+    LRV = serialdata[1:3]
+    ATR_AV = serialdata[3:5]
+    VENT_AV = serialdata[5:7]
+    ATR_WV = serialdata[7:9]
+    VENT_WV = serialdata[9:11]
+    ATR_RV = serialdata[11:13]
+    VENT_RV = serialdata[13:15]
+    MSRV = serialdata[15:17]
+    ReactionTV = serialdata[17:19]
+    RecoveryTV = serialdata[19:21]
+    ActTV = serialdata[21:23]
+    AV_DV = serialdata[23:25]
+    Response_FV = serialdata[25:27]
+    
+
+ #check if the DCM is connected to pacemaker   
+def checkConnect():
+    try:
+        ser = serial.Serial(port="COM3", baudrate=115200)
+        return 3
+    except:
+        try:
+            ser = serial.Serial(port="COM5", baudrate=115200)
+            return 5
+        except:
+            try:
+                ser = serial.Serial(port="COM4", baudrate=115200)
+                return 4
+            except:
+                return 0 # not connected
 
 def storeD():
     pickle.dump(global_.users,open('users.dat','wb')) #store the list of users in user.dat
