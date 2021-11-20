@@ -183,7 +183,7 @@ class AAIRparameter(tkinter.Frame):
             errors+=1
             
         try:
-            cUser.aair.setAS(self.as.get())
+            cUser.aair.setAS(self.ats.get())
             self.a_s['text']="Atrial Sensitivity : "+str(cUser.aair.getAS())
         except TypeError:
             text=text+"Atrial Sensitivity must be numeric\n"

@@ -31,17 +31,17 @@ class Application(tkinter.Frame):
         self.welcome()
 
     def welcome(self):                                                     #add in labels and buttons
-        self.message=Label(self,text="Welcome",font=("Times New Roman",30))
-        self.message.place(x=400,y=100)
+        self.message=Label(self,text="Welcome",font=("Times New Roman",60))
+        self.message.place(x=640,y=200)
         self.photo=PhotoImage(file="ch2n8.png")
         self.logo=Label(self,image=self.photo)
-        self.logo.place(x=100,y=30)
-        self.login=Button(self,width=10,height=2)
+        self.logo.place(x=380,y=90)
+        self.login=Button(self,width=15,height=3,font=("Times New Roman",14))
         self.login["text"]="Login"
-        self.login.place(x=200,y=350)
-        self.register=Button(self,width=10,height=2)
+        self.login.place(x=400,y=500)
+        self.register=Button(self,width=15,height=3,font=("Times New Roman",14))
         self.register["text"]="Register"
-        self.register.place(x=420,y=350)
+        self.register.place(x=800,y=500)
         self.login.bind("<Button-1>",self.loginPressed)
         self.register.bind("<Button-1>",self.registerPressed)
     
@@ -70,19 +70,19 @@ class Login(tkinter.Frame):
         self.login()
 
     def login(self):
-        self.user=Label(self,text="username:",font=("Times New Roman",18))
-        self.user.place(x=200,y=200)
-        self.userE=Entry(self,font=("Times New Roman",18))
-        self.userE.place(x=300,y=200)
-        self.password=Label(self,text="password:",font=("Times New Roman",18))
-        self.password.place(x=200,y=270)
-        self.passwordE=Entry(self,font=("Times New Roman",18),show="*")
-        self.passwordE.place(x=300,y=270)
-        self.loginB=Button(self,width=10,height=2)
+        self.user=Label(self,text="username:",font=("Times New Roman",24))
+        self.user.place(x=450,y=300)
+        self.userE=Entry(self,font=("Times New Roman",24))
+        self.userE.place(x=590,y=300)
+        self.password=Label(self,text="password:",font=("Times New Roman",24))
+        self.password.place(x=450,y=370)
+        self.passwordE=Entry(self,font=("Times New Roman",24),show="*")
+        self.passwordE.place(x=590,y=370)
+        self.loginB=Button(self,width=15,height=3,font=("Times New Roman",14))
         self.loginB["text"]="Login"
-        self.loginB.place(x=320,y=400)
+        self.loginB.place(x=560,y=550)
         self.loginB.bind("<Button-1>",self.loginPressed)
-        self.back=Button(self,width=10,height=2)
+        self.back=Button(self,width=10,height=2,font=("Times New Roman",14))
         self.back["text"]="Back"
         self.back.place(relx=0.85,rely=0.9)
         self.back.bind("<Button-1>",self.backPressed)
@@ -115,23 +115,23 @@ class Register(tkinter.Frame):
         self.register()
 
     def register(self):
-        self.user=Label(self,text="username:",font=("Times New Roman",18))
-        self.user.place(x=200,y=200)
-        self.userE=Entry(self,font=("Times New Roman",18))
-        self.userE.place(x=300,y=200)
-        self.password=Label(self,text="password:",font=("Times New Roman",18))
-        self.password.place(x=200,y=270)
-        self.passwordE=Entry(self,font=("Times New Roman",18),show="*")
-        self.passwordE.place(x=300,y=270)
-        self.passwordC=Label(self,text="confirm password:",font=("Times New Roman",18))
-        self.passwordC.place(x=120,y=340)
-        self.passwordCE=Entry(self,font=("Times New Roman",18),show="*")
-        self.passwordCE.place(x=300,y=340)
-        self.registerB=Button(self,width=10,height=2)
+        self.user=Label(self,text="username:",font=("Times New Roman",24))
+        self.user.place(x=450,y=300)
+        self.userE=Entry(self,font=("Times New Roman",24))
+        self.userE.place(x=590,y=300)
+        self.password=Label(self,text="password:",font=("Times New Roman",24))
+        self.password.place(x=450,y=370)
+        self.passwordE=Entry(self,font=("Times New Roman",24),show="*")
+        self.passwordE.place(x=590,y=370)
+        self.passwordC=Label(self,text="confirm password:",font=("Times New Roman",24))
+        self.passwordC.place(x=340,y=440)
+        self.passwordCE=Entry(self,font=("Times New Roman",24),show="*")
+        self.passwordCE.place(x=590,y=440)
+        self.registerB=Button(self,width=15,height=3,font=("Times New Roman",14))
         self.registerB["text"]="Register"
-        self.registerB.place(x=320,y=400)
+        self.registerB.place(x=560,y=550)
         self.registerB.bind("<Button-1>",self.registerPressed)
-        self.back=Button(self,width=10,height=2)
+        self.back=Button(self,width=10,height=2,font=("Times New Roman",14))
         self.back["text"]="Back"
         self.back.place(relx=0.85,rely=0.9)
         self.back.bind("<Button-1>",self.backPressed)
@@ -176,26 +176,26 @@ class Modes(tkinter.Frame):
         self.displaymodes()
 
     def displaymodes(self):
-        self.AOO=Button(self,text="AOO",width=10,height=2)
-        self.AOO.place(x=200,y=100)
-        self.AAI=Button(self,text="AAI",width=10,height=2)
-        self.AAI.place(x=420,y=100)
-        self.VOO=Button(self,text="VOO",width=10,height=2)
-        self.VOO.place(x=200,y=180)
-        self.VVI=Button(self,text="VVI",width=10,height=2)
-        self.VVI.place(x=420,y=180)
-        self.DOO=Button(self,text="DOO",width=10,height=2)
-        self.DOO.place(x=200,y=260)
-        self.VOOR=Button(self,text="VOOR",width=10,height=2)
-        self.VOOR.place(x=420,y=260)
-        self.AOOR=Button(self,text="AOOR",width=10,height=2)
-        self.AOOR.place(x=200,y=340)
-        self.AAIR=Button(self,text="AAIR",width=10,height=2)
-        self.AAIR.place(x=420,y=340)
-        self.VVIR=Button(self,text="VVIR",width=10,height=2)
-        self.VVIR.place(x=200,y=420)
-        self.DOOR=Button(self,text="DOOR",width=10,height=2)
-        self.DOOR.place(x=420,y=420)
+        self.AOO=Button(self,text="AOO",width=15,height=3,font=("Times New Roman",14))
+        self.AOO.place(x=420,y=60)
+        self.AAI=Button(self,text="AAI",width=15,height=3,font=("Times New Roman",14))
+        self.AAI.place(x=710,y=60)
+        self.VOO=Button(self,text="VOO",width=15,height=3,font=("Times New Roman",14))
+        self.VOO.place(x=420,y=160)
+        self.VVI=Button(self,text="VVI",width=15,height=3,font=("Times New Roman",14))
+        self.VVI.place(x=710,y=160)
+        self.DOO=Button(self,text="DOO",width=15,height=3,font=("Times New Roman",14))
+        self.DOO.place(x=420,y=260)
+        self.VOOR=Button(self,text="VOOR",width=15,height=3,font=("Times New Roman",14))
+        self.VOOR.place(x=710,y=260)
+        self.AOOR=Button(self,text="AOOR",width=15,height=3,font=("Times New Roman",14))
+        self.AOOR.place(x=420,y=360)
+        self.AAIR=Button(self,text="AAIR",width=15,height=3,font=("Times New Roman",14))
+        self.AAIR.place(x=710,y=360)
+        self.VVIR=Button(self,text="VVIR",width=15,height=3,font=("Times New Roman",14))
+        self.VVIR.place(x=420,y=460)
+        self.DOOR=Button(self,text="DOOR",width=15,height=3,font=("Times New Roman",14))
+        self.DOOR.place(x=710,y=460)
         self.AOO.bind("<Button-1>",self.AOOPressed)
         self.AAI.bind("<Button-1>",self.AAIPressed)
         self.VOO.bind("<Button-1>",self.VOOPressed)
@@ -260,10 +260,10 @@ class Connect(tkinter.Frame): # connect frame to be further implemented with ser
     def connect(self):
         global_.Commu = checkConnect()
 
-        self.stat=Label(self,text="Pacemaker Connection: port"+str(global_.Commu),font=("Times New Roman",12))
+        self.stat=Label(self,text="Pacemaker Connection: COM"+str(global_.Commu),font=("Times New Roman",12))
         self.stat.place(x=10,y=0)
         
-def serial_Communication(mode, Lower_Rate, MSR, AV_Delay, ATR_Amplitude, VENT_Amplitude, ATR_Width,VENT_Width,VENT_Refractory, ATR_Refractory, Activity_Threshold,Reaction_Time, Response_Factor,Recovery_Time):
+def serial_Communication(mode, LR, MSR, AVD, AA, VA, APW,VPW,VRP, ARP, AT,REACT, RF,RECOVT):
     if checkConnect() == 3:
         ser = serial.Serial(port="COM3", baudrate=115200)
     elif checkConnect() == 4:
@@ -271,9 +271,7 @@ def serial_Communication(mode, Lower_Rate, MSR, AV_Delay, ATR_Amplitude, VENT_Am
     elif checkConnect() == 5:
         ser = serial.Serial(port="COM5", baudrate=115200)
     Header = '<2B14H'
-    spk = struct.pack(Header,0x16,0x55,mode,Lower_Rate,ATR_Amplitude,VENT_Amplitude,ATR_Width,VENT_Width,
-                      ATR_Refractory,VENT_Refractory,MSR,Reaction_Time,
-                      Recovery_Time,Activity_Threshold,AV_Delay,Response_Factor)
+    spk = struct.pack(Header,0x16,0x55,mode,LR,APW,VPW,VA,ARP,VRP,AA,RECOVT,RF,MSR,AVD,AT,REACT)
     ser.write(spk)
     serialdata=ser.read()
     modeV=serialdata[0]
@@ -322,7 +320,7 @@ if __name__=='__main__':
     print(global_.count)
     root=Tk()
     root.title("Pacemaker User Terminal") # create gui window and call application to display the welcome screen
-    root.geometry("720x576+100+100")
+    root.geometry("1280x720+50+50")
     root.resizable(False, False)
     Application(master=root)
     root.mainloop()

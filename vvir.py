@@ -254,7 +254,7 @@ class VVIRparameter(tkinter.Frame):
         except IndexError:
             text=text+"Recovery Time must be between 1 and 16\n"
             errors+=1
-                                                                                                                   `
+                                                                                                                   
         #Error counting and final part, every try before this
         if(errors==0):
             messagebox.showinfo("Message","Changes saved")
