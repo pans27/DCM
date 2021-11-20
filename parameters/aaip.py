@@ -2,7 +2,6 @@
 #Author: Group 5
 #3k04 DCM assignment 1 aai parameters
 
-from tkinter.constants import FALSE
 
 
 class Aaip:
@@ -14,7 +13,7 @@ class Aaip:
         self.__as = 0.8
         self.__arp=250
         self.__pvarp = 250
-        self.__hyst = FALSE
+        self.__hyst = 0
         self.__rs = 0
 
     def getLRL(self):

@@ -109,6 +109,7 @@ class AOORparameter(tkinter.Frame):
         except IndexError:
             text=text+"LRL must be between 30 and 175\n"
             errors+=1
+            
         try:
             cUser.aoor.setURL(self.url.get())
             self.u_r_l['text']="Upper Rate Limit : "+str(cUser.aoor.getURL())
@@ -118,6 +119,7 @@ class AOORparameter(tkinter.Frame):
         except IndexError:
             text=text+"URL must be between 50 and 175\n"
             errors+=1
+            
         try:
             cUser.aoor.setAA(self.aa.get())
             self.a_a['text']="Atrial Amplitude : "+str(cUser.aoor.getAA())
@@ -127,6 +129,7 @@ class AOORparameter(tkinter.Frame):
         except IndexError:
             text=text+"AA must be between 0 and 5.0\n"
             errors+=1
+            
         try:
             cUser.aoor.setAPW(self.apw.get())
             self.a_p_w['text']="Atrial Pulse Width : "+str(cUser.aoor.getAPW())
@@ -136,6 +139,47 @@ class AOORparameter(tkinter.Frame):
         except IndexError:
             text=text+"APW must be between 1 and 30\n"
             errors+=1
+            
+        try:
+            cUser.aoor.setAT(self.at.get())
+            self.a_t['text']="Activity threshold : "+str(cUser.aoor.getAT())
+        except TypeError:
+            text=text+"Activity Threshold must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"Activity Threshold must be between 2 and 8\n"
+            errors+=1
+            
+        try:
+            cUser.aoor.setREACT(self.rt.get())
+            self.r_t['text']="Reaction time : "+str(cUser.aoor.getREACT())
+        except TypeError:
+            text=text+"Reaction Time must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"Reaction Time must be between 10s and 50s\n"
+            errors+=1
+            
+        try:
+            cUser.aoor.setRF(self.rf.get())
+            self.r_f['text']="Response factor : "+str(cUser.aoor.getRF())
+        except TypeError:
+            text=text+"Response factor must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"Response factor must be between 1 and 16\n"
+            errors+=1
+
+        try:
+            cUser.aoor.setRECOVT(self.ret.get())
+            self.recovery_time['text']="Recovery_time : "+str(cUser.aoor.getRECOVT())
+        except TypeError:
+            text=text+"Recovery Time must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"Recovery Time must be between 1 and 16\n"
+            errors+=1
+        
         if(errors==0): #print out errors ifthere are any, store the changes without error to hard drive
             messagebox.showinfo("Message","Changes saved")
             main.storeD()
@@ -153,6 +197,10 @@ class AOORparameter(tkinter.Frame):
             self.url.set(cUser.aoor.getURL())
             self.aa.set(cUser.aoor.getAA())
             self.apw.set(cUser.aoor.getAPW())
+            self.at.set(cUser.aoor.getAT())
+            self.rt.set(cUser.aoor.getREACT())
+            self.rf.set(cUser.aoor.getRF())
+            self.ret.set(cUser.aoor.getRECOVT())
 
     def backPressed(self,e):
         main.Modes(master=self.master)

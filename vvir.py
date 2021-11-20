@@ -94,7 +94,7 @@ class VVIRparameter(tkinter.Frame):
         self.rt.set(cUser.vvir.getREACT())
         self.r_t_E.place(x=180,y=360)
         #Response Factor
-        self.r_f=Label(self,text="Reaction Time :",font=("Times New Roman",14))
+        self.r_f=Label(self,text="Response Factor :",font=("Times New Roman",14))
         self.r_f.place(x=360,y=360)
         self.rf=StringVar()
         self.r_f_E=Entry(self,textvariable=self.rf,font=("Times New Roman",14))
@@ -127,49 +127,135 @@ class VVIRparameter(tkinter.Frame):
         text=""
         try:
             cUser.vvir.setLRL(self.lrl.get())
-            self.lrl.set(cUser.vvir.getLRL())
+            self.l_r_l['text']="Lower Rate Limit : "+str(cUser.vvir.getLRL())
         except TypeError:
-            text=text+"LRL must be numeric\n"
+            text=text+"Lower rate limit must be numeric\n"
             errors+=1
         except IndexError:
-            text=text+"LRL must be between 30 and 175\n"
+            text=text+"Lower rate limit must be between 30 and 175\n"
             errors+=1
+            
         try:
             cUser.vvir.setURL(self.url.get())
-            self.url.set(cUser.vvir.getURL())
+            self.u_r_l['text']="Upper Rate Limit : "+str(cUser.vvir.getURL())
         except TypeError:
-            text=text+"URL must be numeric\n"
+            text=text+"Upper rate limit must be numeric\n"
             errors+=1
         except IndexError:
-            text=text+"URL must be between 50 and 175\n"
+            text=text+"Upper rate limit must be between 50 and 175\n"
             errors+=1
+            
+        try:
+            cUser.vvir.setMSR(self.msr.get())
+            self.m_s_r['text']="Maximum sensor rate : "+str(cUser.vvir.getMSR())
+        except TypeError:
+            text=text+"Maximum sensor rate must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"Maximum sensor rate must be between 50 and 175\n"
+            errors+=1
+            
         try:
             cUser.vvir.setVA(self.va.get())
-            self.va.set(cUser.vvir.getVA())
+            self.v_a['text']="Ventricular pulse amplitude : "+str(cUser.vvir.getVA())
         except TypeError:
-            text=text+"VA must be numeric\n"
+            text=text+"Ventricular pulse amplitude must be numeric\n"
             errors+=1
         except IndexError:
-            text=text+"VA must be between 0.5 and 7.0\n"
+            text=text+"Ventricular pulse amplitude must be between 0.5 and 7.0\n"
             errors+=1
+            
         try:
             cUser.vvir.setVPW(self.vpw.get())
-            self.vpw.set(cUser.vvir.getVPW())
+            self.v_p_w['text']="Ventricular Pulse Width : "+str(cUser.vvir.getVPW())
         except TypeError:
-            text=text+"VPW must be numeric\n"
+            text=text+"Ventricular pulse width must be numeric\n"
             errors+=1
         except IndexError:
-            text=text+"VPW must be between 0.1 and 1.9\n"
+            text=text+"Ventricular pulse width must be between 0.1 and 1.9\n"
             errors+=1
+            
+        try:
+            cUser.vvir.setVS(self.vs.get())
+            self.v_s['text']="Ventricular Sensitivity : "+str(cUser.vvir.getVS())
+        except TypeError:
+            text=text+"Ventricular Sensitivity must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"Ventricular Sensitivity must be between 0.0 and 5.0\n"
+            errors+=1
+            
         try:
             cUser.vvir.setVRP(self.vrp.get())
-            self.vrp.set(cUser.vvir.getVRP())
+            self.v_r_p['text']="VRP : "+str(cUser.vvir.getVRP())
         except TypeError:
             text=text+"VRP must be numeric\n"
             errors+=1
         except IndexError:
             text=text+"VRP must be between 150 and 500\n"
             errors+=1    
+
+        try:
+            cUser.vvir.setHYST(self.hys.get())
+            self.hysteresis['text']="Hysteresis rate limit : "+str(cUser.vvir.getHYST())
+        except TypeError:
+            text=text+"Hysteresis rate limit must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"Hysteresis rate limit must be between 30 and 175\n"
+            errors+=1
+            
+        try:
+            cUser.vvir.setRS(self.rates.get())
+            self.r_s['text']="Rate smoothing : "+str(cUser.vvir.getRS())
+        except TypeError:
+            text=text+"Rate smoothing must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"Rate smoothing must be between 3 and 21\n"
+            errors+=1
+            
+        try:
+            cUser.vvir.setAT(self.at.get())
+            self.a_t['text']="Activity threshold : "+str(cUser.vvir.getAT())
+        except TypeError:
+            text=text+"Activity Threshold must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"Activity Threshold must be between 2 and 8\n"
+            errors+=1
+            
+        try:
+            cUser.vvir.setREACT(self.rt.get())
+            self.r_t['text']="Reaction time : "+str(cUser.vvir.getREACT())
+        except TypeError:
+            text=text+"Reaction Time must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"Reaction Time must be between 10s and 50s\n"
+            errors+=1
+            
+        try:
+            cUser.vvir.setRF(self.rf.get())
+            self.r_f['text']="Response factor : "+str(cUser.vvir.getRF())
+        except TypeError:
+            text=text+"Response factor must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"Response factor must be between 1 and 16\n"
+            errors+=1
+
+        try:
+            cUser.vvir.setRECOVT(self.ret.get())
+            self.recovery_time['text']="Recovery_time : "+str(cUser.vvir.getRECOVT())
+        except TypeError:
+            text=text+"Recovery Time must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"Recovery Time must be between 1 and 16\n"
+            errors+=1
+                                                                                                                   `
+        #Error counting and final part, every try before this
         if(errors==0):
             messagebox.showinfo("Message","Changes saved")
             main.storeD()
@@ -178,6 +264,7 @@ class VVIRparameter(tkinter.Frame):
             main.storeD()
         else:
             messagebox.showinfo("Message","There are "+str(errors)+" error(S):\n"+text)
+        
 
     
     def clearPressed(self,e):
@@ -186,9 +273,17 @@ class VVIRparameter(tkinter.Frame):
         if(prompt=='yes'):
             self.lrl.set(cUser.vvir.getLRL())
             self.url.set(cUser.vvir.getURL())
+            self.msr.set(User.vvir.getMSR())
             self.va.set(cUser.vvir.getVA())
             self.vpw.set(cUser.vvir.getVPW())
+            self.vs.set(cUser.vvir.getVS())
             self.vrp.set(cUser.vvir.getVRP())
+            self.hys.set(cUser.vvir.getHYST())
+            self.rates.set(cUser.vvir.getRS())
+            self.at.set(cUser.vvir.getAT())
+            self.rt.set(cUser.vvir.getREACT())
+            self.rf.set(cUser.vvir.getRF())
+            self.ret.set(cUser.vvir.getRECOVT())
 
     def backPressed(self,e):
         main.Modes(master=self.master)

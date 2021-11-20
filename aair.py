@@ -134,49 +134,144 @@ class AAIRparameter(tkinter.Frame):
         text=""
         try:
             cUser.aair.setLRL(self.lrl.get())
-            self.lrl.set(cUser.aair.getLRL())
+            self.l_r_l['text']="Lower Rate Limit : "+str(cUser.aair.getLRL())
         except TypeError:
-            text=text+"LRL must be numeric\n"
+            text=text+"Lower rate limit must be numeric\n"
             errors+=1
         except IndexError:
-            text=text+"LRL must be between 30 and 175\n"
+            text=text+"Lower rate limit must be between 30 and 175\n"
             errors+=1
+            
         try:
             cUser.aair.setURL(self.url.get())
-            self.url.set(cUser.aair.getURL())
+            self.u_r_l['text']="Upper Rate Limit : "+str(cUser.aair.getURL())
         except TypeError:
-            text=text+"URL must be numeric\n"
+            text=text+"Upper rate limit must be numeric\n"
             errors+=1
         except IndexError:
-            text=text+"URL must be between 50 and 175\n"
+            text=text+"Upper rate limit must be between 50 and 175\n"
             errors+=1
+            
+        try:
+            cUser.aair.setMSR(self.msr.get())
+            self.m_s_r['text']="Maximum sensor rate : "+str(cUser.aair.getMSR())
+        except TypeError:
+            text=text+"Maximum sensor rate must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"Maximum sensor rate must be between 50 and 175\n"
+            errors+=1
+            
         try:
             cUser.aair.setAA(self.aa.get())
-            self.aa.set(cUser.aair.getAA())
+            self.a_a['text']="Atrial Amplitude : "+str(cUser.aair.getAA())
         except TypeError:
-            text=text+"AA must be numeric\n"
+            text=text+"Atrial pulse amplitude must be numeric\n"
             errors+=1
         except IndexError:
-            text=text+"AA must be between 0.5 and 5.0\n"
+            text=text+"Atrial pulse amplitude must be between 0.5 and 5.0\n"
             errors+=1
+            
         try:
             cUser.aair.setAPW(self.apw.get())
-            self.apw.set(cUser.aair.getAPW())
+            self.a_p_w['text']="Atrial Pulse Width : "+str(cUser.aair.getAPW())
         except TypeError:
-            text=text+"APW must be numeric\n"
+            text=text+"Atrial pulse width must be numeric\n"
             errors+=1
         except IndexError:
-            text=text+"APW must be between 1 and 30\n"
+            text=text+"Atrial pulse width must be between 1 and 30\n"
             errors+=1
+            
+        try:
+            cUser.aair.setAS(self.as.get())
+            self.a_s['text']="Atrial Sensitivity : "+str(cUser.aair.getAS())
+        except TypeError:
+            text=text+"Atrial Sensitivity must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"Atrial Sensitivity must be between 0.0 and 5.0\n"
+            errors+=1
+            
         try:
             cUser.aair.setARP(self.arp.get())
-            self.arp.set(cUser.aair.getARP())
+            self.a_r_p['text']="ARP : "+str(cUser.aair.getARP())
         except TypeError:
             text=text+"ARP must be numeric\n"
             errors+=1
         except IndexError:
             text=text+"ARP must be between 150 and 500\n"
-            errors+=1        
+            errors+=1
+            
+        try:
+            cUser.aair.setPVARP(self.pvarp.get())
+            self.p_v_a_r_p['text']="PVARP : "+str(cUser.aair.getPVARP())
+        except TypeError:
+            text=text+"PVARP must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"PVARP must be between 150 and 500\n"
+            errors+=1
+            
+        try:
+            cUser.aair.setHYST(self.hys.get())
+            self.hysteresis['text']="Hysteresis rate limit : "+str(cUser.aair.getHYST())
+        except TypeError:
+            text=text+"Hysteresis rate limit must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"Hysteresis rate limit must be between 30 and 175\n"
+            errors+=1
+            
+        try:
+            cUser.aair.setRS(self.rates.get())
+            self.r_s['text']="Rate smoothing : "+str(cUser.aair.getRS())
+        except TypeError:
+            text=text+"Rate smoothing must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"Rate smoothing must be between 3 and 21\n"
+            errors+=1
+            
+        try:
+            cUser.aair.setAT(self.at.get())
+            self.a_t['text']="Activity threshold : "+str(cUser.aair.getAT())
+        except TypeError:
+            text=text+"Activity Threshold must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"Activity Threshold must be between 2 and 8\n"
+            errors+=1
+            
+        try:
+            cUser.aair.setREACT(self.rt.get())
+            self.r_t['text']="Reaction time : "+str(cUser.aair.getREACT())
+        except TypeError:
+            text=text+"Reaction Time must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"Reaction Time must be between 10s and 50s\n"
+            errors+=1
+            
+        try:
+            cUser.aair.setRF(self.rf.get())
+            self.r_f['text']="Response factor : "+str(cUser.aair.getRF())
+        except TypeError:
+            text=text+"Response factor must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"Response factor must be between 1 and 16\n"
+            errors+=1
+
+        try:
+            cUser.aair.setRECOVT(self.ret.get())
+            self.recovery_time['text']="Recovery_time : "+str(cUser.aair.getRECOVT())
+        except TypeError:
+            text=text+"Recovery Time must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"Recovery Time must be between 1 and 16\n"
+            errors+=1
+            
         if(errors==0):
             messagebox.showinfo("Message","Changes saved")
             main.storeD()
@@ -199,6 +294,11 @@ class AAIRparameter(tkinter.Frame):
             self.pvarp.set(cUser.aair.getPVARP())
             self.hys.set(cUser.aair.getHYST())
             self.rates.set(cUser.aair.getRS())
+            self.at.set(cUser.aair.getAT())
+            self.rt.set(cUser.aair.getREACT())
+            self.rf.set(cUser.aair.getRF())
+            self.ret.set(cUser.aair.getRECOVT())
+
     def backPressed(self,e):
         main.Modes(master=self.master)
         self.destroy()
