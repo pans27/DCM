@@ -1,6 +1,8 @@
 from tkinter import *
 from tkinter import messagebox
 import tkinter
+
+from serial.serialutil import PortNotOpenError
 from user import *
 import pickle
 import global_
@@ -259,35 +261,56 @@ class Connect(tkinter.Frame): # connect frame to be further implemented with ser
 
     def connect(self):
         global_.Commu = checkConnect()
-
-        self.stat=Label(self,text="Pacemaker Connection: COM"+str(global_.Commu),font=("Times New Roman",12))
+        self.stat=Label(self,font=("Times New Roman",12))
+        if(global_.Commu==0):
+            self.stat['text']="Pacemaker Connection: not connected"
+        else:
+            self.stat['text']="Pacemaker Connection: COM"+str(global_.Commu)
+        self.refresh=Button(self,text="Refresh",font=("Times New Roman",12))
+        self.refresh.place(x=10,y=20)
+        self.refresh.bind("<Button-1>",self.refreshPressed)
         self.stat.place(x=10,y=0)
+    
+    def refreshPressed(self,e):
+        global_.Commu = checkConnect()
+        if(global_.Commu==0):
+            self.stat['text']="Pacemaker Connection: not connected"
+        else:
+            self.stat['text']="Pacemaker Connection: COM"+str(global_.Commu)
+
         
-def serial_Communication(mode, LR, MSR, AVD, AA, VA, APW,VPW,VRP, ARP, AT,REACT, RF,RECOVT):
-    if checkConnect() == 3:
+def serial_Communication(mode,LR,APW,VPW,VA,ARP,VRP,AA,RECOVT,RF,MSR,AVD,AT,REACT):
+    if global_.Commu  == 3:
         ser = serial.Serial(port="COM3", baudrate=115200)
-    elif checkConnect() == 4:
+    elif global_.Commu  == 4:
         ser = serial.Serial(port="COM4", baudrate=115200)
-    elif checkConnect() == 5:
+    elif global_.Commu  == 5:
         ser = serial.Serial(port="COM5", baudrate=115200)
+    else:
+        raise PortNotOpenError
     Header = '<2B14H'
-    spk = struct.pack(Header,0x16,0x55,mode,LR,APW,VPW,VA,ARP,VRP,AA,RECOVT,RF,MSR,AVD,AT,REACT)
-    ser.write(spk)
-    serialdata=ser.read()
-    modeV=serialdata[0]
-    LRV = serialdata[1:3]
-    ATR_AV = serialdata[3:5]
-    VENT_AV = serialdata[5:7]
-    ATR_WV = serialdata[7:9]
-    VENT_WV = serialdata[9:11]
-    ATR_RV = serialdata[11:13]
-    VENT_RV = serialdata[13:15]
-    MSRV = serialdata[15:17]
-    ReactionTV = serialdata[17:19]
-    RecoveryTV = serialdata[19:21]
-    ActTV = serialdata[21:23]
-    AV_DV = serialdata[23:25]
-    Response_FV = serialdata[25:27]
+    sp = struct.pack(Header,0x16,0x55,mode,LR,APW,VPW,VA,ARP,VRP,AA,RECOVT,RF,MSR,AVD,AT,REACT)
+    ser.write(sp)
+    serialdata=ser.read(28)
+    modeV=struct.unpack('H',serialdata[0:2])
+    LRV = struct.unpack('H',serialdata[2:4])
+    APWV = struct.unpack('H',serialdata[4:6])
+    VPWV = struct.unpack('H',serialdata[6:8])
+    VAV = struct.unpack('H',serialdata[8:10])
+    ARPV = struct.unpack('H',serialdata[10:12])
+    VRPV = struct.unpack('H',serialdata[12:14])
+    AAV = struct.unpack('H',serialdata[14:16])
+    RECOVTV = struct.unpack('H',serialdata[16:18])
+    RFV = struct.unpack('H',serialdata[18:20])
+    MSRV = struct.unpack('H',serialdata[20:22])
+    AVDV = struct.unpack('H',serialdata[22:24])
+    ATV = struct.unpack('H',serialdata[24:26])
+    REACTV = struct.unpack('H',serialdata[26:28])
+    if(modeV[0]==mode and LRV[0]==LR and APWV[0]==APW and VPWV[0]==VPW and VAV[0]==VAV and ARPV[0]==ARP and VRPV[0]==VRP 
+       and AAV[0]==AA and RECOVTV[0]==RECOVT and RFV[0]==RF and MSRV[0]==MSR and AVDV[0]==AVD and ATV[0]==AT and REACTV[0]==REACT):
+       return "Parameter set and store successfully"
+    else:
+        return "Some or all parameters did not store properly, check pacemaker version compatibility"
     
 
  #check if the DCM is connected to pacemaker   
