@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
+from tkinter import ttk
 import tkinter
 import pickle
 import main
@@ -15,70 +16,73 @@ class AOORparameter(tkinter.Frame):
     def write_aoor_parameters(self):
         from global_ import cUser
         self.message=Label(self,text="AOOR Parameters",font=("Times New Roman",30))
-        self.message.place(x=420,y=50)
+        self.message.place(x=640,anchor = CENTER,y=40)
+        self.current=Label(self,text="Stored values : ",font=("Times New Roman",20))
+        self.current.place(x=125,y=120)
         #lower rate limit
-        self.l_r_l=Label(self,text="Lower Rate Limit :",font=("Times New Roman",14))
+        self.l_r_l=Label(self,text="Lower Rate Limit : "+str(cUser.aoor.getLRL()),font=("Times New Roman",18))
         self.l_r_l.place(x=100,y=160)
         self.lrl=StringVar()
-        self.l_r_l_E=Entry(self,textvariable=self.lrl,font=("Times New Roman",14))
+        self.l_r_l_E=Entry(self,textvariable=self.lrl,font=("Times New Roman",18))
         self.lrl.set(cUser.aoor.getLRL())
         self.l_r_l_E.place(x=350,y=160)
         #upper rate limit
         self.url=StringVar()
-        self.u_r_l=Label(self,text="Upper Rate Limit :",font=("Times New Roman",14))
+        self.u_r_l=Label(self,text="Upper Rate Limit : "+str(cUser.aoor.getURL()),font=("Times New Roman",18))
         self.u_r_l.place(x=650,y=160)
-        self.u_r_l_E=Entry(self,textvariable=self.url,font=("Times New Roman",14))
+        self.u_r_l_E=Entry(self,textvariable=self.url,font=("Times New Roman",18))
         self.url.set(cUser.aoor.getURL())
         self.u_r_l_E.place(x=900,y=160)
         #Maximum Sensor Rate
-        self.m_s_r=Label(self,text="Maximum Sensor Rate :",font=("Times New Roman",14))
-        self.m_s_r.place(x=100,y=200)
+        self.m_s_r=Label(self,text="Maximum Sensor Rate : "+str(cUser.aoor.getMSR()),font=("Times New Roman",18))
+        self.m_s_r.place(x=55,y=220)
         self.msr=StringVar()
-        self.m_s_r_E=Entry(self,textvariable=self.msr,font=("Times New Roman",14))
-        self.msr.set(cUser.aoor.getAA())
-        self.m_s_r_E.place(x=350,y=200)
+        self.m_s_r_E=Entry(self,textvariable=self.msr,font=("Times New Roman",18))
+        self.msr.set(cUser.aoor.getMSR())
+        self.m_s_r_E.place(x=350,y=220)
         #Atrial Amplitude
-        self.a_a=Label(self,text="Atrial Amplitude :",font=("Times New Roman",14))
-        self.a_a.place(x=650,y=200)
+        self.a_a=Label(self,text="Atrial Amplitude : "+str(cUser.aoor.getAA()),font=("Times New Roman",18))
+        self.a_a.place(x=655,y=220)
         self.aa=StringVar()
-        self.a_a_E=Entry(self,textvariable=self.aa,font=("Times New Roman",14))
+        self.a_a_E=Entry(self,textvariable=self.aa,font=("Times New Roman",18))
         self.aa.set(cUser.aoor.getAA())
-        self.a_a_E.place(x=900,y=200)
+        self.a_a_E.place(x=900,y=220)
         #Atrial Pulse Width
-        self.a_p_w=Label(self,text="Atrial Pulse Width :",font=("Times New Roman",14))
-        self.a_p_w.place(x=100,y=240)
+        self.a_p_w=Label(self,text="Atrial Pulse Width : "+str(cUser.aoor.getAPW()),font=("Times New Roman",18))
+        self.a_p_w.place(x=95,y=280)
         self.apw=StringVar()
-        self.a_p_w_E=Entry(self,textvariable=self.apw,font=("Times New Roman",14))
+        self.a_p_w_E=Entry(self,textvariable=self.apw,font=("Times New Roman",18))
         self.apw.set(cUser.aoor.getAPW())
-        self.a_p_w_E.place(x=350,y=240)
+        self.a_p_w_E.place(x=350,y=280)
         #Activity Threshold
-        self.a_t=Label(self,text="Activity Threshold :",font=("Times New Roman",14))
-        self.a_t.place(x=650,y=240)
-        self.at=StringVar()
-        self.a_t_E=Entry(self,textvariable=self.at,font=("Times New Roman",14))
-        self.at.set(cUser.aoor.getAT())
-        self.a_t_E.place(x=900,y=240)
+        self.a_t=Label(self,text="Activity Threshold : "+str(cUser.aoor.getAT()),font=("Times New Roman",18))
+        self.a_t.place(x=640,y=280)
+        self.at_data = ['1 V-Low', '2 Low', '3 Med-Low', '4 Med','5 Med-High', '6 High', '7 V-High']
+        self.at_roll = ttk.Combobox(self, state='readonly',font=("Times New Roman",18))
+        self.at_roll['values'] = self.at_data
+        self.at_roll.set(self.at_data[cUser.aoor.getATV()-1])
+        self.at_roll.place(x=900,y=280)
         #Reaction Time
-        self.r_t=Label(self,text="Reaction Time :",font=("Times New Roman",14))
-        self.r_t.place(x=100,y=280)
+        self.r_t=Label(self,text="Reaction Time : "+str(cUser.aoor.getREACT()),font=("Times New Roman",18))
+        self.r_t.place(x=130,y=340)
         self.rt=StringVar()
-        self.r_t_E=Entry(self,textvariable=self.rt,font=("Times New Roman",14))
+        self.r_t_E=Entry(self,textvariable=self.rt,font=("Times New Roman",18))
         self.rt.set(cUser.aoor.getREACT())
-        self.r_t_E.place(x=350,y=280)
+        self.r_t_E.place(x=350,y=340)
         #Response Factor
-        self.r_f=Label(self,text="Response Factor :",font=("Times New Roman",14))
-        self.r_f.place(x=650,y=280)
+        self.r_f=Label(self,text="Response Factor : "+str(cUser.aoor.getRF()),font=("Times New Roman",18))
+        self.r_f.place(x=660,y=340)
         self.rf=StringVar()
-        self.r_f_E=Entry(self,textvariable=self.rf,font=("Times New Roman",14))
+        self.r_f_E=Entry(self,textvariable=self.rf,font=("Times New Roman",18))
         self.rf.set(cUser.aoor.getRF())
-        self.r_f_E.place(x=900,y=280)
+        self.r_f_E.place(x=900,y=340)
         #Recovery Time
-        self.recovery_time=Label(self,text="Recovery Time :",font=("Times New Roman",14))
-        self.recovery_time.place(x=100,y=320)
+        self.recovery_time=Label(self,text="Recovery Time : "+str(cUser.aoor.getRECOVT()),font=("Times New Roman",18))
+        self.recovery_time.place(x=120,y=400)
         self.ret=StringVar()
-        self.recovery_time_E=Entry(self,textvariable=self.ret,font=("Times New Roman",14))
+        self.recovery_time_E=Entry(self,textvariable=self.ret,font=("Times New Roman",18))
         self.ret.set(cUser.aoor.getRECOVT())
-        self.recovery_time_E.place(x=350,y=320)
+        self.recovery_time_E.place(x=350,y=400)
 
         self.comfirmB=Button(self,width=15,height=3,font=("Times New Roman",14))
         self.comfirmB["text"]="Comfirm"
@@ -98,6 +102,7 @@ class AOORparameter(tkinter.Frame):
     
     def confirmPressed(self,e): # check each parameter to see if there is an error, keep track of the errors
         from global_ import cUser
+        from global_ import Commu
         prompt=messagebox.askquestion("Message","Values that does not match the specified increment may be rounded, save?")
         if(prompt=="no"):
             return
@@ -122,6 +127,16 @@ class AOORparameter(tkinter.Frame):
         except IndexError:
             text=text+"URL must be between 50 and 175\n"
             errors+=1
+
+        try:
+            cUser.aoor.setMSR(self.msr.get())
+            self.u_r_l['text']="Maximum Sensor Rate : "+str(cUser.aoor.getMSR())
+        except TypeError:
+            text=text+"MSR must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"MSR must be between 50 and 175, and larger than LRL\n"
+            errors+=1
             
         try:
             cUser.aoor.setAA(self.aa.get())
@@ -144,7 +159,7 @@ class AOORparameter(tkinter.Frame):
             errors+=1
             
         try:
-            cUser.aoor.setAT(self.at.get())
+            cUser.aoor.setAT(self.at_roll.get()[0])
             self.a_t['text']="Activity threshold : "+str(cUser.aoor.getAT())
         except TypeError:
             text=text+"Activity Threshold must be numeric\n"
@@ -184,13 +199,17 @@ class AOORparameter(tkinter.Frame):
             errors+=1
         
         if(errors==0): #print out errors ifthere are any, store the changes without error to hard drive
-            messagebox.showinfo("Message","Changes saved")
             main.storeD()
-        elif(errors<4):
-            messagebox.showinfo("Message","There is/are "+str(errors)+" error(S):\n"+text+"Other values are saved")
-            main.storeD()
+            if(Commu):
+                prompt=messagebox.askquestion("Message","Changes saved, Send to connected pacemaker?")
+                if(prompt=="yes"):
+                    info=main.serial_Communication(4,cUser.aoor.getLRL(),cUser.aoor.getAPW(),0,0,0,0,round(cUser.aoor.getAA()*10),cUser.aoor.getARECOVT()*60,cUser.aoor.getRF(),cUser.aoor.getMSR(),0,cUser.aoor.getATV(),cUser.aoor.getREACT())
+                    messagebox.showinfo("Message",info)
+            else:
+                messagebox.showinfo("Message","Changes saved")
         else:
-            messagebox.showinfo("Message","There are "+str(errors)+" error(S):\n"+text)
+            messagebox.showinfo("Message","There is/are "+str(errors)+" error(S):\n"+text+"Values may not be saved")
+            main.storeD()
 
     def clearPressed(self,e):
         from global_ import cUser

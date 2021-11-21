@@ -82,7 +82,7 @@ class AOOparameter(tkinter.Frame):
             text=text+"URL must be numeric\n"
             errors+=1
         except IndexError:
-            text=text+"URL must be between 50 and 175\n"
+            text=text+"URL must be between 50 and 175, and larger than LRL\n"
             errors+=1
         try:
             cUser.aoo.setAA(self.aa.get())

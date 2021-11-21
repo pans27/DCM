@@ -61,6 +61,7 @@ class VOOparameter(tkinter.Frame):
     
     def confirmPressed(self,e):
         from global_ import cUser
+        from global_ import Commu
         prompt=messagebox.askquestion("Message","Values that does not match the specified increment may be rounded, save?")
         if(prompt=="no"):
             return
@@ -82,7 +83,7 @@ class VOOparameter(tkinter.Frame):
             text=text+"URL must be numeric\n"
             errors+=1
         except IndexError:
-            text=text+"URL must be between 50 and 175\n"
+            text=text+"URL must be between 50 and 175, and larger than LRL\n"
             errors+=1
         try:
             cUser.voo.setVA(self.va.get())
@@ -103,13 +104,17 @@ class VOOparameter(tkinter.Frame):
             text=text+"VPW must be between 0.1 and 1.9\n"
             errors+=1
         if(errors==0):
-            messagebox.showinfo("Message","Changes saved")
             main.storeD()
-        elif(errors<4):
-            messagebox.showinfo("Message","There is/are "+str(errors)+" error(S):\n"+text+"Other values are saved")
-            main.storeD()
+            if(Commu):
+                prompt=messagebox.askquestion("Message","Changes saved, Send to connected pacemaker?")
+                if(prompt=="yes"):
+                    info=main.serial_Communication(1,cUser.voo.getLRL(),0,cUser.voo.getVPW(),round(cUser.voo.getVA()*10),0,0,0,0,0,0,0,0,0)
+                    messagebox.showinfo("Message",info)
+            else:
+                messagebox.showinfo("Message","Changes saved")
         else:
-            messagebox.showinfo("Message","There are "+str(errors)+" error(S):\n"+text)
+            messagebox.showinfo("Message","There is/are "+str(errors)+" error(S):\n"+text+"Values may not be saved")
+            main.storeD()
     
     def clearPressed(self,e):
         from global_ import cUser

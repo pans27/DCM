@@ -311,10 +311,10 @@ def serial_Communication(mode,LR,APW,VPW,VA,ARP,VRP,AA,RECOVT,RF,MSR,AVD,AT,REAC
     ATV = struct.unpack('H',serialdata[24:26])
     REACTV = struct.unpack('H',serialdata[26:28])
     if(modeV[0]==mode and LRV[0]==LR and APWV[0]==APW and VPWV[0]==VPW and VAV[0]==VAV and ARPV[0]==ARP and VRPV[0]==VRP 
-       and AAV[0]==AA and RECOVTV[0]==RECOVT and RFV[0]==RF and MSRV[0]==MSR and AVDV[0]==AVD and ATV[0]==AT and REACTV[0]==REACT):
-       return "Parameter set and store successfully"
+        and AAV[0]==AA and RECOVTV[0]==RECOVT and RFV[0]==RF and MSRV[0]==MSR and AVDV[0]==AVD and ATV[0]==AT and REACTV[0]==REACT):
+        return "Parameter set and store successfully"
     else:
-        return "Some or all parameters did not store properly, check pacemaker version compatibility"
+         return "Some or all parameters did not store properly, check pacemaker version compatibility"
     
 
  #check if the DCM is connected to pacemaker   
@@ -350,6 +350,6 @@ if __name__=='__main__':
     root.geometry("1280x720+50+50")
     root.resizable(False, False)
     global_.cUser=global_.users[0]
-    voo.VOOparameter(master=root)
+    aoor.AOORparameter(master=root)
     #Application(master=root)
     root.mainloop()
