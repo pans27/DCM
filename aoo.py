@@ -14,29 +14,29 @@ class AOOparameter(tkinter.Frame):
     def write_aoo_parameters(self): #creating labels and entry fields
         from global_ import cUser
         self.title=Label(self,text="AOO Parameters",font=("Times New Roman",30))
-        self.title.place(x=550,y=40)
+        self.title.place(x=640,anchor = CENTER,y=40)
         self.current=Label(self,text="Stored values : ",font=("Times New Roman",20))
-        self.current.place(x=450,y=120)
+        self.current.place(x=425,y=120)
         self.l_r_l=Label(self,text="Lower Rate Limit : "+str(cUser.aoo.getLRL()),font=("Times New Roman",18))
-        self.l_r_l.place(x=420,y=160)
+        self.l_r_l.place(x=400,y=160)
         self.lrl=StringVar()
         self.l_r_l_E=Entry(self,textvariable=self.lrl,font=("Times New Roman",18))
         self.lrl.set(cUser.aoo.getLRL())
         self.l_r_l_E.place(x=650,y=160)
         self.url=StringVar()
         self.u_r_l=Label(self,text="Upper Rate Limit : "+str(cUser.aoo.getURL()),font=("Times New Roman",18))
-        self.u_r_l.place(x=420,y=220)
+        self.u_r_l.place(x=400,y=220)
         self.u_r_l_E=Entry(self,textvariable=self.url,font=("Times New Roman",18))
         self.url.set(cUser.aoo.getURL())
         self.u_r_l_E.place(x=650,y=220)
         self.a_a=Label(self,text="Atrial Amplitude : "+str(cUser.aoo.getAA()),font=("Times New Roman",18))
-        self.a_a.place(x=430,y=280)
+        self.a_a.place(x=410,y=280)
         self.aa=StringVar()
         self.a_a_E=Entry(self,textvariable=self.aa,font=("Times New Roman",18))
         self.aa.set(cUser.aoo.getAA())
         self.a_a_E.place(x=650,y=280)
         self.a_p_w=Label(self,text="Atrial Pulse Width : "+str(cUser.aoo.getAPW()),font=("Times New Roman",18))
-        self.a_p_w.place(x=420,y=340)
+        self.a_p_w.place(x=395,y=340)
         self.apw=StringVar()
         self.a_p_w_E=Entry(self,textvariable=self.apw,font=("Times New Roman",18))
         self.apw.set(cUser.aoo.getAPW())
@@ -60,6 +60,7 @@ class AOOparameter(tkinter.Frame):
     
     def confirmPressed(self,e): # check each parameter to see if there is an error, keep track of the errors
         from global_ import cUser
+        from global_ import Commu
         prompt=messagebox.askquestion("Message","Values that does not match the specified increment may be rounded, save?")
         if(prompt=="no"):
             return
@@ -102,13 +103,18 @@ class AOOparameter(tkinter.Frame):
             text=text+"APW must be between 1 and 30\n"
             errors+=1
         if(errors==0): #print out errors ifthere are any, store the changes without error to hard drive
-            messagebox.showinfo("Message","Changes saved")
             main.storeD()
-        elif(errors<4):
-            messagebox.showinfo("Message","There is/are "+str(errors)+" error(S):\n"+text+"Other values are saved")
-            main.storeD()
+            if(Commu):
+                prompt=messagebox.askquestion("Message","Changes saved, Send to connected pacemaker?")
+                if(prompt=="yes"):
+                    info=main.serial_Communication(0,cUser.aoo.getLRL(),cUser.aoo.getAPW(),0,0,0,0,round(cUser.aoo.getAA()*10),0,0,0,0,0,0)
+                    messagebox.showinfo("Message",info)
+            else:
+                messagebox.showinfo("Message","Changes saved")
         else:
-            messagebox.showinfo("Message","There are "+str(errors)+" error(S):\n"+text)
+            messagebox.showinfo("Message","There is/are "+str(errors)+" error(S):\n"+text+"Values may not be saved")
+            main.storeD()
+
 
     def clearPressed(self,e):
         from global_ import cUser

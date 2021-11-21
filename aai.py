@@ -96,6 +96,9 @@ class AAIparameter(tkinter.Frame):
     
     def confirmPressed(self,e):
         from global_ import cUser
+        prompt=messagebox.askquestion("Message","Values that does not match the specified increment may be rounded, save?")
+        if(prompt=="no"):
+            return
         errors=0
         text=""
         try:
@@ -114,7 +117,7 @@ class AAIparameter(tkinter.Frame):
             text=text+"URL must be numeric\n"
             errors+=1
         except IndexError:
-            text=text+"URL must be between 50 and 175\n"
+            text=text+"URL must be between 50 and 175, and larger than LRL\n"
             errors+=1
         try:
             cUser.aai.setAA(self.aa.get())

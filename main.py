@@ -20,7 +20,7 @@ import serial
 import struct
 #Oct 31, 2021
 #Author: Group 5
-#3k04 DCM assignment 1 main program
+#3k04 DCM assignment 2 main program
 
 global_.Commu=False
 
@@ -43,7 +43,7 @@ class Application(tkinter.Frame):
         self.login.place(x=400,y=500)
         self.register=Button(self,width=15,height=3,font=("Times New Roman",14))
         self.register["text"]="Register"
-        self.register.place(x=800,y=500)
+        self.register.place(x=730,y=500)
         self.login.bind("<Button-1>",self.loginPressed)
         self.register.bind("<Button-1>",self.registerPressed)
     
@@ -82,7 +82,7 @@ class Login(tkinter.Frame):
         self.passwordE.place(x=590,y=370)
         self.loginB=Button(self,width=15,height=3,font=("Times New Roman",14))
         self.loginB["text"]="Login"
-        self.loginB.place(x=560,y=550)
+        self.loginB.place(x=565,y=550)
         self.loginB.bind("<Button-1>",self.loginPressed)
         self.back=Button(self,width=10,height=2,font=("Times New Roman",14))
         self.back["text"]="Back"
@@ -131,7 +131,7 @@ class Register(tkinter.Frame):
         self.passwordCE.place(x=590,y=440)
         self.registerB=Button(self,width=15,height=3,font=("Times New Roman",14))
         self.registerB["text"]="Register"
-        self.registerB.place(x=560,y=550)
+        self.registerB.place(x=565,y=550)
         self.registerB.bind("<Button-1>",self.registerPressed)
         self.back=Button(self,width=10,height=2,font=("Times New Roman",14))
         self.back["text"]="Back"
@@ -289,6 +289,10 @@ def serial_Communication(mode,LR,APW,VPW,VA,ARP,VRP,AA,RECOVT,RF,MSR,AVD,AT,REAC
     else:
         raise PortNotOpenError
     Header = '<2B14H'
+    if(AA=='OFF'):
+        AA=0
+    if(VA=='OFF'):
+        VA=0
     sp = struct.pack(Header,0x16,0x55,mode,LR,APW,VPW,VA,ARP,VRP,AA,RECOVT,RF,MSR,AVD,AT,REACT)
     ser.write(sp)
     serialdata=ser.read(28)
@@ -320,12 +324,12 @@ def checkConnect():
         return 3
     except:
         try:
-            ser = serial.Serial(port="COM5", baudrate=115200)
-            return 5
+            ser = serial.Serial(port="COM4", baudrate=115200)
+            return 4
         except:
             try:
-                ser = serial.Serial(port="COM4", baudrate=115200)
-                return 4
+                ser = serial.Serial(port="COM5", baudrate=115200)
+                return 5
             except:
                 return 0 # not connected
 
@@ -345,5 +349,7 @@ if __name__=='__main__':
     root.title("Pacemaker User Terminal") # create gui window and call application to display the welcome screen
     root.geometry("1280x720+50+50")
     root.resizable(False, False)
-    Application(master=root)
+    global_.cUser=global_.users[0]
+    voo.VOOparameter(master=root)
+    #Application(master=root)
     root.mainloop()

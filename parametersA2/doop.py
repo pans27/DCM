@@ -25,13 +25,19 @@ class Doop:
         return self.__FAVD
 
     def getAA(self):
-        return self.__aa
+        if(self.__aa):
+            return self.__aa 
+        else:
+            return 'OFF'
 
     def getAPW(self):
         return self.__apw
 
     def getVA(self):
-        return self.__va
+        if(self.__va):
+            return self.__va 
+        else:
+            return 'OFF'
 
     def getVPW(self):
         return self.__vpw
@@ -51,7 +57,7 @@ class Doop:
     def setURL(self, val):
         if (self.__is_num(val)):
             num = 5 * round(float(val) / 5)
-            if (num <= 175 and num >= 50):
+            if (num <= 175 and num >= 50 and num>=self.__lrl):
                 self.__url = num
             else:
                 raise IndexError

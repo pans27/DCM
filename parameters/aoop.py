@@ -39,7 +39,7 @@ class Aoop:
     def setURL(self,val):
         if(self.__is_num(val)):
             num=5* round(float(val)/5)
-            if(num<=175 and num>=50):
+            if(num<=175 and num>=50 and num>=self.__lrl):
                 self.__url=num
             else:
                 raise IndexError    

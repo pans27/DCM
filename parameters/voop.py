@@ -16,7 +16,10 @@ class Voop:
         return self.__url
     
     def getVA(self):
-        return self.__va
+        if(self.__va):
+            return self.__va 
+        else:
+            return 'OFF'
     
     def getVPW(self):
         return self.__vpw
@@ -35,8 +38,8 @@ class Voop:
 
     def setURL(self,val):
         if(self.__is_num(val)):
-            num=5* round(float(val)/5)
-            if(num<=175 and num>=50):
+            num=5* round(float(val)/5 )
+            if(num<=175 and num>=50 and num>=self.__lrl):
                 self.__url=num
             else:
                 raise IndexError    

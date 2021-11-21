@@ -80,15 +80,18 @@ class VOORparameter(tkinter.Frame):
         self.ret.set(cUser.voor.getRECOVT())
         self.recovery_time_E.place(x=350,y=390)
 
-        self.comfirmB=Button(self,width=11,height=3)
+        self.comfirmB=Button(self,width=15,height=3,font=("Times New Roman",14))
         self.comfirmB["text"]="Comfirm"
-        self.comfirmB.place(x=420,y=450)
-        self.clearB=Button(self,width=11,height=3)
+        self.comfirmB.place(x=565,y=550)
+        self.clearB=Button(self,width=15,height=3,font=("Times New Roman",14))
         self.clearB["text"]="Clear changes"
-        self.clearB.place(x=220,y=450)
+        self.clearB.place(x=335,y=550)
+        self.egramB=Button(self,width=15,height=3,font=("Times New Roman",14))
+        self.egramB["text"]="Egram"
+        self.egramB.place(x=795,y=550)
         self.clearB.bind("<Button-1>",self.clearPressed)
         self.comfirmB.bind("<Button-1>",self.confirmPressed)
-        self.back=Button(self,width=10,height=2)
+        self.back=Button(self,width=10,height=2,font=("Times New Roman",14))
         self.back["text"]="Back"
         self.back.place(relx=0.85,rely=0.9)
         self.back.bind("<Button-1>",self.backPressed)

@@ -63,24 +63,27 @@ class VVIparameter(tkinter.Frame):
         self.rates.set(cUser.aai.getRS())
         self.r_s_E.place(x=700,y=390)
 
-        self.comfirmB=Button(self,width=15,height=3,font=("Times New Roman",18))
+        self.comfirmB=Button(self,width=15,height=3,font=("Times New Roman",14))
         self.comfirmB["text"]="Comfirm"
         self.comfirmB.place(x=565,y=550)
-        self.clearB=Button(self,width=15,height=3,font=("Times New Roman",18))
+        self.clearB=Button(self,width=15,height=3,font=("Times New Roman",14))
         self.clearB["text"]="Clear changes"
         self.clearB.place(x=335,y=550)
-        self.egramB=Button(self,width=15,height=3,font=("Times New Roman",18))
+        self.egramB=Button(self,width=15,height=3,font=("Times New Roman",14))
         self.egramB["text"]="Egram"
         self.egramB.place(x=795,y=550)
         self.clearB.bind("<Button-1>",self.clearPressed)
         self.comfirmB.bind("<Button-1>",self.confirmPressed)
-        self.back=Button(self,width=10,height=2,font=("Times New Roman",18))
+        self.back=Button(self,width=10,height=2,font=("Times New Roman",14))
         self.back["text"]="Back"
         self.back.place(relx=0.85,rely=0.9)
         self.back.bind("<Button-1>",self.backPressed)
     
     def confirmPressed(self,e):
         from global_ import cUser
+        prompt=messagebox.askquestion("Message","Values that does not match the specified increment may be rounded, save?")
+        if(prompt=="no"):
+            return
         errors=0
         text=""
         try:
