@@ -176,8 +176,12 @@ class DOOparameter(tkinter.Frame):
         if(prompt=='yes'):
             self.lrl.set(cUser.doo.getLRL())
             self.url.set(cUser.doo.getURL())
+            self.fad.set(cUser.doo.getFAVD())
+            self.aa.set(cUser.doo.getAA())
+            self.apw.set(cUser.doo.getAPW())
             self.va.set(cUser.doo.getVA())
             self.vpw.set(cUser.doo.getVPW())
+            
 
     def backPressed(self,e):
         main.Modes(master=self.master)
