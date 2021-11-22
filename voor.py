@@ -78,7 +78,7 @@ class VOORparameter(tkinter.Frame):
         self.r_f_E.place(x=900,y=340)
         #Recovery Time
         self.recovery_time=Label(self,text="Recovery Time : "+str(cUser.voor.getRECOVT()),font=("Times New Roman",18))
-        self.recovery_time.place(x=120,y=400)
+        self.recovery_time.place(x=125,y=400)
         self.ret=StringVar()
         self.recovery_time_E=Entry(self,textvariable=self.ret,font=("Times New Roman",18))
         self.ret.set(cUser.voor.getRECOVT())
