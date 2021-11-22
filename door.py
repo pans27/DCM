@@ -245,8 +245,17 @@ class DOORparameter(tkinter.Frame):
         if(prompt=='yes'):
             self.lrl.set(cUser.door.getLRL())
             self.url.set(cUser.door.getURL())
+            self.msr.set(cUser.door.getMSR())
+            self.fad.set(cUser.door.getFAVD())
+            self.aa.set(cUser.door.getAA())
+            self.apw.set(cUser.door.getAPW())
             self.va.set(cUser.door.getVA())
             self.vpw.set(cUser.door.getVPW())
+            self.at.set(cUser.door.getAT())
+            self.rt.set(cUser.door.getREACT())
+            self.rf.set(cUser.door.getRF())
+            self.ret.set(cUser.door.getRECOVT())
+            
 
     def backPressed(self,e):
         main.Modes(master=self.master)
