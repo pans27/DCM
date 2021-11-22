@@ -201,8 +201,13 @@ class VOORparameter(tkinter.Frame):
         if(prompt=='yes'):
             self.lrl.set(cUser.voor.getLRL())
             self.url.set(cUser.voor.getURL())
+            self.msr.set(cUser.voor.getMSR())
             self.va.set(cUser.voor.getVA())
             self.vpw.set(cUser.voor.getVPW())
+            self.at.set(cUser.voor.getAT())
+            self.rt.set(cUser.voor.getREACT())
+            self.rf.set(cUser.voor.getRF())
+            self.ret.set(cUser.voor.getRECOVT())
 
     def backPressed(self,e):
         main.Modes(master=self.master)
