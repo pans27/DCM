@@ -133,5 +133,4 @@ class Vvip:
         except ValueError:
             return False
         else:
-            raise TypeError
             return True

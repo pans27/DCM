@@ -48,7 +48,7 @@ class DOOparameter(tkinter.Frame):
         self.a_p_w_E.place(x=350,y=280)
         #Fixed AV Dealy
         self.fixed_AV_delay=Label(self,text="Fixed AV Delay : "+str(cUser.doo.getFAVD()),font=("Times New Roman",18))
-        self.fixed_AV_delay.place(x=120,y=340)
+        self.fixed_AV_delay.place(x=115,y=340)
         self.fad=StringVar()
         self.fixed_AV_delay_E=Entry(self,textvariable=self.fad,font=("Times New Roman",18))
         self.fad.set(cUser.doo.getFAVD())
@@ -86,6 +86,7 @@ class DOOparameter(tkinter.Frame):
 
     def confirmPressed(self,e):
         from global_ import cUser
+        from global_ import Commu
         prompt=messagebox.askquestion("Message","Values that does not match the specified increment may be rounded, save?")
         if(prompt=="no"):
             return
@@ -155,10 +156,16 @@ class DOOparameter(tkinter.Frame):
             text=text+"VPW must be between 0 and 1.9\n"
             errors+=1
         if(errors==0):
-            messagebox.showinfo("Message","Changes saved")
             main.storeD()
-        elif(errors):
-            messagebox.showinfo("Message","There is/are "+str(errors)+" error(S):\n"+text+"Other values are saved")
+            if(Commu):
+                prompt=messagebox.askquestion("Message","Changes saved, Send to connected pacemaker?")
+                if(prompt=="yes"):
+                    info=main.serial_Communication(4,cUser.doo.getLRL(),cUser.doo.getAPW(),cUser.doo.getVPW(),round(cUser.doo.getVA()*10),0,0,round(cUser.doo.getAA()*10),0,0,0,0,0)
+                    messagebox.showinfo("Message",info)
+            else:
+                messagebox.showinfo("Message","Changes saved")
+        else:
+            messagebox.showinfo("Message","There is/are "+str(errors)+" error(S):\n"+text+"Values may not be saved")
             main.storeD()
     
     def clearPressed(self,e):

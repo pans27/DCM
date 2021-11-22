@@ -43,7 +43,6 @@ class AAIparameter(tkinter.Frame):
         self.a_p_w_E=Entry(self,textvariable=self.apw,font=("Times New Roman",18))
         self.apw.set(cUser.aai.getAPW())
         self.a_p_w_E.place(x=900,y=220)
-        self.arp=StringVar()
         #Atrial Sensitivity
         self.a_s=Label(self,text="Atrial Sensitivity : "+str(cUser.aai.getAS()),font=("Times New Roman",18))
         self.a_s.place(x=110,y=280)

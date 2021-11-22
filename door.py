@@ -118,6 +118,7 @@ class DOORparameter(tkinter.Frame):
 
     def confirmPressed(self,e):
         from global_ import cUser
+        from global_ import Commu
         prompt=messagebox.askquestion("Message","Values that does not match the specified increment may be rounded, save?")
         if(prompt=="no"):
             return
@@ -187,10 +188,16 @@ class DOORparameter(tkinter.Frame):
             text=text+"VPW must be between 0.1 and 1.9\n"
             errors+=1
         if(errors==0):
-            messagebox.showinfo("Message","Changes saved")
             main.storeD()
-        elif(errors):
-            messagebox.showinfo("Message","There is/are "+str(errors)+" error(S):\n"+text+"Other values are saved")
+            if(Commu):
+                prompt=messagebox.askquestion("Message","Changes saved, Send to connected pacemaker?")
+                if(prompt=="yes"):
+                    info=main.serial_Communication(4,cUser.door.getLRL(),cUser.door.getAPW(),cUser.door.getVPW(),round(cUser.door.getVA()*10),0,0,round(cUser.door.getAA()*10),cUser.door.getRECOVT()*60,cUser.door.getRF(),cUser.door.getMSR(),0,cUser.door.getATV(),cUser.door.getREACT())
+                    messagebox.showinfo("Message",info)
+            else:
+                messagebox.showinfo("Message","Changes saved")
+        else:
+            messagebox.showinfo("Message","There is/are "+str(errors)+" error(S):\n"+text+"Values may not be saved")
             main.storeD()
     
     def clearPressed(self,e):

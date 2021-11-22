@@ -189,13 +189,13 @@ class Modes(tkinter.Frame):
         self.DOO=Button(self,text="DOO",width=15,height=3,font=("Times New Roman",14))
         self.DOO.place(x=420,y=260)
         self.VOOR=Button(self,text="VOOR",width=15,height=3,font=("Times New Roman",14))
-        self.VOOR.place(x=710,y=260)
+        self.VOOR.place(x=420,y=460)
         self.AOOR=Button(self,text="AOOR",width=15,height=3,font=("Times New Roman",14))
         self.AOOR.place(x=420,y=360)
         self.AAIR=Button(self,text="AAIR",width=15,height=3,font=("Times New Roman",14))
-        self.AAIR.place(x=710,y=360)
+        self.AAIR.place(x=710,y=260)
         self.VVIR=Button(self,text="VVIR",width=15,height=3,font=("Times New Roman",14))
-        self.VVIR.place(x=420,y=460)
+        self.VVIR.place(x=710,y=360)
         self.DOOR=Button(self,text="DOOR",width=15,height=3,font=("Times New Roman",14))
         self.DOOR.place(x=710,y=460)
         self.AOO.bind("<Button-1>",self.AOOPressed)
@@ -349,7 +349,7 @@ if __name__=='__main__':
     root.title("Pacemaker User Terminal") # create gui window and call application to display the welcome screen
     root.geometry("1280x720+50+50")
     root.resizable(False, False)
-    global_.cUser=global_.users[0]
-    aai.AAIparameter(master=root)
-    #Application(master=root)
+    #global_.cUser=global_.users[0]
+    #vvi.VVIparameter(master=root)
+    Application(master=root)
     root.mainloop()
