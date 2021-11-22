@@ -144,7 +144,7 @@ class DOORparameter(tkinter.Frame):
             text=text+"URL must be numeric\n"
             errors+=1
         except IndexError:
-            text=text+"URL must be between 50 and 175\n"
+            text=text+"URL must be between 50 and 175, and larger than LRL\n"
             errors+=1
         try:
             cUser.door.setFAVD(self.aa.get())
@@ -191,12 +191,47 @@ class DOORparameter(tkinter.Frame):
         except IndexError:
             text=text+"VPW must be between 0.1 and 1.9\n"
             errors+=1
+        try:
+            cUser.aoor.setAT(self.at_roll.get()[0])
+            self.a_t['text']="Activity threshold : "+str(cUser.aoor.getAT())
+        except :
+            text=text+"Activity Threshold not stored\n"
+            errors+=1
+        try:
+            cUser.voor.setREACT(self.rt.get())
+            self.r_t['text']="Reaction Time : "+str(cUser.voor.getREACT())
+        except TypeError:
+            text=text+"Reaction Time must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"Reaction Time must be between 10s and 50s\n"
+            errors+=1
+            
+        try:
+            cUser.voor.setRF(self.rf.get())
+            self.r_f['text']="Response factor : "+str(cUser.voor.getRF())
+        except TypeError:
+            text=text+"Response factor must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"Response factor must be between 1 and 16\n"
+            errors+=1
+
+        try:
+            cUser.voor.setRECOVT(self.ret.get())
+            self.recovery_time['text']="Recovery Time : "+str(cUser.voor.getRECOVT())
+        except TypeError:
+            text=text+"Recovery Time must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"Recovery Time must be between 1 and 16\n"
+            errors+=1
         if(errors==0):
             main.storeD()
             if(Commu):
                 prompt=messagebox.askquestion("Message","Changes saved, Send to connected pacemaker?")
                 if(prompt=="yes"):
-                    info=main.serial_Communication(4,cUser.door.getLRL(),cUser.door.getAPW(),cUser.door.getVPW(),round(cUser.door.getVA()*10),0,0,round(cUser.door.getAA()*10),cUser.door.getRECOVT()*60,cUser.door.getRF(),cUser.door.getMSR(),0,cUser.door.getATV(),cUser.door.getREACT())
+                    info=main.serial_Communication(4,cUser.door.getLRL(),cUser.door.getAPW(),cUser.door.getVPW(),round(cUser.door.getVA()*10),0,0,round(cUser.door.getAA()*10),cUser.door.getRECOVT()*60,cUser.door.getRF(),cUser.door.getMSR(),cUser.door.getFAVD(),cUser.door.getATV(),cUser.door.getREACT())
                     messagebox.showinfo("Message",info)
             else:
                 messagebox.showinfo("Message","Changes saved")

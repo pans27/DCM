@@ -138,6 +138,7 @@ class AAIRparameter(tkinter.Frame):
     
     def confirmPressed(self,e):
         from global_ import cUser
+        from global_ import Commu
         prompt=messagebox.askquestion("Message","Values that does not match the specified increment may be rounded, save?")
         if(prompt=="no"):
             return
@@ -147,60 +148,60 @@ class AAIRparameter(tkinter.Frame):
             cUser.aair.setLRL(self.lrl.get())
             self.l_r_l['text']="Lower Rate Limit : "+str(cUser.aair.getLRL())
         except TypeError:
-            text=text+"Lower rate limit must be numeric\n"
+            text=text+"LRL must be numeric\n"
             errors+=1
         except IndexError:
-            text=text+"Lower rate limit must be between 30 and 175\n"
+            text=text+"LRL must be between 30 and 175\n"
             errors+=1
             
         try:
             cUser.aair.setURL(self.url.get())
             self.u_r_l['text']="Upper Rate Limit : "+str(cUser.aair.getURL())
         except TypeError:
-            text=text+"Upper rate limit must be numeric\n"
+            text=text+"URL must be numeric\n"
             errors+=1
         except IndexError:
-            text=text+"Upper rate limit must be between 50 and 175\n"
+            text=text+"URL must be between 50 and 175, and larger than LRL\n"
             errors+=1
             
         try:
             cUser.aair.setMSR(self.msr.get())
             self.m_s_r['text']="Maximum sensor rate : "+str(cUser.aair.getMSR())
         except TypeError:
-            text=text+"Maximum sensor rate must be numeric\n"
+            text=text+"MSR must be numeric\n"
             errors+=1
         except IndexError:
-            text=text+"Maximum sensor rate must be between 50 and 175\n"
+            text=text+"MSR must be between 50 and 175\n"
             errors+=1
             
         try:
             cUser.aair.setAA(self.aa.get())
             self.a_a['text']="Atrial Amplitude : "+str(cUser.aair.getAA())
         except TypeError:
-            text=text+"Atrial pulse amplitude must be numeric\n"
+            text=text+"AA must be numeric\n"
             errors+=1
         except IndexError:
-            text=text+"Atrial pulse amplitude must be between 0.5 and 5.0\n"
+            text=text+"AA must be between 0.5 and 5.0\n"
             errors+=1
             
         try:
             cUser.aair.setAPW(self.apw.get())
             self.a_p_w['text']="Atrial Pulse Width : "+str(cUser.aair.getAPW())
         except TypeError:
-            text=text+"Atrial pulse width must be numeric\n"
+            text=text+"APW must be numeric\n"
             errors+=1
         except IndexError:
-            text=text+"Atrial pulse width must be between 1 and 30\n"
+            text=text+"APW must be between 1 and 30\n"
             errors+=1
             
         try:
             cUser.aair.setAS(self.ats.get())
             self.a_s['text']="Atrial Sensitivity : "+str(cUser.aair.getAS())
         except TypeError:
-            text=text+"Atrial Sensitivity must be numeric\n"
+            text=text+"AS must be numeric\n"
             errors+=1
         except IndexError:
-            text=text+"Atrial Sensitivity must be between 0.0 and 5.0\n"
+            text=text+"AS must be between 0.0 and 5.0\n"
             errors+=1
             
         try:
@@ -225,32 +226,26 @@ class AAIRparameter(tkinter.Frame):
             
         try:
             cUser.aair.setHYST(self.hys.get())
-            self.hysteresis['text']="Hysteresis rate limit : "+str(cUser.aair.getHYST())
+            self.hysteresis['text']="Hysteresis : "+str(cUser.aair.getHYST())
         except TypeError:
-            text=text+"Hysteresis rate limit must be numeric\n"
+            text=text+"HYST must be numeric\n"
             errors+=1
         except IndexError:
-            text=text+"Hysteresis rate limit must be between 30 and 175\n"
+            text=text+"HYST must be between 30 and 175\n"
             errors+=1
             
         try:
-            cUser.aair.setRS(self.rates.get())
-            self.r_s['text']="Rate smoothing : "+str(cUser.aair.getRS())
-        except TypeError:
-            text=text+"Rate smoothing must be numeric\n"
-            errors+=1
-        except IndexError:
-            text=text+"Rate smoothing must be between 3 and 21\n"
+            cUser.aair.setRS(self.rs.get().split()[0])
+            self.r_s['text']="Rate Smoothing : "+str(cUser.aair.getRS())
+        except :
+            text=text+"RS not stored\n"
             errors+=1
             
         try:
-            cUser.aair.setAT(self.at.get())
+            cUser.aair.setAT(self.at_roll.get()[0])
             self.a_t['text']="Activity threshold : "+str(cUser.aair.getAT())
-        except TypeError:
-            text=text+"Activity Threshold must be numeric\n"
-            errors+=1
-        except IndexError:
-            text=text+"Activity Threshold must be between 2 and 8\n"
+        except :
+            text=text+"Activity Threshold not stored\n"
             errors+=1
             
         try:
@@ -284,13 +279,17 @@ class AAIRparameter(tkinter.Frame):
             errors+=1
             
         if(errors==0):
-            messagebox.showinfo("Message","Changes saved")
             main.storeD()
-        elif(errors<5):
-            messagebox.showinfo("Message","There is/are "+str(errors)+" error(S):\n"+text+"Other values are saved")
-            main.storeD()
+            if(Commu):
+                prompt=messagebox.askquestion("Message","Changes saved, Send to connected pacemaker?")
+                if(prompt=="yes"):
+                    info=main.serial_Communication(6,cUser.aair.getLRL(),cUser.aair.getAPW(),0,0,cUser.aair.getARP(),0,round(cUser.aair.getAA()*10),cUser.aair.getRECOVT()*60,cUser.aair.getRF(),cUser.aair.getMSR(),0,cUser.aair.getATV(),cUser.aair.getREACT())
+                    messagebox.showinfo("Message",info)
+            else:
+                messagebox.showinfo("Message","Changes saved")
         else:
-            messagebox.showinfo("Message","There are "+str(errors)+" error(S):\n"+text)
+            messagebox.showinfo("Message","There is/are "+str(errors)+" error(S):\n"+text+"Values may not be saved")
+            main.storeD()
 
     
     def clearPressed(self,e):

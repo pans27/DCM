@@ -146,6 +146,12 @@ class VOORparameter(tkinter.Frame):
             errors+=1
 
         try:
+            cUser.aoor.setAT(self.at_roll.get()[0])
+            self.a_t['text']="Activity threshold : "+str(cUser.aoor.getAT())
+        except :
+            text=text+"Activity Threshold not stored\n"
+            errors+=1
+        try:
             cUser.voor.setREACT(self.rt.get())
             self.r_t['text']="Reaction Time : "+str(cUser.voor.getREACT())
         except TypeError:
