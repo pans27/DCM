@@ -103,7 +103,7 @@ class VVIparameter(tkinter.Frame):
         text=""
         try:
             cUser.vvi.setLRL(self.lrl.get())
-            self.lrl.set(cUser.vvi.getLRL())
+            self.l_r_l['text']="Lower Rate Limit : "+str(cUser.vvi.getLRL())
         except TypeError:
             text=text+"LRL must be numeric\n"
             errors+=1
@@ -112,7 +112,7 @@ class VVIparameter(tkinter.Frame):
             errors+=1
         try:
             cUser.vvi.setURL(self.url.get())
-            self.url.set(cUser.vvi.getURL())
+            self.u_r_l['text']="Upper Rate Limit : "+str(cUser.vvi.getURL())
         except TypeError:
             text=text+"URL must be numeric\n"
             errors+=1
@@ -121,7 +121,7 @@ class VVIparameter(tkinter.Frame):
             errors+=1
         try:
             cUser.vvi.setVA(self.va.get())
-            self.va.set(cUser.vvi.getVA())
+            self.v_a['text']="Ventricular pulse amplitude : "+str(cUser.vvi.getVA())
         except TypeError:
             text=text+"VA must be numeric\n"
             errors+=1
@@ -130,7 +130,7 @@ class VVIparameter(tkinter.Frame):
             errors+=1
         try:
             cUser.vvi.setVPW(self.vpw.get())
-            self.vpw.set(cUser.vvi.getVPW())
+            self.v_p_w['text']="Ventricular Pulse Width : "+str(cUser.vvi.getVPW())
         except TypeError:
             text=text+"VPW must be numeric\n"
             errors+=1
@@ -139,7 +139,7 @@ class VVIparameter(tkinter.Frame):
             errors+=1
         try:
             cUser.vvi.setVRP(self.vrp.get())
-            self.vrp.set(cUser.vvi.getVRP())
+            self.v_r_p['text']="VRP : "+str(cUser.vvi.getVRP())
         except TypeError:
             text=text+"VRP must be numeric\n"
             errors+=1
@@ -193,7 +193,10 @@ class VVIparameter(tkinter.Frame):
             self.url.set(cUser.vvi.getURL())
             self.va.set(cUser.vvi.getVA())
             self.vpw.set(cUser.vvi.getVPW())
+            self.vts.set(cUser.vvi.getVS())
             self.vrp.set(cUser.vvi.getVRP())
+            self.hys.set(cUser.vvi.getHYST())
+            self.rs.set(cUser.vvi.getRS())
 
     def backPressed(self,e):
         main.Modes(master=self.master)
