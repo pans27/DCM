@@ -207,9 +207,10 @@ class AAIparameter(tkinter.Frame):
             self.aa.set(cUser.aai.getAA())
             self.apw.set(cUser.aai.getAPW())
             self.arp.set(cUser.aai.getARP())
+            self.ats.set(cUser.aai.getAS())
             self.pvarp.set(cUser.aai.getPVARP())
             self.hys.set(cUser.aai.getHYST())
-            self.rates.set(cUser.aai.getRS())
+            self.rs.set(cUser.aai.getRS())
     def backPressed(self,e):
         main.Modes(master=self.master)
         self.destroy()
