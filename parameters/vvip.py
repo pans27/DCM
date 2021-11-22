@@ -41,10 +41,7 @@ class Vvip:
             return 'OFF'
     
     def getRS(self):
-        if(self.__rs):
-            return self.__rs
-        else:
-            return "OFF"
+        return self.__rs
     
     def setLRL(self,val):
         if(self.__is_num(val)):

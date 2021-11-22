@@ -349,7 +349,7 @@ if __name__=='__main__':
     root.title("Pacemaker User Terminal") # create gui window and call application to display the welcome screen
     root.geometry("1280x720+50+50")
     root.resizable(False, False)
-    #global_.cUser=global_.users[0]
-    #voor.VOORparameter(master=root)
-    Application(master=root)
+    global_.cUser=global_.users[0]
+    aai.AAIparameter(master=root)
+    #Application(master=root)
     root.mainloop()

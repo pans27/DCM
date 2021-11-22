@@ -192,7 +192,7 @@ class AOORparameter(tkinter.Frame):
             text=text+"Recovery Time must be numeric\n"
             errors+=1
         except IndexError:
-            text=text+"Recovery Time must be between 1 and 16\n"
+            text=text+"Recovery Time must be between 2 and 16\n"
             errors+=1
         
         if(errors==0): #print out errors ifthere are any, store the changes without error to hard drive

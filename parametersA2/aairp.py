@@ -53,10 +53,7 @@ class Aairp:
             return 'OFF'
     
     def getRS(self):
-        if(self.__rs):
-            return self.__rs
-        else:
-            return "OFF"
+        return self.__rs
     
     def getAT(self):
         if(self.__at==1):
