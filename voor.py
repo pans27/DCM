@@ -147,7 +147,7 @@ class VOORparameter(tkinter.Frame):
 
         try:
             cUser.aoor.setAT(self.at_roll.get()[0])
-            self.a_t['text']="Activity threshold : "+str(cUser.aoor.getAT())
+            self.a_t['text']="Activity Threshold : "+str(cUser.aoor.getAT())
         except :
             text=text+"Activity Threshold not stored\n"
             errors+=1
@@ -163,7 +163,7 @@ class VOORparameter(tkinter.Frame):
             
         try:
             cUser.voor.setRF(self.rf.get())
-            self.r_f['text']="Response factor : "+str(cUser.voor.getRF())
+            self.r_f['text']="Response Factor : "+str(cUser.voor.getRF())
         except TypeError:
             text=text+"Response factor must be numeric\n"
             errors+=1
@@ -186,7 +186,7 @@ class VOORparameter(tkinter.Frame):
             if(Commu):
                 prompt=messagebox.askquestion("Message","Changes saved, Send to connected pacemaker?")
                 if(prompt=="yes"):
-                    info=main.serial_Communication(4,cUser.voor.getLRL(),0,cUser.voor.getVPW(),round(cUser.voor.getVA()*10),0,0,0,cUser.voor.getRECOVT()*60,cUser.voor.getRF(),cUser.voor.getMSR(),0,cUser.voor.getATV(),cUser.voor.getREACT())
+                    info=main.serial_Communication(5,cUser.voor.getLRL(),0,cUser.voor.getVPW(),round(cUser.voor.getVA()*10),0,0,0,cUser.voor.getRECOVT()*60,cUser.voor.getRF(),cUser.voor.getMSR(),0,cUser.voor.getATV(),cUser.voor.getREACT())
                     messagebox.showinfo("Message",info)
             else:
                 messagebox.showinfo("Message","Changes saved")

@@ -131,6 +131,7 @@ class VVIRparameter(tkinter.Frame):
     
     def confirmPressed(self,e):
         from global_ import cUser
+        from global_ import Commu
         prompt=messagebox.askquestion("Message","Values that does not match the specified increment may be rounded, save?")
         if(prompt=="no"):
             return
@@ -153,12 +154,12 @@ class VVIRparameter(tkinter.Frame):
             text=text+"Upper rate limit must be numeric\n"
             errors+=1
         except IndexError:
-            text=text+"Upper rate limit must be between 50 and 175\n"
+            text=text+"Upper rate limit must be between 50 and 175, and larger than LRL\n"
             errors+=1
             
         try:
             cUser.vvir.setMSR(self.msr.get())
-            self.m_s_r['text']="Maximum sensor rate : "+str(cUser.vvir.getMSR())
+            self.m_s_r['text']="Maximum Sensor Rate : "+str(cUser.vvir.getMSR())
         except TypeError:
             text=text+"Maximum sensor rate must be numeric\n"
             errors+=1
@@ -168,7 +169,7 @@ class VVIRparameter(tkinter.Frame):
             
         try:
             cUser.vvir.setVA(self.va.get())
-            self.v_a['text']="Ventricular pulse amplitude : "+str(cUser.vvir.getVA())
+            self.v_a['text']="Ventricular Amplitude : "+str(cUser.vvir.getVA())
         except TypeError:
             text=text+"Ventricular pulse amplitude must be numeric\n"
             errors+=1
@@ -208,7 +209,7 @@ class VVIRparameter(tkinter.Frame):
 
         try:
             cUser.vvir.setHYST(self.hys.get())
-            self.hysteresis['text']="Hysteresis rate limit : "+str(cUser.vvir.getHYST())
+            self.hysteresis['text']="Hysteresis : "+str(cUser.vvir.getHYST())
         except TypeError:
             text=text+"Hysteresis rate limit must be numeric\n"
             errors+=1
@@ -217,28 +218,22 @@ class VVIRparameter(tkinter.Frame):
             errors+=1
             
         try:
-            cUser.vvir.setRS(self.rates.get())
-            self.r_s['text']="Rate smoothing : "+str(cUser.vvir.getRS())
-        except TypeError:
-            text=text+"Rate smoothing must be numeric\n"
-            errors+=1
-        except IndexError:
-            text=text+"Rate smoothing must be between 3 and 21\n"
+            cUser.vvir.setRS(self.rs.get().split()[0])
+            self.r_s['text']="Rate Smoothing : "+str(cUser.vvir.getRS())
+        except :
+            text=text+"RS not stored\n"
             errors+=1
             
         try:
-            cUser.vvir.setAT(self.at.get())
-            self.a_t['text']="Activity threshold : "+str(cUser.vvir.getAT())
-        except TypeError:
-            text=text+"Activity Threshold must be numeric\n"
-            errors+=1
-        except IndexError:
-            text=text+"Activity Threshold must be between 2 and 8\n"
+            cUser.vvir.setAT(self.at_roll.get()[0])
+            self.a_t['text']="Activity Threshold : "+str(cUser.vvir.getAT())
+        except :
+            text=text+"Activity Threshold not stored\n"
             errors+=1
             
         try:
             cUser.vvir.setREACT(self.rt.get())
-            self.r_t['text']="Reaction time : "+str(cUser.vvir.getREACT())
+            self.r_t['text']="Reaction Time : "+str(cUser.vvir.getREACT())
         except TypeError:
             text=text+"Reaction Time must be numeric\n"
             errors+=1
@@ -248,7 +243,7 @@ class VVIRparameter(tkinter.Frame):
             
         try:
             cUser.vvir.setRF(self.rf.get())
-            self.r_f['text']="Response factor : "+str(cUser.vvir.getRF())
+            self.r_f['text']="Response Factor : "+str(cUser.vvir.getRF())
         except TypeError:
             text=text+"Response factor must be numeric\n"
             errors+=1
@@ -258,7 +253,7 @@ class VVIRparameter(tkinter.Frame):
 
         try:
             cUser.vvir.setRECOVT(self.ret.get())
-            self.recovery_time['text']="Recovery_time : "+str(cUser.vvir.getRECOVT())
+            self.recovery_time['text']="Recovery Time : "+str(cUser.vvir.getRECOVT())
         except TypeError:
             text=text+"Recovery Time must be numeric\n"
             errors+=1
@@ -266,15 +261,18 @@ class VVIRparameter(tkinter.Frame):
             text=text+"Recovery Time must be between 1 and 16\n"
             errors+=1
                                                                                                                    
-        #Error counting and final part, every try before this
         if(errors==0):
-            messagebox.showinfo("Message","Changes saved")
             main.storeD()
-        elif(errors<5):
-            messagebox.showinfo("Message","There is/are "+str(errors)+" error(S):\n"+text+"Other values are saved")
-            main.storeD()
+            if(Commu):
+                prompt=messagebox.askquestion("Message","Changes saved, Send to connected pacemaker?")
+                if(prompt=="yes"):
+                    info=main.serial_Communication(7,cUser.vvir.getLRL(),0,cUser.vvir.getVPW(),round(cUser.vvir.getVA()*10),0,cUser.vvir.getVRP(),0,cUser.vvir.getRECOVT()*60,cUser.vvir.getRF(),cUser.vvir.getMSR(),0,cUser.vvir.getATV(),cUser.vvir.getREACT())
+                    messagebox.showinfo("Message",info)
+            else:
+                messagebox.showinfo("Message","Changes saved")
         else:
-            messagebox.showinfo("Message","There are "+str(errors)+" error(S):\n"+text)
+            messagebox.showinfo("Message","There is/are "+str(errors)+" error(S):\n"+text+"Values may not be saved")
+            main.storeD()
         
 
     

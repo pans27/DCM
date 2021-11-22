@@ -44,7 +44,7 @@ class DOORparameter(tkinter.Frame):
         self.fixed_AV_delay.place(x=665,y=220)
         self.fad=StringVar()
         self.fixed_AV_delay_E=Entry(self,textvariable=self.fad,font=("Times New Roman",18))
-        self.fad.set(cUser.door.getAA())
+        self.fad.set(cUser.door.getFAVD())
         self.fixed_AV_delay_E.place(x=900,y=220)
         #Atrial Amplitude
         self.a_a=Label(self,text="Atrial Amplitude : "+str(cUser.door.getAA()),font=("Times New Roman",18))
@@ -147,7 +147,7 @@ class DOORparameter(tkinter.Frame):
             text=text+"URL must be between 50 and 175, and larger than LRL\n"
             errors+=1
         try:
-            cUser.door.setFAVD(self.aa.get())
+            cUser.door.setFAVD(self.fad.get())
             self.a_a['text']="Fixed AV Delay : "+str(cUser.door.getFAVD())
         except TypeError:
             text=text+"FAVD must be numeric\n"
@@ -193,7 +193,7 @@ class DOORparameter(tkinter.Frame):
             errors+=1
         try:
             cUser.aoor.setAT(self.at_roll.get()[0])
-            self.a_t['text']="Activity threshold : "+str(cUser.aoor.getAT())
+            self.a_t['text']="Activity Threshold : "+str(cUser.aoor.getAT())
         except :
             text=text+"Activity Threshold not stored\n"
             errors+=1
@@ -209,7 +209,7 @@ class DOORparameter(tkinter.Frame):
             
         try:
             cUser.voor.setRF(self.rf.get())
-            self.r_f['text']="Response factor : "+str(cUser.voor.getRF())
+            self.r_f['text']="Response Factor : "+str(cUser.voor.getRF())
         except TypeError:
             text=text+"Response factor must be numeric\n"
             errors+=1

@@ -111,7 +111,7 @@ class DOOparameter(tkinter.Frame):
             text=text+"URL must be between 50 and 175, and larger than LRL\n"
             errors+=1
         try:
-            cUser.doo.setFAVD(self.aa.get())
+            cUser.doo.setFAVD(self.fad.get())
             self.a_a['text']="Fixed AV Delay : "+str(cUser.doo.getFAVD())
         except TypeError:
             text=text+"FAVD must be numeric\n"

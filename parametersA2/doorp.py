@@ -7,7 +7,7 @@ class Doorp:
         self.__lrl = 60
         self.__url = 120
         self.__msr = 120
-        self.__FAVD = 150
+        self.__favd = 150
         self.__aa=5.0
         self.__apw = 1
         self.__va=5.0
@@ -27,7 +27,7 @@ class Doorp:
         return self.__msr
     
     def getFAVD(self):
-        return self.__FAVD
+        return self.__favd
 
     def getAA(self):
         if(self.__aa):
@@ -100,7 +100,7 @@ class Doorp:
     def setFAVD(self,val):
         if (self.__is_num(val)):
             if (int(round(float(val), -1)) <= 300 and int(round(float(val), -1)) >= 70):
-                self.__arp = int(round(float(val), -1))
+                self.__favd = int(round(float(val), -1))
             else:
                 raise IndexError
         else:

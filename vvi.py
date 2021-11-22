@@ -121,7 +121,7 @@ class VVIparameter(tkinter.Frame):
             errors+=1
         try:
             cUser.vvi.setVA(self.va.get())
-            self.v_a['text']="Ventricular pulse amplitude : "+str(cUser.vvi.getVA())
+            self.v_a['text']="Ventricular Amplitude : "+str(cUser.vvi.getVA())
         except TypeError:
             text=text+"VA must be numeric\n"
             errors+=1

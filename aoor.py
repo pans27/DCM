@@ -160,7 +160,7 @@ class AOORparameter(tkinter.Frame):
             
         try:
             cUser.aoor.setAT(self.at_roll.get()[0])
-            self.a_t['text']="Activity threshold : "+str(cUser.aoor.getAT())
+            self.a_t['text']="Activity Threshold : "+str(cUser.aoor.getAT())
         except :
             text=text+"Activity Threshold not stored\n"
             errors+=1
@@ -177,7 +177,7 @@ class AOORparameter(tkinter.Frame):
             
         try:
             cUser.aoor.setRF(self.rf.get())
-            self.r_f['text']="Response factor : "+str(cUser.aoor.getRF())
+            self.r_f['text']="Response Factor : "+str(cUser.aoor.getRF())
         except TypeError:
             text=text+"Response factor must be numeric\n"
             errors+=1

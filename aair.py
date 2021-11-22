@@ -106,7 +106,7 @@ class AAIRparameter(tkinter.Frame):
         self.rt.set(cUser.aair.getREACT())
         self.r_t_E.place(x=900,y=410)
         #Response Factor
-        self.r_f=Label(self,text="Respond Factor : "+str(cUser.aair.getRF()),font=("Times New Roman",18))
+        self.r_f=Label(self,text="Response Factor : "+str(cUser.aair.getRF()),font=("Times New Roman",18))
         self.r_f.place(x=110,y=460)
         self.rf=StringVar()
         self.r_f_E=Entry(self,textvariable=self.rf,font=("Times New Roman",18))
@@ -166,7 +166,7 @@ class AAIRparameter(tkinter.Frame):
             
         try:
             cUser.aair.setMSR(self.msr.get())
-            self.m_s_r['text']="Maximum sensor rate : "+str(cUser.aair.getMSR())
+            self.m_s_r['text']="Maximum Sensor Rate : "+str(cUser.aair.getMSR())
         except TypeError:
             text=text+"MSR must be numeric\n"
             errors+=1
@@ -243,14 +243,14 @@ class AAIRparameter(tkinter.Frame):
             
         try:
             cUser.aair.setAT(self.at_roll.get()[0])
-            self.a_t['text']="Activity threshold : "+str(cUser.aair.getAT())
+            self.a_t['text']="Activity Threshold : "+str(cUser.aair.getAT())
         except :
             text=text+"Activity Threshold not stored\n"
             errors+=1
             
         try:
             cUser.aair.setREACT(self.rt.get())
-            self.r_t['text']="Reaction time : "+str(cUser.aair.getREACT())
+            self.r_t['text']="Reaction Time : "+str(cUser.aair.getREACT())
         except TypeError:
             text=text+"Reaction Time must be numeric\n"
             errors+=1
@@ -260,7 +260,7 @@ class AAIRparameter(tkinter.Frame):
             
         try:
             cUser.aair.setRF(self.rf.get())
-            self.r_f['text']="Response factor : "+str(cUser.aair.getRF())
+            self.r_f['text']="Response Factor : "+str(cUser.aair.getRF())
         except TypeError:
             text=text+"Response factor must be numeric\n"
             errors+=1
@@ -270,7 +270,7 @@ class AAIRparameter(tkinter.Frame):
 
         try:
             cUser.aair.setRECOVT(self.ret.get())
-            self.recovery_time['text']="Recovery_time : "+str(cUser.aair.getRECOVT())
+            self.recovery_time['text']="Recovery Time : "+str(cUser.aair.getRECOVT())
         except TypeError:
             text=text+"Recovery Time must be numeric\n"
             errors+=1
