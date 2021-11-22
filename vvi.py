@@ -15,37 +15,37 @@ class VVIparameter(tkinter.Frame):
 
     def write_vvi_parameters(self):
         from global_ import cUser
-        self.message=Label(self,text="VVIR Parameters",font=("Times New Roman",30))
+        self.message=Label(self,text="VVI Parameters",font=("Times New Roman",30))
         self.message.place(x=640,anchor = CENTER,y=40)
         self.current=Label(self,text="Stored values : ",font=("Times New Roman",20))
         self.current.place(x=125,y=120)
         #lower rate limit
-        self.l_r_l=Label(self,text="Lower Rate Limit : "+str(cUser.vvir.getLRL()),font=("Times New Roman",18))
+        self.l_r_l=Label(self,text="Lower Rate Limit : "+str(cUser.vvi.getLRL()),font=("Times New Roman",18))
         self.l_r_l.place(x=100,y=160)
         self.lrl=StringVar()
         self.l_r_l_E=Entry(self,textvariable=self.lrl,font=("Times New Roman",18))
-        self.lrl.set(cUser.vvir.getLRL())
+        self.lrl.set(cUser.vvi.getLRL())
         self.l_r_l_E.place(x=350,y=160)
         #upper rate limit
         self.url=StringVar()
-        self.u_r_l=Label(self,text="Upper Rate Limit : "+str(cUser.vvir.getURL()),font=("Times New Roman",18))
+        self.u_r_l=Label(self,text="Upper Rate Limit : "+str(cUser.vvi.getURL()),font=("Times New Roman",18))
         self.u_r_l.place(x=650,y=160)
         self.u_r_l_E=Entry(self,textvariable=self.url,font=("Times New Roman",18))
-        self.url.set(cUser.vvir.getURL())
+        self.url.set(cUser.vvi.getURL())
         self.u_r_l_E.place(x=900,y=160)
         #Ventricular Amplitude
-        self.v_a=Label(self,text="Ventricular Amplitude : "+str(cUser.vvir.getVA()),font=("Times New Roman",18))
+        self.v_a=Label(self,text="Ventricular Amplitude : "+str(cUser.vvi.getVA()),font=("Times New Roman",18))
         self.v_a.place(x=55,y=220)
         self.va=StringVar()
         self.v_a_E=Entry(self,textvariable=self.va,font=("Times New Roman",18))
-        self.va.set(cUser.vvir.getVA())
+        self.va.set(cUser.vvi.getVA())
         self.v_a_E.place(x=350,y=220)
         #Ventricular Pulse Width
-        self.v_p_w=Label(self,text="Ventricular Pulse Width : "+str(cUser.vvir.getVPW()),font=("Times New Roman",18))
+        self.v_p_w=Label(self,text="Ventricular Pulse Width : "+str(cUser.vvi.getVPW()),font=("Times New Roman",18))
         self.v_p_w.place(x=590,y=220)
         self.vpw=StringVar()
         self.v_p_w_E=Entry(self,textvariable=self.vpw,font=("Times New Roman",18))
-        self.vpw.set(cUser.vvir.getVPW())
+        self.vpw.set(cUser.vvi.getVPW())
         self.v_p_w_E.place(x=900,y=220)
         #Ventricular Sensitivity
         self.v_s=Label(self,text="Ventricular Sensitivity : "+str(cUser.vvi.getVS()),font=("Times New Roman",18))
