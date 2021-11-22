@@ -146,8 +146,8 @@ class VOORparameter(tkinter.Frame):
             errors+=1
 
         try:
-            cUser.aoor.setAT(self.at_roll.get()[0])
-            self.a_t['text']="Activity Threshold : "+str(cUser.aoor.getAT())
+            cUser.voor.setAT(self.at_roll.get()[0])
+            self.a_t['text']="Activity Threshold : "+str(cUser.voor.getAT())
         except :
             text=text+"Activity Threshold not stored\n"
             errors+=1
