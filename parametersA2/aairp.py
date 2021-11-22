@@ -14,10 +14,10 @@ class Aairp:
         self.__pvarp = 250
         self.__hyst = 0
         self.__rs = 0
-        self.__at = 4 #default is med, high is 8, med is 4, low is 2
-        self.__reactT = 30000 #in ms (i.e. 30s)
+        self.__at = 4 #default is med, high is 6, med is 4, low is 2
+        self.__reactT = 30
         self.__rf = 8
-        self.__recovT = 300000 #in ms (i.e. 5min)
+        self.__recovT = 300 #in s (i.e. 5min)
 
     def getLRL(self):
         return self.__lrl
@@ -47,12 +47,34 @@ class Aairp:
         return self.__pvarp
 
     def getHYST(self):
-        return self.__hyst
+        if(self.__hyst):
+            return self.__hyst 
+        else:
+            return 'OFF'
     
     def getRS(self):
-        return self.__rs
+        if(self.__rs):
+            return self.__rs
+        else:
+            return "OFF"
     
     def getAT(self):
+        if(self.__at==1):
+            return 'V-L'
+        elif(self.__at==2):
+            return 'L'
+        elif(self.__at==3):
+            return 'M-L'
+        elif(self.__at==4):
+            return 'M'
+        elif(self.__at==5):
+            return 'M-H'
+        elif(self.__at==6):
+            return 'H'
+        elif(self.__at==7):
+            return 'V-H'
+
+    def getATV(self):
         return self.__at
 
     def getREACT(self):
@@ -62,7 +84,7 @@ class Aairp:
         return self.__rf
 
     def getRECOVT(self):
-        return self.__recovT
+        return round(self.__recovT/60)
 
     def setLRL(self, val):
         if (self.__is_num(val)):
@@ -97,6 +119,9 @@ class Aairp:
             raise TypeError
 
     def setAA(self, val):
+        if(val.casefold()=='off'.casefold()):
+            self.__aa = 0
+            return
         if (self.__is_num(val)):
             num =round(float(val),1)
             if (num <= 5.0 and num >= 0.1):
@@ -145,6 +170,9 @@ class Aairp:
             raise TypeError
 
     def setHYST(self,val):
+        if(val.casefold()=='off'.casefold()):
+            self.__hyst = 0
+            return
         if (self.__is_num(val)):
             num = 5 * round(float(val) / 5)
             if (round(float(val)) <= 90 and round(float(val)) >= 50):
@@ -159,32 +187,17 @@ class Aairp:
             raise TypeError
 
     def setRS(self,val):
-        if (self.__is_num(val)):
-            num = 3 * round(float(val) / 3)
-            if (round(float(val)) <= 3 and round(float(val)) >= 21):
-                self.__rs = round(float(val))
-            elif (round(float(val)) == 0):
-                self.__rs = 0
-            else:
-                raise IndexError
-        else:
-            raise TypeError
+        self.__rs = round(float(val))
 
     def setAT(self,val):
-        if (self.__is_num(val)):
-            num = round(float(val))
-            if (num != 8 and num != 4 and num != 2):
-                raise IndexError
-            else:
-                self.__at = num
-        else:
-            raise TypeError
+        self.__at =round(float(val))
+
 
     def setREACT(self,val):
         if (self.__is_num(val)):
             num = 10 * round(float(val) / 10)
             if (num <= 50 and num >= 10):
-                self.__reactT = num*1000 #in ms
+                self.__reactT = num 
             else:
                 raise IndexError
         else:
@@ -202,7 +215,7 @@ class Aairp:
     def setRECOVT(self,val):
         if (self.__is_num(val)):
             if ( round(float(val)) <= 16 and round(float(val)) >= 2):
-                self.__recovT = round(float(val))*60000 #in ms
+                self.__recovT = round(float(val))*60
             else:
                 raise IndexError
         else:

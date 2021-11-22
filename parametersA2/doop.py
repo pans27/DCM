@@ -17,9 +17,6 @@ class Doop:
 
     def getURL(self):
         return self.__url
-
-    def getMSR(self):
-        return self.__msr
     
     def getFAVD(self):
         return self.__FAVD
@@ -74,6 +71,9 @@ class Doop:
             raise TypeError
 
     def setAA(self, val):
+        if(val.casefold()=='off'.casefold()):
+            self.__aa = 0
+            return
         if (self.__is_num(val)):
             num =round(float(val),1)
             if (num <= 5.0 and num >= 0.1):
@@ -95,6 +95,9 @@ class Doop:
             raise TypeError
 
     def setVA(self, val):
+        if(val.casefold()=='off'.casefold()):
+            self.__va = 0
+            return
         if (self.__is_num(val)):
             num =round(float(val),1)
             if (num <= 5.0 and num >= 0.1):

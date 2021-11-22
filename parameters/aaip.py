@@ -75,6 +75,9 @@ class Aaip:
             raise TypeError
             
     def setAA(self, val):
+        if(val.casefold()=='off'.casefold()):
+            self.__aa = 0
+            return
         if (self.__is_num(val)):
             num =round(float(val),1)
             if (num <= 5.0 and num >= 0.1):
@@ -123,6 +126,9 @@ class Aaip:
             raise TypeError
 
     def setHYST(self,val):
+        if(val.casefold()=='off'.casefold()):
+            self.__hyst = 0
+            return
         if (self.__is_num(val)):
             num = 5 * round(float(val) / 5)
             if (round(float(val)) <= 90 and round(float(val)) >= 50):
@@ -137,16 +143,8 @@ class Aaip:
             raise TypeError
 
     def setRS(self,val):
-        if (self.__is_num(val)):
-            num = 3 * round(float(val) / 3)
-            if (round(float(val)) <= 3 and round(float(val)) >= 21):
-                self.__rs = round(float(val))
-            elif (round(float(val)) == 0):
-                self.__rs = 0
-            else:
-                raise IndexError
-        else:
-            raise TypeError
+        self.__rs = round(float(val))
+ 
             
     def __is_num(self,s):
         try:

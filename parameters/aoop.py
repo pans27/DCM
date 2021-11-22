@@ -49,6 +49,7 @@ class Aoop:
     def setAA(self, val):
         if(val.casefold()=='off'.casefold()):
             self.__aa = 0
+            return
         elif (self.__is_num(val)):
             num =round(float(val),1)
             if (num <= 5.0 and num >= 0.1):

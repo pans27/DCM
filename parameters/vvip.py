@@ -35,10 +35,16 @@ class Vvip:
         return self.__vrp
     
     def getHYST(self):
-        return self.__hyst
+        if(self.__hyst):
+            return self.__hyst 
+        else:
+            return 'OFF'
     
     def getRS(self):
-        return self.__rs
+        if(self.__rs):
+            return self.__rs
+        else:
+            return "OFF"
     
     def setLRL(self,val):
         if(self.__is_num(val)):
@@ -63,6 +69,9 @@ class Vvip:
             raise TypeError
             
     def setVA(self, val):
+        if(val.casefold()=='off'.casefold()):
+            self.__va = 0
+            return
         if (self.__is_num(val)):
             num =round(float(val),1)
             if (num <= 5.0 and num >= 0.1):
@@ -102,6 +111,9 @@ class Vvip:
             raise TypeError
             
     def setHYST(self,val):
+        if(val.casefold()=='off'.casefold()):
+            self.__hyst = 0
+            return
         if (self.__is_num(val)):
             num = 5 * round(float(val) / 5)
             if (round(float(val)) <= 90 and round(float(val)) >= 50):
@@ -116,16 +128,7 @@ class Vvip:
             raise TypeError
 
     def setRS(self,val):
-        if (self.__is_num(val)):
-            num = 3 * round(float(val) / 3)
-            if (round(float(val)) <= 3 and round(float(val)) >= 21):
-                self.__rs = round(float(val))
-            elif (round(float(val)) == 0):
-                self.__rs = 0
-            else:
-                raise IndexError
-        else:
-            raise TypeError
+        self.__rs = round(float(val))
             
     def __is_num(self,s):
         try:

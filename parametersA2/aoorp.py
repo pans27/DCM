@@ -9,10 +9,10 @@ class Aoorp:
         self.__msr = 120
         self.__aa=5.0
         self.__apw = 1
-        self.__at = 4 #default is med, high is 8, med is 4, low is 2
-        self.__reactT = 30 #in ms (i.e. 30s)
+        self.__at = 4 #default is med, high is 6, med is 4, low is 2
+        self.__reactT = 30
         self.__rf = 8
-        self.__recovT = 300 #in ms (i.e. 5min)
+        self.__recovT = 300 #in s (i.e. 5min)
 
     def getLRL(self):
         return self.__lrl
@@ -47,7 +47,6 @@ class Aoorp:
             return 'H'
         elif(self.__at==7):
             return 'V-H'
-
 
     def getATV(self):
         return self.__at
@@ -115,14 +114,8 @@ class Aoorp:
             raise TypeError
 
     def setAT(self,val):
-        if (self.__is_num(val)):
-            num = round(float(val))
-            if (num != 8 and num != 4 and num != 2):
-                raise IndexError
-            else:
-                self.__at = num
-        else:
-            raise TypeError
+        self.__at =round(float(val))
+
 
     def setREACT(self,val):
         if (self.__is_num(val)):

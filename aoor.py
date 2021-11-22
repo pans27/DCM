@@ -125,17 +125,17 @@ class AOORparameter(tkinter.Frame):
             text=text+"URL must be numeric\n"
             errors+=1
         except IndexError:
-            text=text+"URL must be between 50 and 175\n"
+            text=text+"URL must be between 50 and 175, and larger than LRL\n"
             errors+=1
 
         try:
             cUser.aoor.setMSR(self.msr.get())
-            self.u_r_l['text']="Maximum Sensor Rate : "+str(cUser.aoor.getMSR())
+            self.m_s_r['text']="Maximum Sensor Rate : "+str(cUser.aoor.getMSR())
         except TypeError:
             text=text+"MSR must be numeric\n"
             errors+=1
         except IndexError:
-            text=text+"MSR must be between 50 and 175, and larger than LRL\n"
+            text=text+"MSR must be between 50 and 175\n"
             errors+=1
             
         try:
@@ -161,16 +161,13 @@ class AOORparameter(tkinter.Frame):
         try:
             cUser.aoor.setAT(self.at_roll.get()[0])
             self.a_t['text']="Activity threshold : "+str(cUser.aoor.getAT())
-        except TypeError:
-            text=text+"Activity Threshold must be numeric\n"
-            errors+=1
-        except IndexError:
-            text=text+"Activity Threshold must be between 2 and 8\n"
+        except :
+            text=text+"Activity Threshold not stored\n"
             errors+=1
             
         try:
             cUser.aoor.setREACT(self.rt.get())
-            self.r_t['text']="Reaction time : "+str(cUser.aoor.getREACT())
+            self.r_t['text']="Reaction Time : "+str(cUser.aoor.getREACT())
         except TypeError:
             text=text+"Reaction Time must be numeric\n"
             errors+=1
@@ -190,7 +187,7 @@ class AOORparameter(tkinter.Frame):
 
         try:
             cUser.aoor.setRECOVT(self.ret.get())
-            self.recovery_time['text']="Recovery_time : "+str(cUser.aoor.getRECOVT())
+            self.recovery_time['text']="Recovery Time : "+str(cUser.aoor.getRECOVT())
         except TypeError:
             text=text+"Recovery Time must be numeric\n"
             errors+=1
@@ -203,7 +200,7 @@ class AOORparameter(tkinter.Frame):
             if(Commu):
                 prompt=messagebox.askquestion("Message","Changes saved, Send to connected pacemaker?")
                 if(prompt=="yes"):
-                    info=main.serial_Communication(4,cUser.aoor.getLRL(),cUser.aoor.getAPW(),0,0,0,0,round(cUser.aoor.getAA()*10),cUser.aoor.getARECOVT()*60,cUser.aoor.getRF(),cUser.aoor.getMSR(),0,cUser.aoor.getATV(),cUser.aoor.getREACT())
+                    info=main.serial_Communication(4,cUser.aoor.getLRL(),cUser.aoor.getAPW(),0,0,0,0,round(cUser.aoor.getAA()*10),cUser.aoor.getRECOVT()*60,cUser.aoor.getRF(),cUser.aoor.getMSR(),0,cUser.aoor.getATV(),cUser.aoor.getREACT())
                     messagebox.showinfo("Message",info)
             else:
                 messagebox.showinfo("Message","Changes saved")

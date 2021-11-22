@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
+from tkinter import ttk
 import tkinter
 import pickle
 import main
@@ -73,10 +74,10 @@ class AAIparameter(tkinter.Frame):
         #Rate Smoothing
         self.r_s=Label(self,text="Rate Smoothing : "+str(cUser.aai.getRS()),font=("Times New Roman",18))
         self.r_s.place(x=100,y=400)
-        self.rates=StringVar()
-        self.r_s_E=Entry(self,textvariable=self.rates,font=("Times New Roman",18))
-        self.rates.set(cUser.aai.getRS())
-        self.r_s_E.place(x=350,y=400)
+        self.rs_data = ['0 OFF','3','6','9','12','15','18','21','25']
+        self.rs = ttk.Combobox(self, state='readonly',font=("Times New Roman",18))
+        self.rs['values'] = self.rs_data
+        self.rs.place(x=350,y=400)
 
         self.comfirmB=Button(self,width=15,height=3,font=("Times New Roman",14))
         self.comfirmB["text"]="Comfirm"

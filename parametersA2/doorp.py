@@ -12,10 +12,10 @@ class Doorp:
         self.__apw = 1
         self.__va=5.0
         self.__vpw = 1
-        self.__at = 4 #default is med, high is 8, med is 4, low is 2
-        self.__reactT = 30000 #in ms (i.e. 30s)
+        self.__at = 4 #default is med, high is 6, med is 4, low is 2
+        self.__reactT = 30
         self.__rf = 8
-        self.__recovT = 300000 #in ms (i.e. 5min)
+        self.__recovT = 300 #in s (i.e. 5min)
 
     def getLRL(self):
         return self.__lrl
@@ -30,8 +30,8 @@ class Doorp:
         return self.__FAVD
 
     def getAA(self):
-        if(self.__va):
-            return self.__va 
+        if(self.__aa):
+            return self.__aa 
         else:
             return 'OFF'
 
@@ -48,6 +48,22 @@ class Doorp:
         return self.__vpw
     
     def getAT(self):
+        if(self.__at==1):
+            return 'V-L'
+        elif(self.__at==2):
+            return 'L'
+        elif(self.__at==3):
+            return 'M-L'
+        elif(self.__at==4):
+            return 'M'
+        elif(self.__at==5):
+            return 'M-H'
+        elif(self.__at==6):
+            return 'H'
+        elif(self.__at==7):
+            return 'V-H'
+
+    def getATV(self):
         return self.__at
 
     def getREACT(self):
@@ -57,7 +73,7 @@ class Doorp:
         return self.__rf
 
     def getRECOVT(self):
-        return self.__recovT
+        return round(self.__recovT/60)
 
     def setLRL(self, val):
         if (self.__is_num(val)):
@@ -101,6 +117,9 @@ class Doorp:
             raise TypeError
 
     def setAA(self, val):
+        if(val.casefold()=='off'.casefold()):
+            self.__aa = 0
+            return
         if (self.__is_num(val)):
             num =round(float(val),1)
             if (num <= 5.0 and num >= 0.1):
@@ -122,6 +141,9 @@ class Doorp:
             raise TypeError
     
     def setVA(self, val):
+        if(val.casefold()=='off'.casefold()):
+            self.__va = 0
+            return
         if (self.__is_num(val)):
             num =round(float(val),1)
             if (num <= 5.0 and num >= 0.1):
@@ -143,20 +165,14 @@ class Doorp:
             raise TypeError
         
     def setAT(self,val):
-        if (self.__is_num(val)):
-            num = round(float(val))
-            if (num != 8 and num != 4 and num != 2):
-                raise IndexError
-            else:
-                self.__at = num
-        else:
-            raise TypeError
+        self.__at =round(float(val))
+
 
     def setREACT(self,val):
         if (self.__is_num(val)):
             num = 10 * round(float(val) / 10)
             if (num <= 50 and num >= 10):
-                self.__reactT = num*1000 #in ms
+                self.__reactT = num 
             else:
                 raise IndexError
         else:
@@ -174,7 +190,7 @@ class Doorp:
     def setRECOVT(self,val):
         if (self.__is_num(val)):
             if ( round(float(val)) <= 16 and round(float(val)) >= 2):
-                self.__recovT = round(float(val))*60000 #in ms
+                self.__recovT = round(float(val))*60
             else:
                 raise IndexError
         else:
