@@ -89,7 +89,7 @@ class VVIRparameter(tkinter.Frame):
         self.at_data = ['1 V-Low', '2 Low', '3 Med-Low', '4 Med','5 Med-High', '6 High', '7 V-High']
         self.at_roll = ttk.Combobox(self, state='readonly',font=("Times New Roman",18))
         self.at_roll['values'] = self.at_data
-        self.at_roll.set(self.at_data[cUser.voor.getATV()-1])
+        self.at_roll.set(self.at_data[cUser.vvir.getATV()-1])
         self.at_roll.place(x=900,y=360)
         #Reaction Time
         self.r_t=Label(self,text="Reaction Time : "+str(cUser.vvir.getREACT()),font=("Times New Roman",18))

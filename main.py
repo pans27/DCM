@@ -350,6 +350,6 @@ if __name__=='__main__':
     root.geometry("1280x720+50+50")
     root.resizable(False, False)
     global_.cUser=global_.users[0]
-    vvir.VVIRparameter(master=root)
+    aair.AAIRparameter(master=root)
     #Application(master=root)
     root.mainloop()
