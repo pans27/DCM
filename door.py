@@ -147,6 +147,15 @@ class DOORparameter(tkinter.Frame):
             text=text+"URL must be between 50 and 175, and larger than LRL\n"
             errors+=1
         try:
+            cUser.door.setMSR(self.msr.get())
+            self.m_s_r['text']="Maximum Sensor Rate : "+str(cUser.door.getMSR())
+        except TypeError:
+            text=text+"MSR must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"MSR must be between 50 and 175, and larger than LRL, smaller than URL\n"
+            errors+=1
+        try:
             cUser.door.setFAVD(self.fad.get())
             self.a_a['text']="Fixed AV Delay : "+str(cUser.door.getFAVD())
         except TypeError:
@@ -192,8 +201,8 @@ class DOORparameter(tkinter.Frame):
             text=text+"VPW must be between 0.1 and 1.9\n"
             errors+=1
         try:
-            cUser.aoor.setAT(self.at_roll.get()[0])
-            self.a_t['text']="Activity Threshold : "+str(cUser.aoor.getAT())
+            cUser.door.setAT(self.at_roll.get()[0])
+            self.a_t['text']="Activity Threshold : "+str(cUser.door.getAT())
         except :
             text=text+"Activity Threshold not stored\n"
             errors+=1

@@ -135,7 +135,7 @@ class AOORparameter(tkinter.Frame):
             text=text+"MSR must be numeric\n"
             errors+=1
         except IndexError:
-            text=text+"MSR must be between 50 and 175\n"
+            text=text+"MSR must be between 50 and 175, and larger than LRL, smaller than URL\n"
             errors+=1
             
         try:

@@ -127,6 +127,15 @@ class VOORparameter(tkinter.Frame):
             text=text+"URL must be between 50 and 175, and larger than LRL\n"
             errors+=1
         try:
+            cUser.voor.setMSR(self.msr.get())
+            self.m_s_r['text']="Maximum Sensor Rate : "+str(cUser.voor.getMSR())
+        except TypeError:
+            text=text+"MSR must be numeric\n"
+            errors+=1
+        except IndexError:
+            text=text+"MSR must be between 50 and 175, and larger than LRL, smaller than URL\n"
+            errors+=1
+        try:
             cUser.voor.setVA(self.va.get())
             self.v_a['text']="Ventricular Amplitude : "+str(cUser.voor.getVA())
         except TypeError:

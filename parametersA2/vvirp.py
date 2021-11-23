@@ -104,7 +104,7 @@ class Vvirp:
     def setMSR(self, val):
         if (self.__is_num(val)):
             num = 5 * round(float(val) / 5)
-            if (num <= 175 and num >= 50):
+            if (num <= 175 and num >= 50 and num<=self.__url and num>=self.__lrl):
                 self.__msr = num
             else:
                 raise IndexError
