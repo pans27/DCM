@@ -280,50 +280,71 @@ class Connect(tkinter.Frame): # connect frame to be further implemented with ser
             self.stat['text']="Pacemaker Connection: COM"+str(global_.Commu)
 
         
-def serial_Communication(mode,LR,APW,VPW,VA,ARP,VRP,AA,RECOVT,RF,MSR,AVD,AT,REACT):
+def serial_Communication(mode,lr,apw,vpw,va,arp,vrp,aa,recovt,rf,msr,avd,at,react):
     if global_.Commu  == 3:
         ser = serial.Serial(port="COM3", baudrate=115200)
     elif global_.Commu  == 4:
         ser = serial.Serial(port="COM4", baudrate=115200)
     elif global_.Commu  == 5:
         ser = serial.Serial(port="COM5", baudrate=115200)
+    elif global_.Commu  == 6:
+        ser = serial.Serial(port="COM6", baudrate=115200)
     else:
         raise PortNotOpenError
-    Header = '<2B14H'
-    if(AA=='OFF'):
-        AA=0
-    if(VA=='OFF'):
-        VA=0
-    sp = struct.pack(Header,0x16,0x55,mode,LR,APW,VPW,VA,ARP,VRP,AA,RECOVT,RF,MSR,AVD,AT,REACT)
-    ser.write(sp)
+    ser.open
+    Header = '<2B4Hf2Hf6H'
+    if(aa=='OFF'):
+        aa=0
+    if(va=='OFF'):
+        va=0
+    sp = struct.pack(Header,0x16,0x55,mode,lr,apw,vpw,va,arp,vrp,aa,recovt,rf,msr,avd,at,react)
+    print(len(sp))
+    #ser.write(sp)
+    ser.write(struct.pack('<2B16H',0x16,0x22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0))
+    print(len(sp))
     time.sleep(0.5)
-    #ser.write(struct.pack('<2B',0x16,0x22))
-    serialdata=ser.read(22)
+    serialdata=ser.read(48)
+    ser.close
+    print(len(sp))
     modeV=struct.unpack('H',serialdata[0:2])
-    LRV = struct.unpack('H',serialdata[2:4])
-    APWV = struct.unpack('H',serialdata[4:6])
-    VPWV = struct.unpack('H',serialdata[6:8])
-    VAV = struct.unpack('H',serialdata[8:10])
-    ARPV = struct.unpack('H',serialdata[10:12])
-    VRPV = struct.unpack('H',serialdata[12:14])
-    AAV = struct.unpack('H',serialdata[14:16])
-    RECOVTV = struct.unpack('H',serialdata[16:18])
-    RFV = struct.unpack('H',serialdata[18:20])
-    MSRV = struct.unpack('H',serialdata[20:22])
-    # AVDV = struct.unpack('H',serialdata[22:24])
-    # ATV = struct.unpack('H',serialdata[24:26])
-    # REACTV = struct.unpack('H',serialdata[26:28])
+    lrV = struct.unpack('H',serialdata[2:4])
+    apwV = struct.unpack('H',serialdata[4:6])
+    vpwV = struct.unpack('H',serialdata[6:8])
+    vaV = struct.unpack('f',serialdata[8:12])
+    arpV = struct.unpack('H',serialdata[12:14])
+    vrpV = struct.unpack('H',serialdata[14:16])
+    aaV = struct.unpack('f',serialdata[16:20])
+    recovtV = struct.unpack('H',serialdata[20:22])
+    rfV = struct.unpack('H',serialdata[22:24])
+    msrV = struct.unpack('H',serialdata[24:26])
+    avdV = struct.unpack('H',serialdata[26:28])
+    atV = struct.unpack('H',serialdata[28:30])
+    reactV = struct.unpack('H',serialdata[30:32])
+    aSignV=struct.unpack('d',serialdata[32:40])
+    vSignV=struct.unpack('d',serialdata[40:48])
     print(sp)
     print(serialdata)
     print(modeV[0])
-    print(LRV[0])    
-    print(APWV[0])
-    print(APW)
-    #if(modeV[0]==mode and LRV[0]==LR and APWV[0]==APW and VPWV[0]==VPW and VAV[0]==VAV and ARPV[0]==ARP and VRPV[0]==VRP 
-        #and AAV[0]==AA and RECOVTV[0]==RECOVT and RFV[0]==RF and MSRV[0]==MSR and AVDV[0]==AVD and ATV[0]==AT and REACTV[0]==REACT):
-    return "Parameter set and store successfully"
-    #else:
-         #return "Some or all parameters did not store properly, check pacemaker version compatibility"
+    print(lrV[0])    
+    print(apwV[0])
+    print(vpwV[0])
+    print(vaV[0])
+    print(arpV[0])
+    print(vrpV[0])
+    print(aaV[0])
+    print(recovtV[0])
+    print(rfV[0])
+    print(msrV[0])
+    print(avdV[0])
+    print(atV[0])
+    print(reactV[0])
+    print(aSignV[0])
+    print(vSignV[0])
+    if(modeV[0]==mode and lrV[0]==lr and apwV[0]==apw and vpwV[0]==vpw and vaV[0]==va and arpV[0]==arp and vrpV[0]==vrp 
+        and aaV[0]==aa and recovtV[0]==recovt and rfV[0]==rf and msrV[0]==msr and avdV[0]==avd and atV[0]==at and reactV[0]==react):
+        return "Parameter set and store successfully"
+    else:
+         return "Some or all parameters did not store properly, check pacemaker version compatibility"
     
 
  #check if the DCM is connected to pacemaker   
@@ -340,7 +361,11 @@ def checkConnect():
                 ser = serial.Serial(port="COM5", baudrate=115200)
                 return 5
             except:
-                return 0 # not connected
+                try:
+                    ser = serial.Serial(port="COM6", baudrate=115200)
+                    return 6
+                except:
+                    return 0 # not connected
 
 def storeD():
     pickle.dump(global_.users,open('users.dat','wb')) #store the list of users in user.dat

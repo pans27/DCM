@@ -3,6 +3,7 @@ from tkinter import messagebox
 import tkinter
 import pickle
 import main
+import egram
 
 class AOOparameter(tkinter.Frame):
     def __init__(self,master=None):
@@ -53,6 +54,7 @@ class AOOparameter(tkinter.Frame):
         self.egramB.place(x=795,y=550)
         self.clearB.bind("<Button-1>",self.clearPressed)
         self.comfirmB.bind("<Button-1>",self.confirmPressed)
+        self.egramB.bind("<Button-1>",self.egramPressed)
         self.back=Button(self,width=10,height=2,font=("Times New Roman",14))
         self.back["text"]="Back"
         self.back.place(relx=0.85,rely=0.9)
@@ -107,7 +109,7 @@ class AOOparameter(tkinter.Frame):
             if(Commu):
                 prompt=messagebox.askquestion("Message","Changes saved, Send to connected pacemaker?")
                 if(prompt=="yes"):
-                    info=main.serial_Communication(0,cUser.aoo.getLRL(),cUser.aoo.getAPW(),0,0,0,0,round(cUser.aoo.getAA()*10),0,0,0,0,0,0)
+                    info=main.serial_Communication(0,cUser.aoo.getLRL(),cUser.aoo.getAPW(),0,0,0,0,cUser.aoo.getAA(),0,0,0,0,0,0)
                     messagebox.showinfo("Message",info)
             else:
                 messagebox.showinfo("Message","Changes saved")
@@ -124,6 +126,9 @@ class AOOparameter(tkinter.Frame):
             self.url.set(cUser.aoo.getURL())
             self.aa.set(cUser.aoo.getAA())
             self.apw.set(cUser.aoo.getAPW())
+
+    def egramPressed(self,e):
+        egram.Egram()
 
     def backPressed(self,e):
         main.Modes(master=self.master)
