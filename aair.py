@@ -4,7 +4,7 @@ from tkinter import ttk
 import tkinter
 import pickle
 import main
-
+import egram
 
 class AAIRparameter(tkinter.Frame):
     def __init__(self,master=None):
@@ -130,6 +130,7 @@ class AAIRparameter(tkinter.Frame):
         self.egramB["text"]="Egram"
         self.egramB.place(x=795,y=550)
         self.clearB.bind("<Button-1>",self.clearPressed)
+        self.egramB.bind("<Button-1>",self.egramPressed)
         self.comfirmB.bind("<Button-1>",self.confirmPressed)
         self.back=Button(self,width=10,height=2,font=("Times New Roman",14))
         self.back["text"]="Back"
@@ -308,6 +309,9 @@ class AAIRparameter(tkinter.Frame):
             self.rt.set(cUser.aair.getREACT())
             self.rf.set(cUser.aair.getRF())
             self.ret.set(cUser.aair.getRECOVT())
+
+    def egramPressed(self,e):
+        egram.Egram()
 
     def backPressed(self,e):
         main.Modes(master=self.master)

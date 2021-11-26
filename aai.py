@@ -4,7 +4,7 @@ from tkinter import ttk
 import tkinter
 import pickle
 import main
-
+import egram
 class AAIparameter(tkinter.Frame):
     def __init__(self,master=None):
         super().__init__(master)
@@ -90,6 +90,7 @@ class AAIparameter(tkinter.Frame):
         self.egramB["text"]="Egram"
         self.egramB.place(x=795,y=550)
         self.clearB.bind("<Button-1>",self.clearPressed)
+        self.egramB.bind("<Button-1>",self.egramPressed)
         self.comfirmB.bind("<Button-1>",self.confirmPressed)
         self.back=Button(self,width=10,height=2,font=("Times New Roman",14))
         self.back["text"]="Back"
@@ -188,7 +189,7 @@ class AAIparameter(tkinter.Frame):
             if(Commu):
                 prompt=messagebox.askquestion("Message","Changes saved, Send to connected pacemaker?")
                 if(prompt=="yes"):
-                    info=main.serial_Communication(2,cUser.aai.getLRL(),cUser.aai.getAPW(),0,0,cUser.aai.getARP(),0,round(cUser.aai.getAA()*10),0,0,0,0,0,0)
+                    info=main.serial_Communication(2,cUser.aai.getLRL(),cUser.aai.getAPW(),0,0,cUser.aai.getARP(),0,cUser.aai.getAA(),0,0,0,0,0,0)
                     messagebox.showinfo("Message",info)
             else:
                 messagebox.showinfo("Message","Changes saved")
@@ -196,7 +197,8 @@ class AAIparameter(tkinter.Frame):
             messagebox.showinfo("Message","There is/are "+str(errors)+" error(S):\n"+text+"Values may not be saved")
             main.storeD()
 
-
+    def egramPressed(self,e):
+        egram.Egram()
     
     def clearPressed(self,e):
         from global_ import cUser

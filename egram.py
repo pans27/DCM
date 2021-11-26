@@ -24,7 +24,7 @@ class Egram():
         self.vData=np.array([])
         self.sData=np.array([])
         self.vS=False
-        self.aS=True
+        self.aS=False
         self.window = Tk()
     
         # setting the title 
@@ -46,13 +46,16 @@ class Egram():
         
         self.plotA.set_title('Atrium Signals', fontsize = 12)
         self.plotV.set_title('Ventricle Signals', fontsize = 12)
-        self.plotA.set_xlabel("Time (ms)", fontsize = 10)
+        self.plotA.set_xlabel("Sample", fontsize = 10)
         self.plotA.set_ylabel("Voltage (mV)", fontsize = 10)
-        self.plotV.set_xlabel("Time (ms)", fontsize = 10)
+        self.plotV.set_xlabel("Sample", fontsize = 10)
         self.plotV.set_ylabel("Voltage (mV)", fontsize = 10)
         self.plotA.set_ylim(-6,6)
-        self.plotA.set_xlim(0,400)
+        self.plotA.set_xlim(0,300)
         self.linesA=self.plotA.plot([],[])[0]
+        self.plotV.set_ylim(-6,6)
+        self.plotV.set_xlim(0,300)
+        self.linesV=self.plotV.plot([],[])[0]
         # creating the Tkinter canvas
         # containing the Matplotlib figure
         self.canvas = FigureCanvasTkAgg(self.fig,master = self.window)  
@@ -69,54 +72,85 @@ class Egram():
         self.canvas.get_tk_widget().pack()
         
         self.window.update()
-        self.start = tkinter.Button(self.window, text = "Start", font = ('calbiri',12),command = lambda: self.plot_start())
-        self.start.place(x = 100, y = 450 )
+        self.a = tkinter.Button(self.window, text = "Atrium", font = ('calbiri',12),command = lambda: self.plot_a())
+        self.a.place(x = 100, y = 280 )
 
         self.window.update()
-        self.stop = tkinter.Button(self.window, text = "Stop", font = ('calbiri',12), command = lambda:self.plot_stop())
-        self.stop.place(x = self.start.winfo_x()+self.start.winfo_reqwidth() + 20, y = 450)
+        self.v = tkinter.Button(self.window, text = "Ventricle", font = ('calbiri',12), command = lambda:self.plot_v())
+        self.v.place(x = self.a.winfo_x()+self.a.winfo_reqwidth() + 20, y = 280)
         self.window.update()
-        self.close = tkinter.Button(self.window, text = "Close", font = ('calbiri',12), command = lambda:self.plot_close())
-        self.close.place(x = self.stop.winfo_x()+self.stop.winfo_reqwidth() + 20, y = 450)
         #ser.reset_input_buffer()
         self.window.after(1,self.plot)
     
     def plot(self):
-        if global_.Commu  == 3:
-            ser = serial.Serial(port="COM3", baudrate=115200)
-        elif global_.Commu  == 4:
-            ser = serial.Serial(port="COM4", baudrate=115200)
-        elif global_.Commu  == 5:
-            ser = serial.Serial(port="COM5", baudrate=115200)
-        elif global_.Commu  == 6:
-            ser = serial.Serial(port="COM6", baudrate=115200)
-        else:
+        try:
+            ser = serial.Serial(port="COM"+str(global_.Commu), baudrate=115200)
+        except:
             raise PortNotOpenError
-        if(self.aS==True):
+        if(self.aS==True and self.vS==True):
             ser.open
+            ser.reset_input_buffer()
             ser.write(struct.pack('<2B16H',0x16,0x22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0))
-            #time.sleep(0.5)
-            serialdata=ser.read(48)
+            serialdata=ser.read(16)
             ser.close
-            print(struct.unpack('d',serialdata[32:40])[0])
-            if(len(self.sData)<100):
-                self.aData=np.append(self.aData,struct.unpack('d',serialdata[32:40])[0])
-                self.vData=np.append(self.vData,struct.unpack('d',serialdata[40:48])[0])
+            a=-6.6*(struct.unpack('d',serialdata[0:8])[0]-0.5)
+            v=-6.6*(struct.unpack('d',serialdata[8:16])[0]-0.5)
+            if(len(self.aData)<300):
+                self.aData=np.append(self.aData,a)
+                self.vData=np.append(self.vData,v)
             else:
-                self.aData[0:99]=self.aData[1:100]
-                self.vData[0:99]=self.vData[1:100]
-                self.aData[99]=struct.unpack('d',serialdata[32:40])[0]
-                self.vData[99]=struct.unpack('d',serialdata[40:48])[0]
-            print(self.aData[len(self.aData)-1])
+                self.aData[0:299]=self.aData[1:300]
+                self.vData[0:299]=self.vData[1:300]
+                self.aData[299]=a
+                self.vData[299]=v
             self.linesA.set_xdata(np.arange(0,len(self.aData)))
             self.linesA.set_ydata(self.aData)
+            self.linesV.set_xdata(np.arange(0,len(self.vData)))
+            self.linesV.set_ydata(self.vData)
             self.canvas.draw()
-        self.window.after(25,self.plot)
-    def plot_start(self):
-        self.aS = True
+        elif(self.aS==True):
+            ser.open
+            ser.reset_input_buffer()
+            ser.write(struct.pack('<2B16H',0x16,0x22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0))
+            serialdata=ser.read(16)
+            ser.close
+            a=-6.6*(struct.unpack('d',serialdata[0:8])[0]-0.5)
+            if(len(self.aData)<300):
+                self.aData=np.append(self.aData,a)
+                self.vData=np.append(self.vData,0)
+            else:
+                self.aData[0:299]=self.aData[1:300]
+                self.vData[0:299]=self.vData[1:300]
+                self.aData[299]=a
+                self.vData[299]=0
+            self.linesA.set_xdata(np.arange(0,len(self.aData)))
+            self.linesA.set_ydata(self.aData)
+            self.linesV.set_xdata(np.arange(0,len(self.vData)))
+            self.linesV.set_ydata(self.vData)
+            self.canvas.draw()
+        elif(self.vS==True):
+            ser.open
+            ser.reset_input_buffer()
+            ser.write(struct.pack('<2B16H',0x16,0x22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0))
+            serialdata=ser.read(16)
+            ser.close
+            v=-6.6*(struct.unpack('d',serialdata[8:16])[0]-0.5)
+            if(len(self.aData)<300):
+                self.aData=np.append(self.aData,0)
+                self.vData=np.append(self.vData,v)
+            else:
+                self.aData[0:299]=self.aData[1:300]
+                self.vData[0:299]=self.vData[1:300]
+                self.aData[299]=0
+                self.vData[299]=v
+            self.linesA.set_xdata(np.arange(0,len(self.aData)))
+            self.linesA.set_ydata(self.aData)
+            self.linesV.set_xdata(np.arange(0,len(self.vData)))
+            self.linesV.set_ydata(self.vData)
+            self.canvas.draw()
+        self.window.after(1,self.plot)
+    def plot_a(self):
+        self.aS = not self.aS
 
-    def plot_stop(self):
-        self.aS = False
-    
-    def plot_close(self):
-        del self
+    def plot_v(self):
+        self.vS = not self.vS
