@@ -93,10 +93,10 @@ class AAIRparameter(tkinter.Frame):
         #Activity Threshold
         self.a_t=Label(self,text="Activity Threshold : "+str(cUser.aair.getAT()),font=("Times New Roman",18))
         self.a_t.place(x=90,y=410)
-        self.at_data = ['1 V-Low', '2 Low', '3 Med-Low', '4 Med','5 Med-High', '6 High', '7 V-High']
+        self.at_data = ['1.13 V-Low', '1.25 Low', '1.4 Med-Low', '1.6 Med','2 Med-High', '2.4 High', '3 V-High']
         self.at_roll = ttk.Combobox(self, state='readonly',font=("Times New Roman",18))
         self.at_roll['values'] = self.at_data
-        self.at_roll.set(self.at_data[cUser.aair.getATV()-1])
+        self.at_roll.set(cUser.aair.getATV())
         self.at_roll.place(x=350,y=410)
         #Reaction Time
         self.r_t=Label(self,text="Reaction Time : "+str(cUser.aair.getREACT()),font=("Times New Roman",18))
@@ -243,7 +243,7 @@ class AAIRparameter(tkinter.Frame):
             errors+=1
             
         try:
-            cUser.aair.setAT(self.at_roll.get()[0])
+            cUser.aair.setAT(self.at_roll.get().split()[0])
             self.a_t['text']="Activity Threshold : "+str(cUser.aair.getAT())
         except :
             text=text+"Activity Threshold not stored\n"
@@ -299,13 +299,15 @@ class AAIRparameter(tkinter.Frame):
         if(prompt=='yes'):
             self.lrl.set(cUser.aair.getLRL())
             self.url.set(cUser.aair.getURL())
+            self.msr.set(cUser.aair.getMSR())
             self.aa.set(cUser.aair.getAA())
             self.apw.set(cUser.aair.getAPW())
+            self.ats.set(cUser.aair.getAS())
             self.arp.set(cUser.aair.getARP())
             self.pvarp.set(cUser.aair.getPVARP())
             self.hys.set(cUser.aair.getHYST())
-            self.rates.set(cUser.aair.getRS())
-            self.at.set(cUser.aair.getAT())
+            self.rs.set(cUser.aair.getRS())
+            self.at_roll.set(cUser.aair.getATV())
             self.rt.set(cUser.aair.getREACT())
             self.rf.set(cUser.aair.getRF())
             self.ret.set(cUser.aair.getRECOVT())

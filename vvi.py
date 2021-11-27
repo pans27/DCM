@@ -177,7 +177,7 @@ class VVIparameter(tkinter.Frame):
             if(Commu):
                 prompt=messagebox.askquestion("Message","Changes saved, Send to connected pacemaker?")
                 if(prompt=="yes"):
-                    info=main.serial_Communication(3,cUser.vvi.getLRL(),0,cUser.vvi.getVPW(),round(cUser.vvi.getVA()*10),0,cUser.vvi.getVRP(),0,0,0,0,0,0,0)
+                    info=main.serial_Communication(3,cUser.vvi.getLRL(),0,cUser.vvi.getVPW(),cUser.vvi.getVA(),0,cUser.vvi.getVRP(),0,0,0,0,0,7,0)
                     messagebox.showinfo("Message",info)
             else:
                 messagebox.showinfo("Message","Changes saved")

@@ -57,10 +57,10 @@ class AOORparameter(tkinter.Frame):
         #Activity Threshold
         self.a_t=Label(self,text="Activity Threshold : "+str(cUser.aoor.getAT()),font=("Times New Roman",18))
         self.a_t.place(x=640,y=280)
-        self.at_data = ['1 V-Low', '2 Low', '3 Med-Low', '4 Med','5 Med-High', '6 High', '7 V-High']
+        self.at_data = ['1.13 V-Low', '1.25 Low', '1.4 Med-Low', '1.6 Med','2 Med-High', '2.4 High', '3 V-High']
         self.at_roll = ttk.Combobox(self, state='readonly',font=("Times New Roman",18))
         self.at_roll['values'] = self.at_data
-        self.at_roll.set(self.at_data[cUser.aoor.getATV()-1])
+        self.at_roll.set(cUser.aoor.getATV())
         self.at_roll.place(x=900,y=280)
         #Reaction Time
         self.r_t=Label(self,text="Reaction Time : "+str(cUser.aoor.getREACT()),font=("Times New Roman",18))
@@ -160,7 +160,7 @@ class AOORparameter(tkinter.Frame):
             errors+=1
             
         try:
-            cUser.aoor.setAT(self.at_roll.get()[0])
+            cUser.aoor.setAT(self.at_roll.get().split()[0])
             self.a_t['text']="Activity Threshold : "+str(cUser.aoor.getAT())
         except :
             text=text+"Activity Threshold not stored\n"
@@ -217,7 +217,7 @@ class AOORparameter(tkinter.Frame):
             self.url.set(cUser.aoor.getURL())
             self.aa.set(cUser.aoor.getAA())
             self.apw.set(cUser.aoor.getAPW())
-            self.at.set(cUser.aoor.getAT())
+            self.at_roll.set(cUser.aoor.getATV())
             self.rt.set(cUser.aoor.getREACT())
             self.rf.set(cUser.aoor.getRF())
             self.ret.set(cUser.aoor.getRECOVT())

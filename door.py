@@ -37,7 +37,7 @@ class DOORparameter(tkinter.Frame):
         self.m_s_r.place(x=55,y=220)
         self.msr=StringVar()
         self.m_s_r_E=Entry(self,textvariable=self.msr,font=("Times New Roman",18))
-        self.msr.set(cUser.door.getAA())
+        self.msr.set(cUser.door.getMSR())
         self.m_s_r_E.place(x=350,y=220)
         #Fixed AV Dealy
         self.fixed_AV_delay=Label(self,text="Fixed AV Dealy : "+str(cUser.door.getFAVD()),font=("Times New Roman",18))
@@ -77,10 +77,10 @@ class DOORparameter(tkinter.Frame):
         #Activity Threshold
         self.a_t=Label(self,text="Activity Threshold : "+str(cUser.door.getAT()),font=("Times New Roman",18))
         self.a_t.place(x=90,y=400)
-        self.at_data = ['1 V-Low', '2 Low', '3 Med-Low', '4 Med','5 Med-High', '6 High', '7 V-High']
+        self.at_data = ['1.13 V-Low', '1.25 Low', '1.4 Med-Low', '1.6 Med','2 Med-High', '2.4 High', '3 V-High']
         self.at_roll = ttk.Combobox(self, state='readonly',font=("Times New Roman",18))
         self.at_roll['values'] = self.at_data
-        self.at_roll.set(self.at_data[cUser.door.getATV()-1])
+        self.at_roll.set(cUser.door.getATV())
         self.at_roll.place(x=350,y=400)
         #Reaction Time
         self.r_t=Label(self,text="Reaction Time : "+str(cUser.door.getREACT()),font=("Times New Roman",18))
@@ -202,7 +202,7 @@ class DOORparameter(tkinter.Frame):
             text=text+"VPW must be between 0.1 and 1.9\n"
             errors+=1
         try:
-            cUser.door.setAT(self.at_roll.get()[0])
+            cUser.door.setAT(self.at_roll.get().split()[0])
             self.a_t['text']="Activity Threshold : "+str(cUser.door.getAT())
         except :
             text=text+"Activity Threshold not stored\n"
@@ -241,7 +241,7 @@ class DOORparameter(tkinter.Frame):
             if(Commu):
                 prompt=messagebox.askquestion("Message","Changes saved, Send to connected pacemaker?")
                 if(prompt=="yes"):
-                    info=main.serial_Communication(4,cUser.door.getLRL(),cUser.door.getAPW(),cUser.door.getVPW(),round(cUser.door.getVA()*10),0,0,round(cUser.door.getAA()*10),cUser.door.getRECOVT()*60,cUser.door.getRF(),cUser.door.getMSR(),cUser.door.getFAVD(),cUser.door.getATV(),cUser.door.getREACT())
+                    info=main.serial_Communication(9,cUser.door.getLRL(),cUser.door.getAPW(),cUser.door.getVPW(),cUser.door.getVA(),0,0,cUser.door.getAA(),cUser.door.getRECOVT()*60,cUser.door.getRF(),cUser.door.getMSR(),cUser.door.getFAVD(),cUser.door.getATV(),cUser.door.getREACT())
                     messagebox.showinfo("Message",info)
             else:
                 messagebox.showinfo("Message","Changes saved")
@@ -261,7 +261,7 @@ class DOORparameter(tkinter.Frame):
             self.apw.set(cUser.door.getAPW())
             self.va.set(cUser.door.getVA())
             self.vpw.set(cUser.door.getVPW())
-            self.at.set(cUser.door.getAT())
+            self.at_roll.set(cUser.door.getATV())
             self.rt.set(cUser.door.getREACT())
             self.rf.set(cUser.door.getRF())
             self.ret.set(cUser.door.getRECOVT())

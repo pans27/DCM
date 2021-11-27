@@ -57,10 +57,10 @@ class VOORparameter(tkinter.Frame):
         #Activity Threshold
         self.a_t=Label(self,text="Activity Threshold : "+str(cUser.voor.getAT()),font=("Times New Roman",18))
         self.a_t.place(x=640,y=280)
-        self.at_data = ['1 V-Low', '2 Low', '3 Med-Low', '4 Med','5 Med-High', '6 High', '7 V-High']
+        self.at_data = ['1.13 V-Low', '1.25 Low', '1.4 Med-Low', '1.6 Med','2 Med-High', '2.4 High', '3 V-High']
         self.at_roll = ttk.Combobox(self, state='readonly',font=("Times New Roman",18))
         self.at_roll['values'] = self.at_data
-        self.at_roll.set(self.at_data[cUser.voor.getATV()-1])
+        self.at_roll.set(cUser.voor.getATV())
         self.at_roll.place(x=900,y=280)
         #Reaction Time
         self.r_t=Label(self,text="Reaction Time : "+str(cUser.voor.getREACT()),font=("Times New Roman",18))
@@ -156,7 +156,7 @@ class VOORparameter(tkinter.Frame):
             errors+=1
 
         try:
-            cUser.voor.setAT(self.at_roll.get()[0])
+            cUser.voor.setAT(self.at_roll.get().split()[0])
             self.a_t['text']="Activity Threshold : "+str(cUser.voor.getAT())
         except :
             text=text+"Activity Threshold not stored\n"
@@ -196,7 +196,7 @@ class VOORparameter(tkinter.Frame):
             if(Commu):
                 prompt=messagebox.askquestion("Message","Changes saved, Send to connected pacemaker?")
                 if(prompt=="yes"):
-                    info=main.serial_Communication(5,cUser.voor.getLRL(),0,cUser.voor.getVPW(),round(cUser.voor.getVA()*10),0,0,0,cUser.voor.getRECOVT()*60,cUser.voor.getRF(),cUser.voor.getMSR(),0,cUser.voor.getATV(),cUser.voor.getREACT())
+                    info=main.serial_Communication(6,cUser.voor.getLRL(),0,cUser.voor.getVPW(),cUser.voor.getVA(),0,0,0,cUser.voor.getRECOVT()*60,cUser.voor.getRF(),cUser.voor.getMSR(),0,cUser.voor.getATV(),cUser.voor.getREACT())
                     messagebox.showinfo("Message",info)
             else:
                 messagebox.showinfo("Message","Changes saved")
@@ -214,7 +214,7 @@ class VOORparameter(tkinter.Frame):
             self.msr.set(cUser.voor.getMSR())
             self.va.set(cUser.voor.getVA())
             self.vpw.set(cUser.voor.getVPW())
-            self.at.set(cUser.voor.getAT())
+            self.at_roll.set(cUser.voor.getATV())
             self.rt.set(cUser.voor.getREACT())
             self.rf.set(cUser.voor.getRF())
             self.ret.set(cUser.voor.getRECOVT())

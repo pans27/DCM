@@ -13,7 +13,7 @@ class Vvirp:
         self.__vrp = 320
         self.__hyst = 0
         self.__rs = 0
-        self.__at = 4 #default is med, high is 6, med is 4, low is 2
+        self.__at = 1.6 #default is med, high is 6, med is 4, low is 2
         self.__reactT = 30
         self.__rf = 8
         self.__recovT = 300 #in s (i.e. 5min)
@@ -52,19 +52,19 @@ class Vvirp:
         return self.__rs
 
     def getAT(self):
-        if(self.__at==1):
+        if(self.__at-1.13<0.01):
             return 'V-L'
-        elif(self.__at==2):
+        elif(self.__at-1.25<0.01):
             return 'L'
-        elif(self.__at==3):
+        elif(self.__at-1.4<0.01):
             return 'M-L'
-        elif(self.__at==4):
+        elif(self.__at-1.6<0.01):
             return 'M'
-        elif(self.__at==5):
+        elif(self.__at==2):
             return 'M-H'
-        elif(self.__at==6):
+        elif(self.__at-2.4<0.01):
             return 'H'
-        elif(self.__at==7):
+        elif(self.__at==3):
             return 'V-H'
 
     def getATV(self):
@@ -174,7 +174,7 @@ class Vvirp:
         self.__rs = round(float(val))
 
     def setAT(self,val):
-        self.__at =round(float(val))
+        self.__at =float(val)
 
 
     def setREACT(self,val):

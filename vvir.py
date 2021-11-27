@@ -86,10 +86,10 @@ class VVIRparameter(tkinter.Frame):
          #Activity Threshold
         self.a_t=Label(self,text="Activity Threshold : "+str(cUser.vvir.getAT()),font=("Times New Roman",18))
         self.a_t.place(x=640,y=360)
-        self.at_data = ['1 V-Low', '2 Low', '3 Med-Low', '4 Med','5 Med-High', '6 High', '7 V-High']
+        self.at_data = ['1.13 V-Low', '1.25 Low', '1.4 Med-Low', '1.6 Med','2 Med-High', '2.4 High', '3 V-High']
         self.at_roll = ttk.Combobox(self, state='readonly',font=("Times New Roman",18))
         self.at_roll['values'] = self.at_data
-        self.at_roll.set(self.at_data[cUser.vvir.getATV()-1])
+        self.at_roll.set(cUser.vvir.getATV())
         self.at_roll.place(x=900,y=360)
         #Reaction Time
         self.r_t=Label(self,text="Reaction Time : "+str(cUser.vvir.getREACT()),font=("Times New Roman",18))
@@ -226,7 +226,7 @@ class VVIRparameter(tkinter.Frame):
             errors+=1
             
         try:
-            cUser.vvir.setAT(self.at_roll.get()[0])
+            cUser.vvir.setAT(self.at_roll.get().split()[0])
             self.a_t['text']="Activity Threshold : "+str(cUser.vvir.getAT())
         except :
             text=text+"Activity Threshold not stored\n"
@@ -267,7 +267,7 @@ class VVIRparameter(tkinter.Frame):
             if(Commu):
                 prompt=messagebox.askquestion("Message","Changes saved, Send to connected pacemaker?")
                 if(prompt=="yes"):
-                    info=main.serial_Communication(7,cUser.vvir.getLRL(),0,cUser.vvir.getVPW(),round(cUser.vvir.getVA()*10),0,cUser.vvir.getVRP(),0,cUser.vvir.getRECOVT()*60,cUser.vvir.getRF(),cUser.vvir.getMSR(),0,cUser.vvir.getATV(),cUser.vvir.getREACT())
+                    info=main.serial_Communication(8,cUser.vvir.getLRL(),0,cUser.vvir.getVPW(),cUser.vvir.getVA(),0,cUser.vvir.getVRP(),0,cUser.vvir.getRECOVT()*60,cUser.vvir.getRF(),cUser.vvir.getMSR(),0,cUser.vvir.getATV(),cUser.vvir.getREACT())
                     messagebox.showinfo("Message",info)
             else:
                 messagebox.showinfo("Message","Changes saved")
@@ -289,8 +289,8 @@ class VVIRparameter(tkinter.Frame):
             self.vs.set(cUser.vvir.getVS())
             self.vrp.set(cUser.vvir.getVRP())
             self.hys.set(cUser.vvir.getHYST())
-            self.rates.set(cUser.vvir.getRS())
-            self.at.set(cUser.vvir.getAT())
+            self.rs.set(cUser.vvir.getRS())
+            self.at_roll.set(cUser.vvir.getATV())
             self.rt.set(cUser.vvir.getREACT())
             self.rf.set(cUser.vvir.getRF())
             self.ret.set(cUser.vvir.getRECOVT())

@@ -303,63 +303,63 @@ def serial_Communication(mode,lr,apw,vpw,va,arp,vrp,aa,recovt,rf,msr,avd,at,reac
     #ser.write(struct.pack('<2B16H',0x16,0x22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0))
     print(len(sp))
     time.sleep(0.5)
-    # serialdata=ser.read(48)
-    # ser.close
+    serialdata=ser.read(50)
+    ser.close
     # print(len(sp))
-    # modeV=struct.unpack('H',serialdata[16:18])
-    # lrV = struct.unpack('H',serialdata[18:20])
-    # apwV = struct.unpack('H',serialdata[20:22])
-    # vpwV = struct.unpack('H',serialdata[22:24])
-    # vaV = struct.unpack('f',serialdata[24:28])
-    # arpV = struct.unpack('H',serialdata[28:30])
-    # vrpV = struct.unpack('H',serialdata[30:32])
-    # aaV = struct.unpack('f',serialdata[32:36])
-    # recovtV = struct.unpack('H',serialdata[36:38])
-    # rfV = struct.unpack('H',serialdata[38:40])
-    # msrV = struct.unpack('H',serialdata[40:42])
-    # avdV = struct.unpack('H',serialdata[42:44])
-    # atV = struct.unpack('H',serialdata[44:46])
-    # reactV = struct.unpack('H',serialdata[46:48])
-    # print(sp)
-    # print(serialdata)
-    # print(modeV[0])
-    # print(lrV[0])    
-    # print(apwV[0])
-    # print(vpwV[0])
-    # print(vaV[0])
-    # print(arpV[0])
-    # print(vrpV[0])
-    # print(aaV[0])
-    # print(recovtV[0])
-    # print(rfV[0])
-    # print(msrV[0])
-    # print(avdV[0])
-    # print(atV[0])
-    # print(reactV[0])
-    # if(modeV[0]==mode and lrV[0]==lr and apwV[0]==apw and vpwV[0]==vpw and vaV[0]==va and arpV[0]==arp and vrpV[0]==vrp 
-    #     and aaV[0]==aa and recovtV[0]==recovt and rfV[0]==rf and msrV[0]==msr and avdV[0]==avd and atV[0]==at and reactV[0]==react):
-    #     return "Parameter set and store successfully"
-    # else:
-    #      return "Some or all parameters did not store properly, check pacemaker version compatibility"
+    modeV=struct.unpack('H',serialdata[16:18])
+    lrV = struct.unpack('H',serialdata[18:20])
+    apwV = struct.unpack('H',serialdata[20:22])
+    vpwV = struct.unpack('H',serialdata[22:24])
+    vaV = struct.unpack('f',serialdata[24:28])
+    arpV = struct.unpack('H',serialdata[28:30])
+    vrpV = struct.unpack('H',serialdata[30:32])
+    aaV = struct.unpack('f',serialdata[32:36])
+    recovtV = struct.unpack('H',serialdata[36:38])
+    rfV = struct.unpack('H',serialdata[38:40])
+    msrV = struct.unpack('H',serialdata[40:42])
+    avdV = struct.unpack('H',serialdata[42:44])
+    atV = struct.unpack('f',serialdata[44:48])
+    reactV = struct.unpack('H',serialdata[48:50])
+    print(sp)
+    print(serialdata)
+    print(modeV[0])
+    print(lrV[0])    
+    print(apwV[0])
+    print(vpwV[0])
+    print(vaV[0])
+    print(arpV[0])
+    print(vrpV[0])
+    print(aaV[0])
+    print(recovtV[0])
+    print(rfV[0])
+    print(msrV[0])
+    print(avdV[0])
+    print(atV[0])
+    print(reactV[0])
+    if(modeV[0]==mode and lrV[0]==lr and apwV[0]==apw and vpwV[0]==vpw and vaV[0]==va and arpV[0]==arp and vrpV[0]==vrp 
+        and aaV[0]==aa and recovtV[0]==recovt and rfV[0]==rf and msrV[0]==msr and avdV[0]==avd and atV[0]==at and reactV[0]==react):
+        return "Parameter set and store successfully"
+    else:
+         return "Some or all parameters did not store properly, check pacemaker version compatibility"
     
 
  #check if the DCM is connected to pacemaker   
 def checkConnect():
     try:
-        ser = serial.Serial(port="COM3", baudrate=115200)
-        return 3
+        ser = serial.Serial(port="COM6", baudrate=115200)
+        return 6
     except:
         try:
-            ser = serial.Serial(port="COM4", baudrate=115200)
-            return 4
+            ser = serial.Serial(port="COM5", baudrate=115200)
+            return 5
         except:
             try:
-                ser = serial.Serial(port="COM5", baudrate=115200)
-                return 5
+                ser = serial.Serial(port="COM4", baudrate=115200)
+                return 4
             except:
                 try:
-                    ser = serial.Serial(port="COM6", baudrate=115200)
-                    return 6
+                    ser = serial.Serial(port="COM3", baudrate=115200)
+                    return 3
                 except:
                     return 0 # not connected
 
