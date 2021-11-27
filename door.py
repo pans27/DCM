@@ -2,7 +2,6 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
 import tkinter
-import pickle
 import main
 import egram
 class DOORparameter(tkinter.Frame):

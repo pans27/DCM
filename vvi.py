@@ -2,7 +2,6 @@ from tkinter import *
 from tkinter import messagebox
 import tkinter
 from tkinter import ttk
-import pickle
 import main
 import egram
 

@@ -19,7 +19,7 @@ import vvir
 import door
 import serial
 import struct
-#Oct 31, 2021
+#Nov 28, 2021
 #Author: Group 5
 #3k04 DCM assignment 2 main program
 
@@ -41,25 +41,34 @@ class Application(tkinter.Frame):
         self.logo.place(x=380,y=90)
         self.login=Button(self,width=15,height=3,font=("Times New Roman",14))
         self.login["text"]="Login"
-        self.login.place(x=400,y=500)
+        self.login.place(x=390,y=500)
         self.register=Button(self,width=15,height=3,font=("Times New Roman",14))
         self.register["text"]="Register"
-        self.register.place(x=730,y=500)
+        self.register.place(x=565,y=500)
+        self.delete=Button(self,width=15,height=3,font=("Times New Roman",14))
+        self.delete["text"]="Delete Account"
+        self.delete.place(x=740,y=500)
         self.login.bind("<Button-1>",self.loginPressed)
+        self.delete.bind("<Button-1>",self.deletePressed)
         self.register.bind("<Button-1>",self.registerPressed)
     
     def loginPressed(self,e):                   #if there are accounts found on drive, go to login
-        global count
         if(global_.count==0):
             messagebox.showinfo("Message","There aren't any user created, please register")
         else:
             Login(master=self.master)
             self.destroy()
+    
+    def deletePressed(self,e):                   #if there are accounts found on drive, go to login
+        if(global_.count==0):
+            messagebox.showinfo("Message","There aren't any user created, please register")
+        else:
+            Delete(master=self.master)
+            self.destroy()
 
     def registerPressed(self,e): #if there are less than 10 users, go to register
-        global count
         if(global_.count==10):
-            messagebox.showinfo("Message","There are already 10 users, please login")
+            messagebox.showinfo("Message","There are already 10 users, please login or delete")
         else:
             Register(master=self.master)
             self.destroy()
@@ -103,6 +112,53 @@ class Login(tkinter.Frame):
                     Connect(master=self.master)
                     Modes(master=self.master)
                     self.destroy()
+        if(check==False):
+            messagebox.showinfo("Message","The username or password is incorrect")
+
+    def backPressed(self,e):
+        Application(master=self.master)
+        self.destroy()
+
+class Delete(tkinter.Frame):
+    def __init__(self,master=None):
+        super().__init__(master)
+        self.master=master
+        self.place(relheight=1,relwidth=1)
+        self.delete()
+
+    def delete(self):
+        self.user=Label(self,text="username:",font=("Times New Roman",24))
+        self.user.place(x=450,y=300)
+        self.userE=Entry(self,font=("Times New Roman",24))
+        self.userE.place(x=590,y=300)
+        self.password=Label(self,text="password:",font=("Times New Roman",24))
+        self.password.place(x=450,y=370)
+        self.passwordE=Entry(self,font=("Times New Roman",24),show="*")
+        self.passwordE.place(x=590,y=370)
+        self.deleteB=Button(self,width=15,height=3,font=("Times New Roman",14))
+        self.deleteB["text"]="Delete"
+        self.deleteB.place(x=565,y=550)
+        self.deleteB.bind("<Button-1>",self.deletePressed)
+        self.back=Button(self,width=10,height=2,font=("Times New Roman",14))
+        self.back["text"]="Back"
+        self.back.place(relx=0.85,rely=0.9)
+        self.back.bind("<Button-1>",self.backPressed)
+    
+    def deletePressed(self,e):
+        check=False #flag to see if a user was found
+        uEntered=self.userE.get() #get username and password entered
+        pwEntered=self.passwordE.get()
+        for i in range(global_.count):  #check if the username match with the stored user
+            if(uEntered==global_.users[i].getUN()): #if username found, check if password is correct
+                if(pwEntered==global_.users[i].getPW()): #if correct, go to modes
+                    prompt=messagebox.askquestion("Message","User found, delete?")
+                    if(prompt=="yes"):
+                        global_.users.pop(i)
+                        storeD()
+                        global_.count=global_.count-1
+                        check=True
+                        messagebox.showinfo("Message","account deleted")
+                        break
         if(check==False):
             messagebox.showinfo("Message","The username or password is incorrect")
 
@@ -199,6 +255,10 @@ class Modes(tkinter.Frame):
         self.VVIR.place(x=710,y=360)
         self.DOOR=Button(self,text="DOOR",width=15,height=3,font=("Times New Roman",14))
         self.DOOR.place(x=710,y=460)
+        self.back=Button(self,width=10,height=2,font=("Times New Roman",14))
+        self.back["text"]="Log Out"
+        self.back.place(relx=0.85,rely=0.9)
+        self.back.bind("<Button-1>",self.backPressed)
         self.AOO.bind("<Button-1>",self.AOOPressed)
         self.AAI.bind("<Button-1>",self.AAIPressed)
         self.VOO.bind("<Button-1>",self.VOOPressed)
@@ -248,6 +308,11 @@ class Modes(tkinter.Frame):
     
     def DOORPressed(self,e):
         door.DOORparameter(master=self.master)
+        self.destroy()
+
+    def backPressed(self,e):
+        Application(master=self.master)
+        global_.cUser=11
         self.destroy() 
 
 
