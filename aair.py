@@ -284,7 +284,7 @@ class AAIRparameter(tkinter.Frame):
             if(Commu):
                 prompt=messagebox.askquestion("Message","Changes saved, Send to connected pacemaker?")
                 if(prompt=="yes"):
-                    info=main.serial_Communication(6,cUser.aair.getLRL(),cUser.aair.getAPW(),0,0,cUser.aair.getARP(),0,round(cUser.aair.getAA()*10),cUser.aair.getRECOVT()*60,cUser.aair.getRF(),cUser.aair.getMSR(),0,cUser.aair.getATV(),cUser.aair.getREACT())
+                    info=main.serial_Communication(7,cUser.aair.getLRL(),cUser.aair.getAPW(),0,0,cUser.aair.getARP(),0,cUser.aair.getAA(),cUser.aair.getRECOVT()*60,cUser.aair.getRF(),cUser.aair.getMSR(),0,cUser.aair.getATV(),cUser.aair.getREACT())
                     messagebox.showinfo("Message",info)
             else:
                 messagebox.showinfo("Message","Changes saved")
