@@ -9,7 +9,7 @@ class Aairp:
         self.__msr = 120
         self.__aa = 5.0
         self.__apw = 1
-        self.__as = 0.8
+        self.__as = 2.5
         self.__arp = 250
         self.__pvarp = 250
         self.__hyst = 0
