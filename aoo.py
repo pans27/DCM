@@ -127,7 +127,11 @@ class AOOparameter(tkinter.Frame):
             self.apw.set(cUser.aoo.getAPW())
 
     def egramPressed(self,e):
-        egram.Egram()
+        from global_ import Commu
+        if(Commu!=0):
+            egram.Egram()
+        else:
+            messagebox.showinfo("Message","Pacemaker not connected")
 
     def backPressed(self,e):
         main.Modes(master=self.master)

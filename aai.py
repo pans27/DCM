@@ -197,7 +197,11 @@ class AAIparameter(tkinter.Frame):
             main.storeD()
 
     def egramPressed(self,e):
-        egram.Egram()
+        from global_ import Commu
+        if(Commu!=0):
+            egram.Egram()
+        else:
+            messagebox.showinfo("Message","Pacemaker not connected")
     
     def clearPressed(self,e):
         from global_ import cUser

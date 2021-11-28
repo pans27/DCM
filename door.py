@@ -266,7 +266,11 @@ class DOORparameter(tkinter.Frame):
             self.ret.set(cUser.door.getRECOVT())
 
     def egramPressed(self,e):
-        egram.Egram()
+        from global_ import Commu
+        if(Commu!=0):
+            egram.Egram()
+        else:
+            messagebox.showinfo("Message","Pacemaker not connected")
             
 
     def backPressed(self,e):

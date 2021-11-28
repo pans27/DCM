@@ -199,8 +199,12 @@ class VVIparameter(tkinter.Frame):
             self.rs.set(cUser.vvi.getRS())
 
     def egramPressed(self,e):
-        egram.Egram()
-
+        from global_ import Commu
+        if(Commu!=0):
+            egram.Egram()
+        else:
+            messagebox.showinfo("Message","Pacemaker not connected")
+            
     def backPressed(self,e):
         main.Modes(master=self.master)
         self.destroy()

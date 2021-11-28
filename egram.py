@@ -1,19 +1,14 @@
-import time
 from tkinter import *
-from tkinter import messagebox
 import tkinter
 from matplotlib.pylab import *
 from mpl_toolkits.axes_grid1 import host_subplot
-import matplotlib.animation as animation
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg 
 from matplotlib.figure import Figure 
 from serial.serialutil import PortNotOpenError
 from user import *
-import pickle
 import global_
 import serial
 import struct
-import matplotlib
 from tkinter import * 
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
@@ -22,7 +17,6 @@ class Egram():
     def __init__(self):
         self.aData=np.array([])
         self.vData=np.array([])
-        self.sData=np.array([])
         self.vS=False
         self.aS=False
         self.window = Tk()

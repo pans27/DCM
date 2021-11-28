@@ -354,8 +354,6 @@ def serial_Communication(mode,lr,apw,vpw,va,arp,vrp,aa,recovt,rf,msr,avd,at,reac
         ser = serial.Serial(port="COM5", baudrate=115200)
     elif global_.Commu  == 6:
         ser = serial.Serial(port="COM6", baudrate=115200)
-    else:
-        raise PortNotOpenError
     ser.open
     Header = '<2B4Hf2Hf4HfH'
     if(aa=='OFF'):
