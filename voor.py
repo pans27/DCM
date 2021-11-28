@@ -195,7 +195,7 @@ class VOORparameter(tkinter.Frame):
             if(Commu):
                 prompt=messagebox.askquestion("Message","Changes saved, Send to connected pacemaker?")
                 if(prompt=="yes"):
-                    info=main.serial_Communication(6,cUser.voor.getLRL(),0,cUser.voor.getVPW(),cUser.voor.getVA(),0,0,0,cUser.voor.getRECOVT()*60,cUser.voor.getRF(),cUser.voor.getMSR(),0,cUser.voor.getATV(),cUser.voor.getREACT())
+                    info=main.serial_Communication(6,cUser.voor.getLRL(),0,cUser.voor.getVPW(),cUser.voor.getVA(),0,0,0,cUser.voor.getRECOVT()*60,cUser.voor.getRF(),cUser.voor.getMSR(),0,cUser.voor.getATV(),cUser.voor.getREACT(),0,0)
                     messagebox.showinfo("Message",info)
             else:
                 messagebox.showinfo("Message","Changes saved")

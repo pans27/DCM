@@ -87,7 +87,7 @@ class Egram():
         if(self.aS==True and self.vS==True):
             ser.open
             ser.reset_input_buffer()
-            ser.write(struct.pack('<2B16H',0x16,0x22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0))
+            ser.write(struct.pack('<2B10f',0x16,0x22,0,0,0,0,0,0,0,0,0,0))
             serialdata=ser.read(16)
             ser.close
             a=-6.6*(struct.unpack('d',serialdata[0:8])[0]-0.5)

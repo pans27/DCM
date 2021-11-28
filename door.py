@@ -240,7 +240,7 @@ class DOORparameter(tkinter.Frame):
             if(Commu):
                 prompt=messagebox.askquestion("Message","Changes saved, Send to connected pacemaker?")
                 if(prompt=="yes"):
-                    info=main.serial_Communication(9,cUser.door.getLRL(),cUser.door.getAPW(),cUser.door.getVPW(),cUser.door.getVA(),0,0,cUser.door.getAA(),cUser.door.getRECOVT()*60,cUser.door.getRF(),cUser.door.getMSR(),cUser.door.getFAVD(),cUser.door.getATV(),cUser.door.getREACT())
+                    info=main.serial_Communication(9,cUser.door.getLRL(),cUser.door.getAPW(),cUser.door.getVPW(),cUser.door.getVA(),0,0,cUser.door.getAA(),cUser.door.getRECOVT()*60,cUser.door.getRF(),cUser.door.getMSR(),cUser.door.getFAVD(),cUser.door.getATV(),cUser.door.getREACT(),0,0)
                     messagebox.showinfo("Message",info)
             else:
                 messagebox.showinfo("Message","Changes saved")

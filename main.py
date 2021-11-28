@@ -345,7 +345,7 @@ class Connect(tkinter.Frame): # connect frame to be further implemented with ser
             self.stat['text']="Pacemaker Connection: COM"+str(global_.Commu)
 
         
-def serial_Communication(mode,lr,apw,vpw,va,arp,vrp,aa,recovt,rf,msr,avd,at,react):
+def serial_Communication(mode,lr,apw,vpw,va,arp,vrp,aa,recovt,rf,msr,avd,at,react,ats,vs):
     if global_.Commu  == 3:
         ser = serial.Serial(port="COM3", baudrate=115200)
     elif global_.Commu  == 4:
@@ -355,18 +355,18 @@ def serial_Communication(mode,lr,apw,vpw,va,arp,vrp,aa,recovt,rf,msr,avd,at,reac
     elif global_.Commu  == 6:
         ser = serial.Serial(port="COM6", baudrate=115200)
     ser.open
-    Header = '<2B4Hf2Hf4HfH'
+    Header = '<2B4Hf2Hf4HfH2f'
     if(aa=='OFF'):
         aa=0
     if(va=='OFF'):
         va=0
-    sp = struct.pack(Header,0x16,0x55,mode,lr,apw,vpw,va,arp,vrp,aa,recovt,rf,msr,avd,at,react)
+    sp = struct.pack(Header,0x16,0x55,mode,lr,apw,vpw,va,arp,vrp,aa,recovt,rf,msr,avd,at,react,ats,vs)
     print(len(sp))
     ser.write(sp)
     #ser.write(struct.pack('<2B16H',0x16,0x22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0))
     print(len(sp))
     time.sleep(0.5)
-    serialdata=ser.read(50)
+    serialdata=ser.read(58)
     ser.close
     # print(len(sp))
     modeV=struct.unpack('H',serialdata[16:18])
@@ -383,24 +383,10 @@ def serial_Communication(mode,lr,apw,vpw,va,arp,vrp,aa,recovt,rf,msr,avd,at,reac
     avdV = struct.unpack('H',serialdata[42:44])
     atV = struct.unpack('f',serialdata[44:48])
     reactV = struct.unpack('H',serialdata[48:50])
-    print(sp)
-    print(serialdata)
-    print(modeV[0])
-    print(lrV[0])    
-    print(apwV[0])
-    print(vpwV[0])
-    print(vaV[0])
-    print(arpV[0])
-    print(vrpV[0])
-    print(aaV[0])
-    print(recovtV[0])
-    print(rfV[0])
-    print(msrV[0])
-    print(avdV[0])
-    print(atV[0])
-    print(reactV[0])
-    if(modeV[0]==mode and lrV[0]==lr and apwV[0]==apw and vpwV[0]==vpw and vaV[0]==va and arpV[0]==arp and vrpV[0]==vrp 
-        and aaV[0]==aa and recovtV[0]==recovt and rfV[0]==rf and msrV[0]==msr and avdV[0]==avd and atV[0]==at and reactV[0]==react):
+    atsV=struct.unpack('f',serialdata[50:54])
+    vsV=struct.unpack('f',serialdata[54:58])
+    if(modeV[0]==mode and lrV[0]==lr and apwV[0]==apw and vpwV[0]==vpw and (vaV[0]-va<0.01) and arpV[0]==arp and vrpV[0]==vrp 
+        and (aaV[0]-aa<0.01) and recovtV[0]==recovt and rfV[0]==rf and msrV[0]==msr and avdV[0]==avd and (atV[0]-at<0.01) and reactV[0]==react and (atsV[0]-ats<0.01) and (vsV[0]-vs<0.01)):
         return "Parameter set and store successfully"
     else:
          return "Some or all parameters did not store properly, check pacemaker version compatibility"

@@ -162,7 +162,7 @@ class DOOparameter(tkinter.Frame):
             if(Commu):
                 prompt=messagebox.askquestion("Message","Changes saved, Send to connected pacemaker?")
                 if(prompt=="yes"):
-                    info=main.serial_Communication(4,cUser.doo.getLRL(),cUser.doo.getAPW(),cUser.doo.getVPW(),cUser.doo.getVA(),0,0,cUser.doo.getAA(),0,0,0,cUser.doo.getFAVD(),7,0)
+                    info=main.serial_Communication(4,cUser.doo.getLRL(),cUser.doo.getAPW(),cUser.doo.getVPW(),cUser.doo.getVA(),0,0,cUser.doo.getAA(),0,0,120,cUser.doo.getFAVD(),7,0,0,0)
                     messagebox.showinfo("Message",info)
             else:
                 messagebox.showinfo("Message","Changes saved")

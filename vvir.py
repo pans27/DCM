@@ -266,7 +266,7 @@ class VVIRparameter(tkinter.Frame):
             if(Commu):
                 prompt=messagebox.askquestion("Message","Changes saved, Send to connected pacemaker?")
                 if(prompt=="yes"):
-                    info=main.serial_Communication(8,cUser.vvir.getLRL(),0,cUser.vvir.getVPW(),cUser.vvir.getVA(),0,cUser.vvir.getVRP(),0,cUser.vvir.getRECOVT()*60,cUser.vvir.getRF(),cUser.vvir.getMSR(),0,cUser.vvir.getATV(),cUser.vvir.getREACT())
+                    info=main.serial_Communication(8,cUser.vvir.getLRL(),0,cUser.vvir.getVPW(),cUser.vvir.getVA(),0,cUser.vvir.getVRP(),0,cUser.vvir.getRECOVT()*60,cUser.vvir.getRF(),cUser.vvir.getMSR(),0,cUser.vvir.getATV(),cUser.vvir.getREACT(),0,cUser.vvir.getVS())
                     messagebox.showinfo("Message",info)
             else:
                 messagebox.showinfo("Message","Changes saved")

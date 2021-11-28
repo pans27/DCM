@@ -176,7 +176,7 @@ class VVIparameter(tkinter.Frame):
             if(Commu):
                 prompt=messagebox.askquestion("Message","Changes saved, Send to connected pacemaker?")
                 if(prompt=="yes"):
-                    info=main.serial_Communication(3,cUser.vvi.getLRL(),0,cUser.vvi.getVPW(),cUser.vvi.getVA(),0,cUser.vvi.getVRP(),0,0,0,0,0,7,0)
+                    info=main.serial_Communication(3,cUser.vvi.getLRL(),0,cUser.vvi.getVPW(),cUser.vvi.getVA(),0,cUser.vvi.getVRP(),0,0,0,120,0,7,0,0,cUser.vvi.getVS())
                     messagebox.showinfo("Message",info)
             else:
                 messagebox.showinfo("Message","Changes saved")
@@ -204,7 +204,7 @@ class VVIparameter(tkinter.Frame):
             egram.Egram()
         else:
             messagebox.showinfo("Message","Pacemaker not connected")
-            
+
     def backPressed(self,e):
         main.Modes(master=self.master)
         self.destroy()

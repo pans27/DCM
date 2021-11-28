@@ -108,7 +108,7 @@ class AOOparameter(tkinter.Frame):
             if(Commu):
                 prompt=messagebox.askquestion("Message","Changes saved, Send to connected pacemaker?")
                 if(prompt=="yes"):
-                    info=main.serial_Communication(0,cUser.aoo.getLRL(),cUser.aoo.getAPW(),0,0,0,0,cUser.aoo.getAA(),0,0,0,0,7,0)
+                    info=main.serial_Communication(0,cUser.aoo.getLRL(),cUser.aoo.getAPW(),0,0,0,0,cUser.aoo.getAA(),0,0,120,0,7,0,0,0)
                     messagebox.showinfo("Message",info)
             else:
                 messagebox.showinfo("Message","Changes saved")
