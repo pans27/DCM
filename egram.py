@@ -10,6 +10,7 @@ import global_
 import serial
 import struct
 from tkinter import * 
+from tkinter import messagebox
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
 
@@ -80,7 +81,9 @@ class Egram():
         try:
             ser = serial.Serial(port="COM"+str(global_.Commu), baudrate=115200)
         except:
-            raise PortNotOpenError
+            self.window.destroy()
+            messagebox.showinfo("Message","Pacemaker not connected")
+            
         if(self.aS==True and self.vS==True):
             ser.open
             ser.reset_input_buffer()
