@@ -68,22 +68,30 @@ class AOOparameter(tkinter.Frame):
         errors=0
         text=""
         try:
-            cUser.aoo.setLRL(self.lrl.get())
-            self.l_r_l['text']="Lower Rate Limit : "+str(cUser.aoo.getLRL())
-        except TypeError:
-            text=text+"LRL must be numeric\n"
-            errors+=1
-        except IndexError:
-            text=text+"LRL must be between 30 and 175\n"
-            errors+=1
-        try:
-            cUser.aoo.setURL(self.url.get())
-            self.u_r_l['text']="Upper Rate Limit : "+str(cUser.aoo.getURL())
-        except TypeError:
-            text=text+"URL must be numeric\n"
-            errors+=1
-        except IndexError:
-            text=text+"URL must be between 50 and 175, and larger than LRL\n"
+            if(float(self.url.get())<float(self.lrl.get())):
+                errors+=1
+                text=text+"LRL and URL are conflictd\n"
+            else:
+                try:
+                    cUser.aoo.setLRL(self.lrl.get())
+                    self.l_r_l['text']="Lower Rate Limit : "+str(cUser.aoo.getLRL())
+                except TypeError:
+                    text=text+"LRL must be numeric\n"
+                    errors+=1
+                except IndexError:
+                    text=text+"LRL must be between 30 and 175, and smaller than URL\n"
+                    errors+=1
+                try:
+                    cUser.aoo.setURL(self.url.get())
+                    self.u_r_l['text']="Upper Rate Limit : "+str(cUser.aoo.getURL())
+                except TypeError:
+                    text=text+"URL must be numeric\n"
+                    errors+=1
+                except IndexError:
+                    text=text+"URL must be between 50 and 175, and larger than LRL\n"
+                    errors+=1
+        except:
+            text=text+"LRL and URL must be numeric\n"
             errors+=1
         try:
             cUser.aoo.setAA(self.aa.get())

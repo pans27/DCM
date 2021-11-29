@@ -18,8 +18,8 @@ class Egram():
     def __init__(self):
         self.aData=np.array([])
         self.vData=np.array([])
-        self.vS=False
-        self.aS=False
+        self.vS=True
+        self.aS=True
         self.window = Tk()
     
         # setting the title 
@@ -87,7 +87,7 @@ class Egram():
         if(self.aS==True and self.vS==True):
             ser.open
             ser.reset_input_buffer()
-            ser.write(struct.pack('<2B10f',0x16,0x22,0,0,0,0,0,0,0,0,0,0))
+            ser.write(struct.pack('<2B10fH',0x16,0x22,0,0,0,0,0,0,0,0,0,0,0))
             serialdata=ser.read(16)
             ser.close
             a=-6.6*(struct.unpack('d',serialdata[0:8])[0]-0.5)
@@ -108,7 +108,7 @@ class Egram():
         elif(self.aS==True):
             ser.open
             ser.reset_input_buffer()
-            ser.write(struct.pack('<2B16H',0x16,0x22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0))
+            ser.write(struct.pack('<2B10fH',0x16,0x22,0,0,0,0,0,0,0,0,0,0,0))
             serialdata=ser.read(16)
             ser.close
             a=-6.6*(struct.unpack('d',serialdata[0:8])[0]-0.5)
@@ -128,7 +128,7 @@ class Egram():
         elif(self.vS==True):
             ser.open
             ser.reset_input_buffer()
-            ser.write(struct.pack('<2B16H',0x16,0x22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0))
+            ser.write(struct.pack('<2B10fH',0x16,0x22,0,0,0,0,0,0,0,0,0,0,0))
             serialdata=ser.read(16)
             ser.close
             v=-6.6*(struct.unpack('d',serialdata[8:16])[0]-0.5)
@@ -145,7 +145,7 @@ class Egram():
             self.linesV.set_xdata(np.arange(0,len(self.vData)))
             self.linesV.set_ydata(self.vData)
             self.canvas.draw()
-        self.window.after(1,self.plot)
+        self.window.after(10,self.plot)
     def plot_a(self):
         self.aS = not self.aS
 

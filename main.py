@@ -346,14 +346,10 @@ class Connect(tkinter.Frame): # connect frame to be further implemented with ser
 
         
 def serial_Communication(mode,lr,apw,vpw,va,arp,vrp,aa,recovt,rf,msr,avd,at,react,ats,vs):
-    if global_.Commu  == 3:
-        ser = serial.Serial(port="COM3", baudrate=115200)
-    elif global_.Commu  == 4:
-        ser = serial.Serial(port="COM4", baudrate=115200)
-    elif global_.Commu  == 5:
-        ser = serial.Serial(port="COM5", baudrate=115200)
-    elif global_.Commu  == 6:
-        ser = serial.Serial(port="COM6", baudrate=115200)
+    try:
+        ser = serial.Serial(port="COM"+str(global_.Commu), baudrate=115200)
+    except:
+        return "Pacemaker not connected"   
     ser.open
     Header = '<2B4Hf2Hf4HfH2f'
     if(aa=='OFF'):
@@ -362,13 +358,13 @@ def serial_Communication(mode,lr,apw,vpw,va,arp,vrp,aa,recovt,rf,msr,avd,at,reac
         va=0
     sp = struct.pack(Header,0x16,0x55,mode,lr,apw,vpw,va,arp,vrp,aa,recovt,rf,msr,avd,at,react,ats,vs)
     print(len(sp))
-    ser.write(sp)
-    #ser.write(struct.pack('<2B16H',0x16,0x22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0))
+    #ser.write(sp)
+    ser.write(struct.pack('<2B10fH',0x16,0x22,0,0,0,0,0,0,0,0,0,0,0))
     print(len(sp))
     time.sleep(0.5)
     serialdata=ser.read(58)
     ser.close
-    # print(len(sp))
+    print(len(sp))
     modeV=struct.unpack('H',serialdata[16:18])
     lrV = struct.unpack('H',serialdata[18:20])
     apwV = struct.unpack('H',serialdata[20:22])

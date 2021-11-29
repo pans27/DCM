@@ -129,31 +129,39 @@ class DOORparameter(tkinter.Frame):
         errors=0
         text=""
         try:
-            cUser.door.setLRL(self.lrl.get())
-            self.l_r_l['text']="Lower Rate Limit : "+str(cUser.door.getLRL())
-        except TypeError:
-            text=text+"LRL must be numeric\n"
-            errors+=1
-        except IndexError:
-            text=text+"LRL must be between 30 and 175\n"
-            errors+=1
-        try:
-            cUser.door.setURL(self.url.get())
-            self.u_r_l['text']="Upper Rate Limit : "+str(cUser.door.getURL())
-        except TypeError:
-            text=text+"URL must be numeric\n"
-            errors+=1
-        except IndexError:
-            text=text+"URL must be between 50 and 175, and larger than LRL\n"
-            errors+=1
-        try:
-            cUser.door.setMSR(self.msr.get())
-            self.m_s_r['text']="Maximum Sensor Rate : "+str(cUser.door.getMSR())
-        except TypeError:
-            text=text+"MSR must be numeric\n"
-            errors+=1
-        except IndexError:
-            text=text+"MSR must be between 50 and 175, and larger than LRL, smaller than URL\n"
+            if(float(self.url.get())<float(self.lrl.get()) and float(self.msr.get())<float(self.lrl.get()) and float(self.url.get())<float(self.msr.get())):
+                errors+=1
+                text=text+"LRL, URL, and MSR are conflictd\n"
+            else:
+                try:
+                    cUser.doo.setLRL(self.lrl.get())
+                    self.l_r_l['text']="Lower Rate Limit : "+str(cUser.doo.getLRL())
+                except TypeError:
+                    text=text+"LRL must be numeric\n"
+                    errors+=1
+                except IndexError:
+                    text=text+"LRL must be between 30 and 175, and smaller than URL\n"
+                    errors+=1
+                try:
+                    cUser.doo.setURL(self.url.get())
+                    self.u_r_l['text']="Upper Rate Limit : "+str(cUser.doo.getURL())
+                except TypeError:
+                    text=text+"URL must be numeric\n"
+                    errors+=1
+                except IndexError:
+                    text=text+"URL must be between 50 and 175, and larger than LRL\n"
+                    errors+=1
+                try:
+                    cUser.door.setMSR(self.msr.get())
+                    self.m_s_r['text']="Maximum Sensor Rate : "+str(cUser.door.getMSR())
+                except TypeError:
+                    text=text+"MSR must be numeric\n"
+                    errors+=1
+                except IndexError:
+                    text=text+"MSR must be between 50 and 175, and larger than LRL, smaller than URL\n"
+                    errors+=1
+        except:
+            text=text+"LRL, URL, and MSR must be numeric\n"
             errors+=1
         try:
             cUser.door.setFAVD(self.fad.get())
