@@ -358,8 +358,8 @@ def serial_Communication(mode,lr,apw,vpw,va,arp,vrp,aa,recovt,rf,msr,avd,at,reac
         va=0
     sp = struct.pack(Header,0x16,0x55,mode,lr,apw,vpw,va,arp,vrp,aa,recovt,rf,msr,avd,at,react,ats,vs)
     print(len(sp))
-    #ser.write(sp)
-    ser.write(struct.pack('<2B10fH',0x16,0x22,0,0,0,0,0,0,0,0,0,0,0))
+    ser.write(sp)
+    #ser.write(struct.pack('<2B10fH',0x16,0x22,0,0,0,0,0,0,0,0,0,0,0))
     print(len(sp))
     time.sleep(0.5)
     serialdata=ser.read(58)

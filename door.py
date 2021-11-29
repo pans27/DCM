@@ -134,8 +134,8 @@ class DOORparameter(tkinter.Frame):
                 text=text+"LRL, URL, and MSR are conflictd\n"
             else:
                 try:
-                    cUser.doo.setLRL(self.lrl.get())
-                    self.l_r_l['text']="Lower Rate Limit : "+str(cUser.doo.getLRL())
+                    cUser.door.setLRL(self.lrl.get())
+                    self.l_r_l['text']="Lower Rate Limit : "+str(cUser.door.getLRL())
                 except TypeError:
                     text=text+"LRL must be numeric\n"
                     errors+=1
@@ -143,8 +143,8 @@ class DOORparameter(tkinter.Frame):
                     text=text+"LRL must be between 30 and 175, and smaller than URL\n"
                     errors+=1
                 try:
-                    cUser.doo.setURL(self.url.get())
-                    self.u_r_l['text']="Upper Rate Limit : "+str(cUser.doo.getURL())
+                    cUser.door.setURL(self.url.get())
+                    self.u_r_l['text']="Upper Rate Limit : "+str(cUser.door.getURL())
                 except TypeError:
                     text=text+"URL must be numeric\n"
                     errors+=1
@@ -215,8 +215,8 @@ class DOORparameter(tkinter.Frame):
             text=text+"Activity Threshold not stored\n"
             errors+=1
         try:
-            cUser.voor.setREACT(self.rt.get())
-            self.r_t['text']="Reaction Time : "+str(cUser.voor.getREACT())
+            cUser.door.setREACT(self.rt.get())
+            self.r_t['text']="Reaction Time : "+str(cUser.door.getREACT())
         except TypeError:
             text=text+"Reaction Time must be numeric\n"
             errors+=1
@@ -225,8 +225,8 @@ class DOORparameter(tkinter.Frame):
             errors+=1
             
         try:
-            cUser.voor.setRF(self.rf.get())
-            self.r_f['text']="Response Factor : "+str(cUser.voor.getRF())
+            cUser.door.setRF(self.rf.get())
+            self.r_f['text']="Response Factor : "+str(cUser.door.getRF())
         except TypeError:
             text=text+"Response factor must be numeric\n"
             errors+=1
@@ -235,8 +235,8 @@ class DOORparameter(tkinter.Frame):
             errors+=1
 
         try:
-            cUser.voor.setRECOVT(self.ret.get())
-            self.recovery_time['text']="Recovery Time : "+str(cUser.voor.getRECOVT())
+            cUser.door.setRECOVT(self.ret.get())
+            self.recovery_time['text']="Recovery Time : "+str(cUser.door.getRECOVT())
         except TypeError:
             text=text+"Recovery Time must be numeric\n"
             errors+=1
