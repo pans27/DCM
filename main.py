@@ -3,7 +3,7 @@ from tkinter import *
 from tkinter import messagebox
 import tkinter
 
-from serial.serialutil import PortNotOpenError
+#from serial.serialutil import PortNotOpenError
 from user import *
 import pickle
 import global_
