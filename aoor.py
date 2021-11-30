@@ -109,13 +109,13 @@ class AOORparameter(tkinter.Frame):
         errors=0
         text=""
         try:
-            if(float(self.url.get())<float(self.lrl.get()) and float(self.msr.get())<float(self.lrl.get()) and float(self.url.get())<float(self.msr.get())):
+            if(float(self.url.get())<float(self.lrl.get()) or float(self.msr.get())<float(self.lrl.get())):
                 errors+=1
                 text=text+"LRL, URL, and MSR are conflictd\n"
             else:
                 try:
-                    cUser.aoo.setLRL(self.lrl.get())
-                    self.l_r_l['text']="Lower Rate Limit : "+str(cUser.aoo.getLRL())
+                    cUser.aoor.setLRL(self.lrl.get())
+                    self.l_r_l['text']="Lower Rate Limit : "+str(cUser.aoor.getLRL())
                 except TypeError:
                     text=text+"LRL must be numeric\n"
                     errors+=1
@@ -123,8 +123,8 @@ class AOORparameter(tkinter.Frame):
                     text=text+"LRL must be between 30 and 175, and smaller than URL\n"
                     errors+=1
                 try:
-                    cUser.aoo.setURL(self.url.get())
-                    self.u_r_l['text']="Upper Rate Limit : "+str(cUser.aoo.getURL())
+                    cUser.aoor.setURL(self.url.get())
+                    self.u_r_l['text']="Upper Rate Limit : "+str(cUser.aoor.getURL())
                 except TypeError:
                     text=text+"URL must be numeric\n"
                     errors+=1
@@ -206,7 +206,7 @@ class AOORparameter(tkinter.Frame):
             if(Commu):
                 prompt=messagebox.askquestion("Message","Changes saved, Send to connected pacemaker?")
                 if(prompt=="yes"):
-                    info=main.serial_Communication(5,cUser.aoor.getLRL(),cUser.aoor.getAPW(),0,0,0,0,cUser.aoor.getAA(),cUser.aoor.getRECOVT()*60,cUser.aoor.getRF(),cUser.aoor.getMSR(),0,cUser.aoor.getATV(),cUser.aoor.getREACT(),0,0)
+                    info=main.serial_Communication(5,cUser.aoor.getLRL(),cUser.aoor.getAPW(),0,0,0,0,cUser.aoor.getAA(),cUser.aoor.getRECOVT()*60,cUser.aoor.getRF(),cUser.aoor.getMSR(),0,cUser.aoor.getATV(),cUser.aoor.getREACT(),2.5,2.5)
                     messagebox.showinfo("Message",info)
             else:
                 messagebox.showinfo("Message","Changes saved")

@@ -109,13 +109,13 @@ class VOORparameter(tkinter.Frame):
         errors=0
         text=""
         try:
-            if(float(self.url.get())<float(self.lrl.get()) and float(self.msr.get())<float(self.lrl.get()) and float(self.url.get())<float(self.msr.get())):
+            if(float(self.url.get())<float(self.lrl.get()) or float(self.msr.get())<float(self.lrl.get())):
                 errors+=1
                 text=text+"LRL, URL, and MSR are conflictd\n"
             else:
                 try:
-                    cUser.voo.setLRL(self.lrl.get())
-                    self.l_r_l['text']="Lower Rate Limit : "+str(cUser.voo.getLRL())
+                    cUser.voor.setLRL(self.lrl.get())
+                    self.l_r_l['text']="Lower Rate Limit : "+str(cUser.voor.getLRL())
                 except TypeError:
                     text=text+"LRL must be numeric\n"
                     errors+=1
@@ -123,8 +123,8 @@ class VOORparameter(tkinter.Frame):
                     text=text+"LRL must be between 30 and 175, and smaller than URL\n"
                     errors+=1
                 try:
-                    cUser.voo.setURL(self.url.get())
-                    self.u_r_l['text']="Upper Rate Limit : "+str(cUser.voo.getURL())
+                    cUser.voor.setURL(self.url.get())
+                    self.u_r_l['text']="Upper Rate Limit : "+str(cUser.voor.getURL())
                 except TypeError:
                     text=text+"URL must be numeric\n"
                     errors+=1
@@ -203,7 +203,7 @@ class VOORparameter(tkinter.Frame):
             if(Commu):
                 prompt=messagebox.askquestion("Message","Changes saved, Send to connected pacemaker?")
                 if(prompt=="yes"):
-                    info=main.serial_Communication(6,cUser.voor.getLRL(),0,cUser.voor.getVPW(),cUser.voor.getVA(),0,0,0,cUser.voor.getRECOVT()*60,cUser.voor.getRF(),cUser.voor.getMSR(),0,cUser.voor.getATV(),cUser.voor.getREACT(),0,0)
+                    info=main.serial_Communication(6,cUser.voor.getLRL(),0,cUser.voor.getVPW(),cUser.voor.getVA(),0,0,0,cUser.voor.getRECOVT()*60,cUser.voor.getRF(),cUser.voor.getMSR(),0,cUser.voor.getATV(),cUser.voor.getREACT(),2.5,2.5)
                     messagebox.showinfo("Message",info)
             else:
                 messagebox.showinfo("Message","Changes saved")

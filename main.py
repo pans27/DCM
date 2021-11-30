@@ -381,6 +381,7 @@ def serial_Communication(mode,lr,apw,vpw,va,arp,vrp,aa,recovt,rf,msr,avd,at,reac
     reactV = struct.unpack('H',serialdata[48:50])
     atsV=struct.unpack('f',serialdata[50:54])
     vsV=struct.unpack('f',serialdata[54:58])
+    print(modeV[0], lrV[0], apwV[0], vpwV[0], vaV[0], arpV[0], vrpV[0], aaV[0], recovtV[0], rfV[0], msrV[0], avdV[0], atV[0], reactV[0], atsV[0], vsV[0])
     if(modeV[0]==mode and lrV[0]==lr and apwV[0]==apw and vpwV[0]==vpw and (vaV[0]-va<0.01) and arpV[0]==arp and vrpV[0]==vrp 
         and (aaV[0]-aa<0.01) and recovtV[0]==recovt and rfV[0]==rf and msrV[0]==msr and avdV[0]==avd and (atV[0]-at<0.01) and reactV[0]==react and (atsV[0]-ats<0.01) and (vsV[0]-vs<0.01)):
         return "Parameter set and store successfully"

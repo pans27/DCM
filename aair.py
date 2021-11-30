@@ -145,13 +145,13 @@ class AAIRparameter(tkinter.Frame):
         errors=0
         text=""
         try:
-            if(float(self.url.get())<float(self.lrl.get()) and float(self.msr.get())<float(self.lrl.get()) and float(self.url.get())<float(self.msr.get())):
+            if(float(self.url.get())<float(self.lrl.get()) or float(self.msr.get())<float(self.lrl.get())):
                 errors+=1
                 text=text+"LRL, URL, and MSR are conflictd\n"
             else:
                 try:
-                    cUser.aai.setLRL(self.lrl.get())
-                    self.l_r_l['text']="Lower Rate Limit : "+str(cUser.aai.getLRL())
+                    cUser.aair.setLRL(self.lrl.get())
+                    self.l_r_l['text']="Lower Rate Limit : "+str(cUser.aair.getLRL())
                 except TypeError:
                     text=text+"LRL must be numeric\n"
                     errors+=1
@@ -159,8 +159,8 @@ class AAIRparameter(tkinter.Frame):
                     text=text+"LRL must be between 30 and 175, and smaller than URL\n"
                     errors+=1
                 try:
-                    cUser.aai.setURL(self.url.get())
-                    self.u_r_l['text']="Upper Rate Limit : "+str(cUser.aai.getURL())
+                    cUser.aair.setURL(self.url.get())
+                    self.u_r_l['text']="Upper Rate Limit : "+str(cUser.aair.getURL())
                 except TypeError:
                     text=text+"URL must be numeric\n"
                     errors+=1
@@ -288,7 +288,7 @@ class AAIRparameter(tkinter.Frame):
             if(Commu):
                 prompt=messagebox.askquestion("Message","Changes saved, Send to connected pacemaker?")
                 if(prompt=="yes"):
-                    info=main.serial_Communication(7,cUser.aair.getLRL(),cUser.aair.getAPW(),0,0,cUser.aair.getARP(),0,cUser.aair.getAA(),cUser.aair.getRECOVT()*60,cUser.aair.getRF(),cUser.aair.getMSR(),0,cUser.aair.getATV(),cUser.aair.getREACT(),cUser.aair.getAS(),0)
+                    info=main.serial_Communication(7,cUser.aair.getLRL(),cUser.aair.getAPW(),0,0,cUser.aair.getARP(),0,cUser.aair.getAA(),cUser.aair.getRECOVT()*60,cUser.aair.getRF(),cUser.aair.getMSR(),0,cUser.aair.getATV(),cUser.aair.getREACT(),cUser.aair.getAS(),2.5)
                     messagebox.showinfo("Message",info)
             else:
                 messagebox.showinfo("Message","Changes saved")

@@ -129,7 +129,7 @@ class DOORparameter(tkinter.Frame):
         errors=0
         text=""
         try:
-            if(float(self.url.get())<float(self.lrl.get()) and float(self.msr.get())<float(self.lrl.get()) and float(self.url.get())<float(self.msr.get())):
+            if(float(self.url.get())<float(self.lrl.get()) or float(self.msr.get())<float(self.lrl.get())):
                 errors+=1
                 text=text+"LRL, URL, and MSR are conflictd\n"
             else:
@@ -248,7 +248,7 @@ class DOORparameter(tkinter.Frame):
             if(Commu):
                 prompt=messagebox.askquestion("Message","Changes saved, Send to connected pacemaker?")
                 if(prompt=="yes"):
-                    info=main.serial_Communication(9,cUser.door.getLRL(),cUser.door.getAPW(),cUser.door.getVPW(),cUser.door.getVA(),0,0,cUser.door.getAA(),cUser.door.getRECOVT()*60,cUser.door.getRF(),cUser.door.getMSR(),cUser.door.getFAVD(),cUser.door.getATV(),cUser.door.getREACT(),0,0)
+                    info=main.serial_Communication(9,cUser.door.getLRL(),cUser.door.getAPW(),cUser.door.getVPW(),cUser.door.getVA(),0,0,cUser.door.getAA(),cUser.door.getRECOVT()*60,cUser.door.getRF(),cUser.door.getMSR(),cUser.door.getFAVD(),cUser.door.getATV(),cUser.door.getREACT(),2.5,2.5)
                     messagebox.showinfo("Message",info)
             else:
                 messagebox.showinfo("Message","Changes saved")

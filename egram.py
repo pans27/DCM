@@ -20,6 +20,7 @@ class Egram():
         self.aData=np.array([])
         self.vData=np.array([])
         self.tData=np.array([])
+        self.cont=True
         self.vS=True
         self.aS=True
         self.window = Tk()
@@ -38,7 +39,7 @@ class Egram():
         # adding the subplot
         self.plotA = self.fig.add_subplot(211)
         self.plotV = self.fig.add_subplot(212)
-        self.fig.subplots_adjust(hspace = 0.5)
+        self.fig.subplots_adjust(hspace = 0.8)
         # plotting the graph
         
         self.plotA.set_title('Atrium Signals', fontsize = 12)
@@ -48,10 +49,10 @@ class Egram():
         self.plotV.set_xlabel("Time (sec)", fontsize = 10)
         self.plotV.set_ylabel("Voltage (V)", fontsize = 10)
         self.plotA.set_ylim(-6,6)
-        self.plotA.set_xlim(0,14)
+        self.plotA.set_xlim(0,16)
         self.linesA=self.plotA.plot([],[])[0]
         self.plotV.set_ylim(-6,6)
-        self.plotV.set_xlim(0,14)
+        self.plotV.set_xlim(0,16)
         self.linesV=self.plotV.plot([],[])[0]
         # creating the Tkinter canvas
         # containing the Matplotlib figure
@@ -76,46 +77,54 @@ class Egram():
         self.v = tkinter.Button(self.window, text = "Ventricle", font = ('calbiri',12), command = lambda:self.plot_v())
         self.v.place(x = self.a.winfo_x()+self.a.winfo_reqwidth() + 20, y = 280)
         self.window.update()
+        self.stop = tkinter.Button(self.window, text = "Start/Stop", font = ('calbiri',12), command = lambda:self.conti())
+        self.stop.place(x = self.v.winfo_x()+self.v.winfo_reqwidth() + 20, y = 280)
+        self.window.update()
         #ser.reset_input_buffer()
         self.window.after(1,self.plot)
         self.start=time.time()
     
     def plot(self):
-        try:
-            with serial.Serial(port="COM"+str(global_.Commu), baudrate=115200) as ser:
-                ser.open
-                ser.reset_input_buffer()
-                ser.write(struct.pack('<2B10fH',0x16,0x22,0,0,0,0,0,0,0,0,0,0,0))
-                serialdata=ser.read(16)
-                ser.close
-        except:
-            self.window.destroy()
-            messagebox.showinfo("Message","Pacemaker not connected")
-        a=-6.6*(struct.unpack('d',serialdata[0:8])[0]-0.5)
-        v=-6.6*(struct.unpack('d',serialdata[8:16])[0]-0.5)
-        if(len(self.aData)<300):
-            self.aData=np.append(self.aData,a)
-            self.vData=np.append(self.vData,v)
-            self.tData=np.append(self.tData,time.time()-self.start)
-        else:
-            self.aData[0:299]=self.aData[1:300]
-            self.vData[0:299]=self.vData[1:300]
-            self.aData[299]=a
-            self.vData[299]=v
-            self.tData[0:299]=self.tData[1:300]
-            self.tData[299]=time.time()-self.start
-            self.plotA.set_xlim(self.tData[0],self.tData[299])
-            self.plotV.set_xlim(self.tData[0],self.tData[299])
-        self.linesA.set_xdata(self.tData)
-        self.linesA.set_ydata(self.aData)
-        self.linesV.set_xdata(self.tData)
-        self.linesV.set_ydata(self.vData)
-        self.canvas.draw()
-        self.window.after(1,self.plot)
+        if(self.cont):
+            try:
+                with serial.Serial(port="COM"+str(global_.Commu), baudrate=115200) as ser:
+                    ser.open
+                    #ser.reset_input_buffer()
+                    ser.write(struct.pack('<2B10fH',0x16,0x22,0,0,0,0,0,0,0,0,0,0,0))
+                    serialdata=ser.read(16)
+                    ser.close
+            except:
+                self.window.destroy()
+                messagebox.showinfo("Message","Pacemaker not connected")
+            a=-6.6*(struct.unpack('d',serialdata[0:8])[0]-0.5)
+            v=-6.6*(struct.unpack('d',serialdata[8:16])[0]-0.5)
+            if(len(self.aData)<300):
+                self.aData=np.append(self.aData,a)
+                self.vData=np.append(self.vData,v)
+                self.tData=np.append(self.tData,time.time()-self.start)
+            else:
+                self.aData[0:299]=self.aData[1:300]
+                self.vData[0:299]=self.vData[1:300]
+                self.aData[299]=a
+                self.vData[299]=v
+                self.tData[0:299]=self.tData[1:300]
+                self.tData[299]=time.time()-self.start
+                self.plotA.set_xlim(self.tData[0],self.tData[299])
+                self.plotV.set_xlim(self.tData[0],self.tData[299])
+            self.linesA.set_xdata(self.tData)
+            self.linesA.set_ydata(self.aData)
+            self.linesV.set_xdata(self.tData)
+            self.linesV.set_ydata(self.vData)
+            self.canvas.draw()
+        self.window.after(5,self.plot)
     def plot_a(self):
         self.aS = not self.aS
         self.plotA.set_visible(self.aS)
 
+    def conti(self):
+        self.cont = not self.cont
+        if(self.cont):
+            self.start=time.time()-self.tData[len(self.tData)-1]
 
     def plot_v(self):
         self.vS = not self.vS

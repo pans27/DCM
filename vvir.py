@@ -138,13 +138,13 @@ class VVIRparameter(tkinter.Frame):
         errors=0
         text=""
         try:
-            if(float(self.url.get())<float(self.lrl.get()) and float(self.msr.get())<float(self.lrl.get()) and float(self.url.get())<float(self.msr.get())):
+            if(float(self.url.get())<float(self.lrl.get()) or float(self.msr.get())<float(self.lrl.get())):
                 errors+=1
                 text=text+"LRL, URL, and MSR are conflictd\n"
             else:
                 try:
-                    cUser.vvi.setLRL(self.lrl.get())
-                    self.l_r_l['text']="Lower Rate Limit : "+str(cUser.vvi.getLRL())
+                    cUser.vvir.setLRL(self.lrl.get())
+                    self.l_r_l['text']="Lower Rate Limit : "+str(cUser.vvir.getLRL())
                 except TypeError:
                     text=text+"LRL must be numeric\n"
                     errors+=1
@@ -152,8 +152,8 @@ class VVIRparameter(tkinter.Frame):
                     text=text+"LRL must be between 30 and 175, and smaller than URL\n"
                     errors+=1
                 try:
-                    cUser.vvi.setURL(self.url.get())
-                    self.u_r_l['text']="Upper Rate Limit : "+str(cUser.vvi.getURL())
+                    cUser.vvir.setURL(self.url.get())
+                    self.u_r_l['text']="Upper Rate Limit : "+str(cUser.vvir.getURL())
                 except TypeError:
                     text=text+"URL must be numeric\n"
                     errors+=1
@@ -272,7 +272,7 @@ class VVIRparameter(tkinter.Frame):
             if(Commu):
                 prompt=messagebox.askquestion("Message","Changes saved, Send to connected pacemaker?")
                 if(prompt=="yes"):
-                    info=main.serial_Communication(8,cUser.vvir.getLRL(),0,cUser.vvir.getVPW(),cUser.vvir.getVA(),0,cUser.vvir.getVRP(),0,cUser.vvir.getRECOVT()*60,cUser.vvir.getRF(),cUser.vvir.getMSR(),0,cUser.vvir.getATV(),cUser.vvir.getREACT(),0,cUser.vvir.getVS())
+                    info=main.serial_Communication(8,cUser.vvir.getLRL(),0,cUser.vvir.getVPW(),cUser.vvir.getVA(),0,cUser.vvir.getVRP(),0,cUser.vvir.getRECOVT()*60,cUser.vvir.getRF(),cUser.vvir.getMSR(),0,cUser.vvir.getATV(),cUser.vvir.getREACT(),2.5,cUser.vvir.getVS())
                     messagebox.showinfo("Message",info)
             else:
                 messagebox.showinfo("Message","Changes saved")

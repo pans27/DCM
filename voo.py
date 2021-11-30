@@ -116,7 +116,7 @@ class VOOparameter(tkinter.Frame):
             if(Commu):
                 prompt=messagebox.askquestion("Message","Changes saved, Send to connected pacemaker?")
                 if(prompt=="yes"):
-                    info=main.serial_Communication(1,cUser.voo.getLRL(),0,cUser.voo.getVPW(),cUser.voo.getVA(),0,0,0,0,0,120,0,7,0,0,0)
+                    info=main.serial_Communication(1,cUser.voo.getLRL(),0,cUser.voo.getVPW(),cUser.voo.getVA(),0,0,0,0,0,175,0,7,0,2.5,2.5)
                     messagebox.showinfo("Message",info)
             else:
                 messagebox.showinfo("Message","Changes saved")
